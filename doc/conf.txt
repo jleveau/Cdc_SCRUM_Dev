@@ -1,0 +1,24 @@
+Stack :
+MEAN : http://mean.io/
+
+IDE pour javascript
+Web Storm : https://www.jetbrains.com/webstorm/
+
+Github :
+demo : https://github.com/jleveau/Cdc_SCRUM
+dev : https://github.com/jleveau/Cdc_SCRUM_Dev
+
+Docs : 
+    http://learn.mean.io/
+    https://docs.mongodb.com/manual/reference/sql-comparison/#insert (SQL to MongoDB Mapping Chart)
+
+Verification de code :
+
+    JSHint : http://jshint.com/
+    JSLint : http://www.jslint.com/
+    Ces deux outils sont bundle dans webstorm, pour voir comment les utiliser : https://www.jetbrains.com/help/webstorm/2016.2/using-javascript-code-quality-tools.html
+
+Validation :
+
+
+
