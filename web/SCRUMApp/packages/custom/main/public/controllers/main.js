@@ -6,7 +6,7 @@
     function MainController($scope, Global, Main, $stateParams) {
         $scope.global = Global;
         $scope.package = {
-            name: 'main'
+            name: 'main',
         };
 
         $scope.checkCircle = function() {
