@@ -1,54 +1,60 @@
-'use strict';
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-import 'angular/angular-csp.css';
-import 'angular-ui-select/select.min.css';
-import 'angular-material/angular-material.min.css';
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
-import jQuery from 'jquery';
-import 'angular';
-import 'angular-ui-select/select';
-import 'angular-mocks';
-import 'angular-cookies';
-import 'angular-resource';
-import 'angular-sanitize';
-import 'angular-ui-router';
-import 'angular-jwt';
-import 'angular-aria';
-import 'angular-animate';
-import 'angular-material';
+var app = express();
 
-window.$ = jQuery;
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-angular.element(document).ready(function () {
-  // Fixing facebook bug with redirect
-  if (window.location.hash === '#_=_') {
-    window.location.hash = '#!';
-  }
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-  // Then init the app
-  angular.bootstrap(document, ['mean']);
+app.use('/', routes);
+app.use('/users', users);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
-function processModules (modules) {
-  var packageModules = ['ngCookies', 'ngResource', 'ui.router', 'ui.select', 'ngSanitize', 'ngMaterial'];
-  var m;
-  var mn;
-  for (var index in modules) {
-    m = modules[index];
-    mn = 'mean.' + m.name;
-    angular.module(mn, m.angularDependencies || []);
-    packageModules.push(mn);
-  }
+// error handlers
 
-  var req = require.context('./packages', true, /\/public\/(?!tests|assets|views)(.*)\.js$/);
-  req.keys().map(req);
-  req = require.context('./node_modules', true, /\/meanio-(.*)\/public\/(?!tests|assets|views)(.*)\.js$/);
-  req.keys().map(req);
-  angular.module('mean', packageModules);
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
 }
 
-jQuery.ajax('/_getModules', {
-  dataType: 'json',
-  async: false,
-  success: processModules
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
 });
+
+
+module.exports = app;
