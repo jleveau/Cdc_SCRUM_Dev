@@ -12,10 +12,8 @@ var mongoose = require('mongoose');
 
 var app = express();
 
-
-
 // view engine setup
-app.set('views', path.join(__dirname, 'public/views'));
+app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -27,16 +25,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'server')));
 
+// api routes
 app.use('/', routes);
 app.use('/users', users);
 
+// Ressources route
+app.use('/js', express.static(__dirname + '/node_modules/angular')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/angular-route')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/angular-resource')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use('/fonts/', express.static(path.join(__dirname, '/node_modules/bootstrap/fonts')));
-app.use('/images', express.static(__dirname + '/public/images'));
-app.use('/stylesheet', express.static(__dirname + '/public/stylesheets'));
+app.use('/public', express.static(__dirname + '/public'));
+app.use('/partials',express.static(path.join(__dirname, '/public/views')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

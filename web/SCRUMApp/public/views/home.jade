@@ -1,13 +1,5 @@
-include header
-include feedback
-
-link(rel='stylesheet', href='public//stylesheets/style.css')
-link(rel='stylesheet', href='public/stylesheets/home.css')
-
 .row
     .col-md-2
-
-
     .col-md-8
         nav.navbar
             .container-fluid
@@ -19,8 +11,8 @@ link(rel='stylesheet', href='public/stylesheets/home.css')
                         span.icon-bar
 
                 ul.nav.navbar-nav.navbar-left
-                    a(href="https://github.com/jleveau/Cdc_SCRUM")
-                       img.img-responsive(src='/images/github.png', alt='github-link', height="60" width="60")
+                    a(href="{{github.link}}")
+                       img.img-responsive(ng-src="{{github.image}}", alt='github-link', height="60" width="60")
 
                 ul.nav.navbar-nav.navbar-right
                     li
@@ -34,10 +26,10 @@ link(rel='stylesheet', href='public/stylesheets/home.css')
                                     |  Search
                     li
                         .navbar-btn
-                            #home-signup.btn.btn-default Signin
+                            #home-signup.btn.btn-default Sign in
                     li
                         .navbar-btn
-                            #home-signin.btn.btn-default Signup
+                            #home-signin.btn.btn-default Sign up
 
         #home.row.jumbotron
             .col-md-1

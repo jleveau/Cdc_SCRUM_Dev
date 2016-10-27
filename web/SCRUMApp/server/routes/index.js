@@ -1,9 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
+/* GET template by name */
+router.get('/partials/:name', function (req, res) {
+  var name = req.params.name;
+  res.render(__dirname + '/../../public/views/' + name);
+});
+
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
-  res.render('home');
+  res.render('index');
 });
 
 module.exports = router;

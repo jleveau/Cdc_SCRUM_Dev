@@ -1,7 +1,11 @@
-// public/core.js
-var home = angular.module('home',['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ui.bootstrap']);
+//angular modules
+var SCRUMApp = angular.module('SCRUMApp');
 
-function HomeController($scope, $http) {
-    $scope.title = "SCRUMApp"
+SCRUMApp.controller('HomeController', ['$scope', function($scope) {
+    $scope.title = "SCRUMApp";
+    $scope.github = {
+        link : "https://github.com/jleveau/Cdc_SCRUM",
+        image : "public/images/github.png"
+    };
+}]);
 
-}
