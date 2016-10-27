@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+#helper.container {
+  width: 100%;
+  align-content: left;
+}
+
+.navbar-nav > li{
+  padding-left:15px;
+}

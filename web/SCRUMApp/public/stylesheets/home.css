@@ -1,0 +1,16 @@
+
+#home.jumbotron{
+    padding-top: 180px;
+    padding-bottom: 180px;
+}
+#button-registration-home{
+    width:100%;
+    padding: 0.75em 1.5em;
+    background-color : #6cc644;
+}
+
+
+#home-signin{
+    background-color : #6cc644;
+    color : white;
+}

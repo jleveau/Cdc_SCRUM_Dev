@@ -31,7 +31,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use('/fonts/', express.static(path.join(__dirname, '/node_modules/bootstrap/fonts')));
+app.use('/images', express.static(__dirname + '/public/images'));
+app.use('/stylesheet', express.static(__dirname + '/public/stylesheets'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -62,6 +67,14 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+});
+
+require("jsdom").env("", function(err, window) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  var $ = require("jquery")(window);
 });
 
 module.exports = app;

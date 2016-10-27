@@ -1,0 +1,53 @@
+include header
+include feedback
+
+link(rel='stylesheet', href='public//stylesheets/style.css')
+link(rel='stylesheet', href='public/stylesheets/home.css')
+
+.row
+    .col-md-2
+
+
+    .col-md-8
+        nav.navbar
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', aria-expanded='false')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+
+                ul.nav.navbar-nav.navbar-left
+                    a(href="https://github.com/jleveau/Cdc_SCRUM")
+                       img.img-responsive(src='/images/github.png', alt='github-link', height="60" width="60")
+
+                ul.nav.navbar-nav.navbar-right
+                    li
+
+                    li
+                        form.navbar-form
+                            .form-group
+                                input.form-control(type='text', placeholder='Search public project')
+                                button.btn.btn-info(type='submit')
+                                    span.glyphicon.glyphicon-search
+                                    |  Search
+                    li
+                        .navbar-btn
+                            #home-signup.btn.btn-default Signin
+                    li
+                        .navbar-btn
+                            #home-signin.btn.btn-default Signup
+
+        #home.row.jumbotron
+            .col-md-1
+            .col-md-5
+                h1  Easily lead your project.
+                    p Create your own project, and manage it with SCRUM.
+                    p Follow open projects to support them.
+            .col-md-1
+            .col-md-3
+                include users/registration
+    .col-md-3
+
+
