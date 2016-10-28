@@ -17,4 +17,10 @@ router.get('/project/:project_id*', function(req, res, next) {
   res.render('project');
 });
 
+router.get('/api/project/:project_id', function (req, res) {
+  var project_id = req.params.project_id;
+  
+  res.send("nothing");
+});
+
 module.exports = router;
