@@ -2,6 +2,8 @@ doctype html
 html( ng-app='SCRUMApp')
     head
         title= title
+        meta(charset="utf-8")
+        base(href="/")
         link(rel='stylesheet', href='/public/stylesheets/home.css')
         link(rel='stylesheet', href='/public/stylesheets/style.css')
         link(rel='stylesheet', href='/css/bootstrap.min.css')
@@ -12,3 +14,5 @@ html( ng-app='SCRUMApp')
         script(src='/js/angular-resource.js')
         script(src='/public/routes/routes.js')
         script(src='/public/controller/home.js')
+        script(src='/public/controller/users.js')
+        script(src='/public/controller/project.js')

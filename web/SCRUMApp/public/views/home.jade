@@ -26,10 +26,10 @@
                                     |  Search
                     li
                         .navbar-btn
-                            #home-signup.btn.btn-default Sign in
+                            a#home-signup.btn.btn-default(href="#/login") Sign in
                     li
                         .navbar-btn
-                            #home-signin.btn.btn-default Sign up
+                            a#home-signin.btn.btn-default(href="#/registration") Sign up
 
         #home.row.jumbotron
             .col-md-1
@@ -39,7 +39,7 @@
                     p Follow open projects to support them.
             .col-md-1
             .col-md-3
-                include users/registration
-    .col-md-3
+                include user_registration
+    .col-md-2
 
 
