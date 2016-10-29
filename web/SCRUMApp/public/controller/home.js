@@ -18,7 +18,7 @@ SCRUMApp.controller('HomeController', ['$scope','$location',  function($scope, $
     };
 
     $scope.projects_search = [];
-    $scope.limit = 10; // max 10 project loaded
+    $scope.limit = 5; // max 10 project loaded
     $scope.projects_search = $scope.data.projects;
 
     $scope.setMaster = function (project) {

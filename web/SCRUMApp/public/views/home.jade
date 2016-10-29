@@ -24,9 +24,9 @@
                                 button.btn.btn-info(type='submit')
                                     span.glyphicon.glyphicon-search
                                     |  Search
-                            ul.list-group.search
-                                li.result(ng-repeat='project in projects_search | filter:searchText | limitTo:limit', ng-hide="!searchText")
-                                    a.list-group-item(ng-click='setMaster(project)') {{project.name}}
+                                ul.list-group.search
+                                    li.result(ng-repeat='project in projects_search | filter:searchText | limitTo:limit', ng-hide="!searchText")
+                                        a.list-group-item(ng-click='setMaster(project)') {{project.name}}
                     li
                         .navbar-btn
                             a#home-signup.btn.btn-default(href="#/login") Sign in
