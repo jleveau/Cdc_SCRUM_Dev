@@ -20,13 +20,13 @@
                     li
                         form.navbar-form
                             .form-group
-                                input.form-control(type='text', placeholder='Search public project',ng-model="searchText")
-                                button.btn.btn-info(type='submit')
+                                input.form-control(type='text', placeholder='Search public project', ng-model = "searchProject.name" )
+                                button.btn.btn-info(type='submit', ng-click='go_to_project()')
                                     span.glyphicon.glyphicon-search
                                     |  Search
                                 ul.list-group.search
-                                    li.result(ng-repeat='project in projects_search | filter:searchText | limitTo:limit', ng-hide="!searchText")
-                                        a.list-group-item(ng-click='setMaster(project)') {{project.name}}
+                                    li.result(ng-repeat='project in projects_search | filter:searchProject.name | limitTo:limit', ng-hide="!(searchProject.name) + (searchProject.name.length == 0 )")
+                                        a.list-group-item(ng-click='setProject(project)') {{project.name}}
                     li
                         .navbar-btn
                             a#home-signup.btn.btn-default(href="#/login") Sign in

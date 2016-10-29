@@ -21,13 +21,17 @@ SCRUMApp.controller('HomeController', ['$scope','$location',  function($scope, $
     $scope.limit = 5; // max 10 project loaded
     $scope.projects_search = $scope.data.projects;
 
-    $scope.setMaster = function (project) {
-        $scope.searchText = project.name; // pull selected project using {{selected | json}}
+    $scope.setProject = function (project) {
+        angular.copy(project,$scope.searchProject);
     }
 
     $scope.go = function ( path ) {
         $location.path( path );
     };
+    $scope.go_to_project = function ( ) {
+        $location.path( "/project/" + $scope.searchProject.id);
+    };
+
 
 }]);
 
