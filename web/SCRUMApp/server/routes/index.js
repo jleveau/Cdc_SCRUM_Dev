@@ -8,7 +8,6 @@ router.get('/partials/:name', function (req, res) {
 });
 
 /* GET home page. */
-
 router.get('/', function(req, res, next) {
   res.render('index');
 });
@@ -17,9 +16,10 @@ router.get('/project/:project_id*', function(req, res, next) {
   res.render('project');
 });
 
+//api routes. use it to return json objects
 router.get('/api/project/:project_id', function (req, res) {
   var project_id = req.params.project_id;
-  
+
   res.send("nothing");
 });
 

@@ -8,8 +8,26 @@ SCRUMApp.controller('HomeController', ['$scope','$location',  function($scope, $
         image : "/public/images/github.png"
     };
 
+    $scope.data = {
+        "projects" : [{
+            'id' : '1',
+            'name' : "toto"},
+            {'id' : '2',
+            'name' : "tata"
+        }]
+    };
+
+    $scope.projects_search = [];
+    $scope.limit = 10; // max 10 project loaded
+    $scope.projects_search = $scope.data.projects;
+
+    $scope.setMaster = function (project) {
+        $scope.searchText = project.name; // pull selected project using {{selected | json}}
+    }
+
     $scope.go = function ( path ) {
         $location.path( path );
     };
+
 }]);
 
