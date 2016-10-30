@@ -1,0 +1,4 @@
+To run tests, you need :
+mocha : npm install -g mocha
+geckodriver
+selenium-webdriver

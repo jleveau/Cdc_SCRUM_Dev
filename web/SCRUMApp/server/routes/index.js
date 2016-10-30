@@ -12,9 +12,7 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/project/:project_id*', function(req, res, next) {
-  res.render('project');
-});
+
 
 //api routes. use it to return json objects
 router.get('/api/project/:project_id', function (req, res) {
@@ -22,5 +20,16 @@ router.get('/api/project/:project_id', function (req, res) {
 
   res.send("nothing");
 });
+
+//api routes. use it to return json objects
+router.get('/api/reachable_projects', function (req, res) {
+  res.send("{projects : [" +
+      "{ id : 1," +
+      "  name : toto}," +
+      "{  id : 2," +
+      "  name : tata" +
+      "}]}");
+});
+
 
 module.exports = router;

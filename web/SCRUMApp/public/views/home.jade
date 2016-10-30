@@ -1,48 +1,45 @@
-.row
-    .col-md-2
-    .col-md-8
-        nav.navbar
-            .container-fluid
-                .navbar-header
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', aria-expanded='false')
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
 
-                ul.nav.navbar-nav.navbar-left
-                    a(href="{{github.link}}")
-                       img.img-responsive(ng-src="{{github.image}}", alt='github-link', height="60" width="60")
+nav.navbar
+    .container-fluid
+        .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', aria-expanded='false')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
 
-                ul.nav.navbar-nav.navbar-right
-                    li
+        ul.nav.navbar-nav.navbar-left
+            a(href="{{github.link}}")
+                img.img-responsive(ng-src="{{github.image}}", alt='github-link', height="60" width="60")
 
-                    li
-                        form.navbar-form
-                            .form-group
-                                input.form-control(type='text', placeholder='Search public project', ng-model = "searchProject.name" )
-                                button.btn.btn-info(type='submit', ng-click='go_to_project()')
-                                    span.glyphicon.glyphicon-search
-                                    |  Search
-                                ul.list-group.search
-                                    li.result(ng-repeat='project in projects_search | filter:searchProject.name | limitTo:limit', ng-hide="!(searchProject.name) + (searchProject.name.length == 0 )")
-                                        a.list-group-item(ng-click='setProject(project)') {{project.name}}
-                    li
-                        .navbar-btn
-                            a#home-signup.btn.btn-default(href="#/login") Sign in
-                    li
-                        .navbar-btn
-                            a#home-signin.btn.btn-default(href="#/registration") Sign up
+        ul.nav.navbar-nav.navbar-right
+            li
 
-        #home.row.jumbotron
-            .col-md-1
-            .col-md-5
-                h1  Easily lead your project.
-                    p Create your own project, and manage it with SCRUM.
-                    p Follow open projects to support them.
-            .col-md-1
-            .col-md-3
-                include user_registration
-    .col-md-2
+            li
+                form.navbar-form
+                    .form-group
+                        input#search-input.form-control(type='text', placeholder='Search public project', ng-model = "searchProject.name" )
+                        button#search-button.btn.btn-info(type='submit', ng-click='go_to_project()')
+                            span.glyphicon.glyphicon-search
+                            |  Search
+                        ul.list-group.search
+                            li.result(ng-repeat='project in projects_search | filter:searchProject.name | limitTo:limit', ng-hide="!(searchProject.name) + (searchProject.name.length == 0 )")
+                                a.list-group-item(ng-click='setProject(project)') {{project.name}}
+            li
+                .navbar-btn
+                    a#home-signup.btn.btn-default(href="#/login") Sign in
+            li
+                .navbar-btn
+                    a#home-signin.btn.btn-default(href="#/registration") Sign up
+
+#home.row.jumbotron
+    .col-md-1
+    .col-md-5
+        h1  Easily lead your project.
+            p Create your own project, and manage it with SCRUM.
+            p Follow open projects to support them.
+    .col-md-1
+    .col-md-3
+        include user_registration
 
 

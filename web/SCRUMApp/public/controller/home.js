@@ -8,13 +8,17 @@ SCRUMApp.controller('HomeController', ['$scope','$location',  function($scope, $
         image : "/public/images/github.png"
     };
 
+    $scope.title = "SCRUMApp - Home";
+
+    ////////// SearchBar
+    //TO DO replace with request to get all public projects + logged user project
     $scope.data = {
         "projects" : [{
             'id' : '1',
             'name' : "toto"},
             {'id' : '2',
-            'name' : "tata"
-        }]
+                'name' : "tata"
+            }]
     };
 
     $scope.projects_search = [];
@@ -31,7 +35,8 @@ SCRUMApp.controller('HomeController', ['$scope','$location',  function($scope, $
     $scope.go_to_project = function ( ) {
         $location.path( "/project/" + $scope.searchProject.id);
     };
-
+    ///////// End Searchbar
 
 }]);
+
 

@@ -4,6 +4,7 @@ SCRUMApp.config(['$routeProvider', '$locationProvider',
             function($routeProvider, $locationProvider) {
                 $routeProvider
                     .when("/", {
+                        title: "Home",
                         templateUrl: "/partials/home.jade",
                         controller: "HomeController",
                         url: "/"
@@ -21,6 +22,7 @@ SCRUMApp.config(['$routeProvider', '$locationProvider',
                     .when("/project/:project_id", {
                         templateUrl: "/partials/project.jade",
                         controller: "ProjectController",
+                        title: "Project"
                      })
                     .when("/project/:project_id/team", {
                         templateUrl: "/partials/team.jade",
@@ -51,3 +53,9 @@ SCRUMApp.config(['$routeProvider', '$locationProvider',
                 $locationProvider.html5Mode(true);
             }
         ]);
+
+SCRUMApp.run(['$rootScope', '$route', function($rootScope, $route) {
+    $rootScope.$on('$routeChangeSuccess', function() {
+        document.title = 'SCRUMApp - ' + $route.current.title;
+    });
+}]);
