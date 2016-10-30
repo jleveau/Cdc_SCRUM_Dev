@@ -10,6 +10,8 @@ var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
 
 var mongoose = require('mongoose');
+//conection db, name db: scrumdb
+mongoose.connect('mongodb://localhost:27017/scrumdb');
 
 var app = express();
 
