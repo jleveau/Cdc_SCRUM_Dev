@@ -10,8 +10,15 @@ var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
 
 var mongoose = require('mongoose');
-//conection db, name db: scrumdb
-mongoose.connect('mongodb://localhost:27017/scrumdb');
+
+mongoose.connect('mongodb://localhost:27017/scrumdb', function(err, res) {  
+  if(err) {
+    console.log('ERROR: connecting to Database. ' + err);
+  }else {
+    console.log("Database localhost:27017/scrumdb ");
+  }
+  
+});
 
 var app = express();
 
@@ -29,6 +36,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'server')));
+
+
+// Import Models and controllers
+var models     = require('./models/scrumdb')(app, mongoose);
+var ProjectsCtrl = require('./controllers/projects');
 
 // api routes
 app.use('/', routes);
