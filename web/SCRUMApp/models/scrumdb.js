@@ -63,7 +63,8 @@ var tasks = new mongoose.Schema({
 	date_updated: Date
 });
 
-module.exports = mongoose.model('users', users);
+//var users = mongoose.model('users', users);
+//module.exports = users;
 module.exports = mongoose.model('projects', projects);
 module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
