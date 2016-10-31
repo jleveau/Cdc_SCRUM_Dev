@@ -1,12 +1,12 @@
-form
+form(action='/users/adduser' method='post')
     .form-group
         label(for='InputUsername')
-        input#InputUsername.form-control(type='text', placeholder='Username')
+        input#InputUsername.form-control(type='text', placeholder='Username' name='username')
     .form-group
         label(for='InputEmail1')
-        input#InputEmail1.form-control(type='email', placeholder='Email')
+        input#InputEmail1.form-control(type='email', placeholder='Email' name='email')
     .form-group
         label(for='InputPassword')
-        input#InputPassword.form-control(type='password', placeholder='Password')
+        input#InputPassword.form-control(type='password', placeholder='Password' name='password')
 
     button#button-registration-home.btn.btn-success(type='submit') Sign Up to SCRUMApp
