@@ -15,7 +15,6 @@ test.describe('calculating weights', function() {
 
     before(function() {
 
-
     });
 
     after(function() {

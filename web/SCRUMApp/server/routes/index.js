@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var models = require("../../controllers/projects");
+var routes = require("../../server/routes/index");
 
 /* GET template by name */
 router.get('/partials/:name', function (req, res) {
@@ -7,29 +9,29 @@ router.get('/partials/:name', function (req, res) {
   res.render(__dirname + '/../../public/views/' + name);
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
-
-
-
 //api routes. use it to return json objects
 router.get('/api/project/:project_id', function (req, res) {
-  var project_id = req.params.project_id;
-
-  res.send("nothing");
+    models.findById(req,res);
 });
 
 //api routes. use it to return json objects
 router.get('/api/reachable_projects', function (req, res) {
-  res.send("{projects : [" +
-      "{ id : 1," +
-      "  name : toto}," +
-      "{  id : 2," +
-      "  name : tata" +
-      "}]}");
+    models.findAllProjects(req,res);
 });
+
+router.get('/api/all_projects', function (req, res) {
+    models.findAllProjects(req,res);
+});
+
+router.post('/project/new', function(req, res) {
+    models.addproject(req,res);
+});
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('index');
+});
+
 
 
 module.exports = router;
