@@ -9,9 +9,10 @@ var bodyParser = require('body-parser');
 var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
 
-var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/scrumdb', function(err, res) {  
+var mongoose = require('mongoose');
+//mongodb://localhost:27017/scrumdb
+mongoose.connect('mongodb://localhost:27017/scrumdb', function(err, res) {
   if(err) {
     console.log('ERROR: connecting to Database. ' + err);
   }else {
@@ -39,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'server')));
 
 
 // Import Models and controllers
-var models     = require('./models/scrumdb')(app, mongoose);
+var models = require('./models/scrumdb')(app, mongoose);
 var ProjectsCtrl = require('./controllers/projects');
 
 // api routes
@@ -47,13 +48,13 @@ app.use('/', routes);
 app.use('/users', users);
 
 // Ressources route
-app.use('/js', express.static(__dirname + '/node_modules/angular')); // redirect angular
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
-app.use('/js', express.static(__dirname + '/node_modules/angular-route')); // redirect JS angular
-app.use('/js', express.static(__dirname + '/node_modules/angular-resource')); // redirect JS angular
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
-app.use('/fonts/', express.static(path.join(__dirname, '/node_modules/bootstrap/fonts')));
+app.use('/js', express.static(__dirname + 'node_modules/angular')); // redirect angular
+app.use('/js', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + 'node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + 'node_modules/angular-route')); // redirect JS angular
+app.use('/js', express.static(__dirname + 'node_modules/angular-resource')); // redirect JS angular
+app.use('/css', express.static(__dirname + 'ode_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use('/fonts/', express.static(path.join(__dirname, 'node_modules/bootstrap/fonts')));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/partials',express.static(path.join(__dirname, '/public/views')));
 
