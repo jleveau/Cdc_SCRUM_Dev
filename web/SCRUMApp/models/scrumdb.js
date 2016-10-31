@@ -14,7 +14,7 @@ var users = new mongoose.Schema({
 
 var projects = new mongoose.Schema({
 	member_list: [{ type : Number, ref: 'users' }],
-	name_project: String,
+	name: String,
 	specification: Buffer,
 	product_owner: { type : Number, ref: 'users' },
 	github: String,
@@ -69,6 +69,3 @@ module.exports = mongoose.model('projects', projects);
 module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
 module.exports = mongoose.model('tasks', tasks);
-
-
-

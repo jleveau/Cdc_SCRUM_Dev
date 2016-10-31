@@ -1,3 +1,16 @@
 include project_toolbar
+.row
+    .col-md-8
+        h2 {{project.name}}
+        .container-fluid#project-description-container
 
-'project'
+            p {{project.description}}
+            span started at :
+            p(ng-bind="project.date_start | date:'MM/dd/yyyy'")
+
+
+    .col-md-4
+        h3 With :
+
+        .container-fluid#project-memberlist(ng-repeat="user in project.member_list")
+            include user-description

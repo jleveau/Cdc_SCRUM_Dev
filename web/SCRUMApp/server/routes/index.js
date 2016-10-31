@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var models = require("../../controllers/projects");
+
 
 /* GET template by name */
 router.get('/partials/:name', function (req, res) {
@@ -29,7 +31,17 @@ router.get('/api/reachable_projects', function (req, res) {
         "{  id : 2," +
         "  name : tata" +
         "}]}");
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('index');
 });
 
+/* GET template by name */
+router.get('/partials/:name', function (req, res) {
+    var name = req.params.name;
+    res.render(__dirname + '/../../public/views/' + name);
+
+});
 
 module.exports = router;
