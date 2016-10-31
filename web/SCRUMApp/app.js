@@ -39,12 +39,13 @@ app.use(express.static(path.join(__dirname, 'server')));
 
 
 // Import Models and controllers
-var models     = require('./models/scrumdb')(app, mongoose);
+var models = require('./models/scrumdb')(app, mongoose);
 var ProjectsCtrl = require('./controllers/projects');
 
 // api routes
 app.use('/', routes);
 app.use('/users', users);
+require('./server/routes/projects')(app, ProjectsCtrl);
 
 // Ressources route
 app.use('/js', express.static(__dirname + '/node_modules/angular')); // redirect angular
