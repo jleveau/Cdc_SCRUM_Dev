@@ -26,3 +26,15 @@ a {
 #project-memberlist{
   background-color: #f7f7f9;
 }
+
+.user-media{
+  padding-top: 10px;
+  width: 100%;
+
+}
+
+.user-desc-image{
+  max-width: none;
+}
+
+

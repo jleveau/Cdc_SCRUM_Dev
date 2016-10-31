@@ -2,8 +2,6 @@ var mongoose = require('mongoose');
 var schema = require("../models/scrumdb");
 var Project  = mongoose.model('projects');
 
-
-
 //GET - Return all projects in the DB
 module.exports.findAllProjects = function(req, res) {
     Project.find(function(err, projects) {

@@ -68,6 +68,3 @@ module.exports = mongoose.model('projects', projects);
 module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
 module.exports = mongoose.model('tasks', tasks);
-
-
-

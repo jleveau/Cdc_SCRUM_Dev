@@ -1,8 +1,8 @@
 include project_toolbar
 .row
     .col-md-8
+        h2 {{project.name}}
         .container-fluid#project-description-container
-            h1 {{project.name}}
 
             p {{project.description}}
             span started at :
@@ -10,6 +10,7 @@ include project_toolbar
 
 
     .col-md-4
-        .container-fluid#project-memberlist
-            ul
-                li(ng-repeat="member in project.member_list")
+        h3 With :
+
+        .container-fluid#project-memberlist(ng-repeat="user in project.member_list")
+            include user-description

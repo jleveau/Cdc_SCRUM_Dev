@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'server')));
 
 
 // Import Models and controllers
-var models = require('./models/scrumdb');
+var models = require('./models/scrumdb')(app, mongoose);
 var ProjectsCtrl = require('./controllers/projects');
 
 // api routes
