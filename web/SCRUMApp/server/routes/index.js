@@ -32,6 +32,8 @@ router.get('/api/reachable_projects', function (req, res) {
         "  name : tata" +
         "}]}");
 
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index');
