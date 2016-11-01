@@ -1,0 +1,19 @@
+#login.well.well-sm
+    form(action='/' id='form-login', method='post')
+        .col-md-5
+        h2 Hello!
+        .col-md-5
+        h6 Please Login To Your Account
+        .form-group.col-xs-6
+            label Username
+            input.form-control.input-sm(type='text', id='user-tf', name='username')
+        .form-group.col-xs-6
+            label Password
+            input.form-control.input-sm(type='password', id='pass-tf', name='password')
+        .form-group
+            .col-md-5
+            button(type='submit').btn.btn-primary.btn-sm
+                span.glyphicon.glyphicon-lock
+                | Sign In
+        .clearfix
+.clearfix
