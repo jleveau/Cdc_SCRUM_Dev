@@ -1,4 +1,5 @@
 //angular modules
+var SCRUMApp = angular.module('SCRUMApp');
 
 SCRUMApp.controller('ProjectController', ['$scope', '$routeParams','$location','$http', function($scope, $routeParams,$location,$http) {
     $scope.params = $routeParams;
