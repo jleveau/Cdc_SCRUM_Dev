@@ -1,8 +1,10 @@
-var userdb = require('./userShema');
+var userdb = require('./userSchema');
 /**
+ * this class ...
  *
  */
 class user {
+
     /**
      * to add a new user in DB
      * @param username
@@ -20,7 +22,6 @@ class user {
             // followed_projects: [{ type : Number, ref: 'projects' }],
             date_created: new Date(),
             date_updated: new Date()
-
         });
 
         newuser.save(function (err) {
@@ -29,9 +30,9 @@ class user {
     }
 
     /**
-     * to count the number of users with the given 'username' or 'mail'
+     * this function count the number of users with the given 'username' or 'mail'
      * @param username
-     * @param cb
+     * @param cb : callback function
      */
     static count(username,email,cb){
         userdb.count({$or:[{username: username}, {mail: email}]}, function(err, count)
@@ -42,13 +43,13 @@ class user {
     }
 
     /**
-     *
+     * this function search for a user in DB
      * @param username
      * @param email
-     * @param cb
+     * @param cb : callback function
      */
-    static findUserwithUsername(username, email, cb) {
-        userdb.find({username: username, mail: email}, function (err, user) {
+    static signIn(username, password, cb) {
+        userdb.find({username: username, password: password}, function (err, user) {
             if (err) throw err;
             cb(user);
         });

@@ -16,7 +16,9 @@ var userShema = new Schema({
     date_created: Date,
     date_updated: Date
 });
-
+/**
+ * crypt password before save user data in DB
+ */
 userShema.pre('save', function(next) {
     var user = this;
     if (!user.isModified('password')) return next();
@@ -29,8 +31,6 @@ userShema.pre('save', function(next) {
         });
     });
 });
-
-
 
 // a model using the shema
 var myusers = mongoose.model('users', userShema);

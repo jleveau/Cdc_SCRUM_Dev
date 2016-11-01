@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var body = require('body-parser');
-
-
 var user = require('./../../models/user');
 
 /* GET users listing. */
@@ -20,10 +18,25 @@ router.post('/adduser', function (req, res, next) {
             console.log("REQUEST DENIED");
         } else {
             user.addUser(req.body.username, req.body.email, req.body.password);
-            res.send('respond with a resource');
+            res.send('respond with resource');
         }
         //TODO add flush messages
     });
 });
+
+/**
+ * route to sign in
+ */
+router.post('/signin', function (req, res) {
+    user.signIn(req.body.username, req.body.password, function (user_info) {
+        if (user_info[0] !== undefined) {
+            res.send(user_info[0]["username"] + " mail : " + user_info[0]["mail"]);
+        } else {
+            res.send("Aucun user");
+        }
+        //TODO : add user session and redirect the user to continue the registration or in his profile page.
+    })
+});
+
 
 module.exports = router;
