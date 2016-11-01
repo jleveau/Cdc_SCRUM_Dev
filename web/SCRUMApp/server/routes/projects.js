@@ -6,6 +6,8 @@ module.exports = function(app, ctrl) {
 
 	app.post('/api/project', ctrl.addproject);
 
+	app.get('/api/all_projects', ctrl.findAllProjects);
+
 	app.get('/api/project/:id_project', ctrl.findById);
 	
 	app.put('/api/project/:id_project', ctrl.updateProject);

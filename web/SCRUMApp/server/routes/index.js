@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var models = require("../../controllers/projects");
 
-
 /* GET template by name */
 router.get('/partials/:name', function (req, res) {
     var name = req.params.name;
@@ -14,7 +13,6 @@ router.get('/', function (req, res, next) {
     res.render('index');
 
 });
-
 
 //api routes. use it to return json objects
 router.get('/api/project/:project_id', function (req, res) {

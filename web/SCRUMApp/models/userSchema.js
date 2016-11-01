@@ -5,7 +5,7 @@ var SALT_WORK_FACTOR = 10;
 
 // create a shema
 
-var userShema = new Schema({
+var userSchema = new Schema({
     username: {type: String, unique: true},
     mail: {type: String, unique: true},
     password: String,
@@ -19,7 +19,7 @@ var userShema = new Schema({
 /**
  * crypt password before save user data in DB
  */
-userShema.pre('save', function(next) {
+userSchema.pre('save', function(next) {
     var user = this;
     if (!user.isModified('password')) return next();
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -33,7 +33,7 @@ userShema.pre('save', function(next) {
 });
 
 // a model using the shema
-var myusers = mongoose.model('users', userShema);
+var myusers = mongoose.model('users', userSchema);
 
 // make this available in node applications
 module.exports = myusers

@@ -37,4 +37,6 @@ a {
   max-width: none;
 }
 
-
+#product-owner-select{
+  width:auto;
+}

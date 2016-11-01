@@ -27,10 +27,10 @@ nav.navbar
                                 a.list-group-item(ng-click='setProject(project)') {{project.name}}
             li
                 .navbar-btn
-                    a#home-signup.btn.btn-default(href="#/login") Sign in
+                    a#home-signup.btn.btn-default(ng-href="/login") Sign in
             li
                 .navbar-btn
-                    a#home-signin.btn.btn-default(href="#/registration") Sign up
+                    a#home-signin.btn.btn-default(ng-href="/registration") Sign up
 
 #home.row.jumbotron
     .col-md-1
