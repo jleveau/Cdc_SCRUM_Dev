@@ -15,7 +15,7 @@ module.exports = function(app, ctrl) {
 	app.delete('/api/project/:id_project', ctrl.deleteProject);
 
 	//api routes. use it to return json objects
-	router.get('/api/reachable_projects', function (req, res) {
+	app.get('/api/reachable_projects', function (req, res) {
 		res.send("{projects : [" +
 			"{ id : 1," +
 			"  name : toto}," +
