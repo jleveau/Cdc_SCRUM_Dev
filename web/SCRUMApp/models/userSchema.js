@@ -17,6 +17,9 @@ var userSchema = new Schema({
     date_updated: Date
 });
 
+/**
+ * crypt password before save user data in DB
+ */
 userSchema.pre('save', function(next) {
     var user = this;
     if (!user.isModified('password')) return next();
@@ -30,12 +33,10 @@ userSchema.pre('save', function(next) {
     });
 });
 
-
-
 // a model using the shema
 var myusers = mongoose.model('users', userSchema);
 
 // make this available in node applications
-module.exports = myusers
+module.exports = myusers;
 
 
