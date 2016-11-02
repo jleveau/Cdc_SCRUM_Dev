@@ -30,6 +30,7 @@ var sprints = new mongoose.Schema({
 	date_start: Date,
 	date_end: Date,
 	number_sprint: Number,
+	sprint_duration: Number,
 	project: { type : Number, ref: 'projects' },
 	date_created: Date, 
 	date_updated: Date	

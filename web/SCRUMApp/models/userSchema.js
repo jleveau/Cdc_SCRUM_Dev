@@ -16,6 +16,7 @@ var userSchema = new Schema({
     date_created: Date,
     date_updated: Date
 });
+
 /**
  * crypt password before save user data in DB
  */
@@ -36,6 +37,6 @@ userSchema.pre('save', function(next) {
 var myusers = mongoose.model('users', userSchema);
 
 // make this available in node applications
-module.exports = myusers
+module.exports = myusers;
 
 

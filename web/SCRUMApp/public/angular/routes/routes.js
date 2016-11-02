@@ -1,6 +1,5 @@
-var SCRUMApp = angular.module('SCRUMApp',["ngRoute","ngResource"]);
-
-SCRUMApp.config(['$routeProvider', '$locationProvider',
+var Routes = angular.module('Routes',["ngRoute","ngResource"])
+    .config(['$routeProvider', '$locationProvider',
             function($routeProvider, $locationProvider) {
                 $routeProvider
                     .when("/", {
@@ -18,6 +17,12 @@ SCRUMApp.config(['$routeProvider', '$locationProvider',
                         templateUrl: "/partials/user_registration_page.jade",
                         controller: "UserController",
                         url: "registration"
+                    })
+                    .when("/project/new", {
+                        templateUrl: "/partials/project_form.jade",
+                        controller: "ProjectController",
+                        url: "/project/new",
+                        title: "New Project"
                     })
                     .when("/project/:project_id", {
                         templateUrl: "/partials/project.jade",
@@ -54,7 +59,7 @@ SCRUMApp.config(['$routeProvider', '$locationProvider',
             }
         ]);
 
-SCRUMApp.run(['$rootScope', '$route', function($rootScope, $route) {
+Routes.run(['$rootScope', '$route', function($rootScope, $route) {
     $rootScope.$on('$routeChangeSuccess', function() {
         document.title = 'SCRUMApp - ' + $route.current.title;
     });

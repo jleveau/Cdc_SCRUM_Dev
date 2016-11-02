@@ -51,10 +51,15 @@ require('./server/routes/projects')(app, ProjectsCtrl);
 // Ressources route
 
 app.use('/js', express.static(__dirname + '/node_modules/angular')); // redirect angular
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/js', express.static(__dirname + '/node_modules/angular-route')); // redirect JS angular
 app.use('/js', express.static(__dirname + '/node_modules/angular-resource')); // redirect JS angular
+app.use('/js', express.static(__dirname + '/node_modules/angular-aria')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/angular-material')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/angular-animate')); // redirect JS jQuery
+
+app.use('/css', express.static(__dirname + '/node_modules/angular-material')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use('/fonts/', express.static(path.join(__dirname, '/node_modules/bootstrap/fonts')));
 app.use('/public', express.static(__dirname + '/public'));
