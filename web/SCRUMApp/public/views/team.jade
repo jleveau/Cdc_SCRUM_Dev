@@ -2,7 +2,7 @@ include project_toolbar
 
 form(name='Form-product-owner')
     label(for='product-owner-select')  Product Owner:
-    select#product-owner-select.form-control(name='repeatSelect', ng-model='project.product_owner',ng-change = 'update()' )
+    select#product-owner-select.form-control(name='repeatSelect', ng-model='project.product_owner',ng-change = 'updateProject()' )
         option(ng-repeat="user in project.member_list", value='{{user}}') {{user.username}}
 
 

@@ -14,7 +14,7 @@ angular.module('ProjectServices', [])
                 return $http.delete('/api/project/' + id);
             },
             update : function(project_data){
-                return $http.put('/api/project', project_data);
+                return $http.put('/api/project/' + project_data.id, project_data);
             }
         }
     });
