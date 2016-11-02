@@ -5,6 +5,7 @@ var models = require("../../controllers/projects");
 /* GET template by name */
 router.get('/partials/:name', function (req, res) {
     var name = req.params.name;
+    console.log(__dirname + '/../../public/views/' + name);
     res.render(__dirname + '/../../public/views/' + name);
 });
 

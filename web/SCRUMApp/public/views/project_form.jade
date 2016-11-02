@@ -1,0 +1,19 @@
+h1 New Project
+form.css-form(novalidate='')
+    .form-group
+        label(for='name') Name
+        input#name.form-control(type='text', ng-model='project_form.name', required)
+    .form-group
+        label(for='github-link') Github Link
+        input#github-link.form-control(type='text', ng-model='project_form.github')
+    .form-group
+        label(for='date_start') Starting Date
+        md-datepicker#date_start(ng-model='project.date_start', md-placeholder='', required)
+    .form-group
+        label(for='sprint_duration') Sprint Duration
+        input#sprint_duration.form-control(type='number', min="0" max="99", ng-model='project_form.sprint_duration', required)
+    .form-group
+        label(for='description') Description:
+        textarea#description.form-control(rows='5', ng-model='project_form.description')
+
+    input.btn.btn-default(type='submit', ng-click='createProject(project_form)', value='Save')

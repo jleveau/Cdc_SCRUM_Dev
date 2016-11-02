@@ -1,7 +1,6 @@
 //angular modules
-var SCRUMApp = angular.module('SCRUMApp');
-
-SCRUMApp.controller('HomeController', ['$scope','$location','$http',  function($scope, $location,$http){
+angular.module('Home',[])
+    .controller('HomeController', ['$scope','$location','$http',  function($scope, $location,$http){
     $scope.title = "SCRUMApp";
     $scope.github = {
         link : "https://github.com/jleveau/Cdc_SCRUM",
