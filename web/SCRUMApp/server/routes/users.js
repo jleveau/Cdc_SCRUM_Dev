@@ -1,7 +1,16 @@
 var express = require('express');
-var router = express.Router();
+var session = require('express-session');
 var body = require('body-parser');
 var user = require('./../../models/user');
+
+var router = express.Router();
+
+router.use(session({
+    secret: 'scrumproject2016univBordeaux',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: false}
+}));
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -22,20 +31,38 @@ router.post('/adduser', function (req, res, next) {
         }
         //TODO add flush messages
     });
+    next();
 });
 
 /**
  * route to sign in
+ * create session with user data
+ * locals.user_data : to get user data in our views
  */
-router.post('/signin', function (req, res) {
+router.post('/signin', function (req, res, next) {
+    if (!req.session.user_session) {
+        req.session.user_session = {};
+    }
     user.signIn(req.body.username, req.body.password, function (user_info) {
         if (user_info[0] !== undefined) {
-            res.send(user_info[0]["username"] + " mail : " + user_info[0]["mail"]);
+            req.session.user_session = user_info[0]["username"] + " mail : " + user_info[0]["mail"];
+            res.locals.user_data = req.session.user_session;
+            res.render('/');
         } else {
-            res.send("Aucun user");
+            res.send("user doesn't exist !");
         }
-        //TODO : add user session and redirect the user to continue the registration or in his profile page.
     })
+    //TODO : redirect the user to continue the registration or in his profile page.
+});
+
+/**
+ * route to sign out
+ * destroy session
+ */
+router.get('/signout', function (req, res, next) {
+    req.session.destroy();
+    res.send('session destroyed !');
+    //TODO redirect the user.
 });
 
 
