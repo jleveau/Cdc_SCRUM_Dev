@@ -1,19 +1,26 @@
 h1 New Project
-form.css-form(novalidate='')
-    .form-group
-        label(for='name') Name
-        input#name.form-control(type='text', ng-model='project_form.name', required)
+form.css-form(name = "form", novalidate)
+    .form-group(ng-class="{'has-warning':form.name.$invalid && form.name.$touched}")
+        label(for='name') Name *
+        input#name.form-control(type='text',name = "name", ng-model='new_project.name', required="")
+        span(ng-show='(!new_project.name) && form.name.$touched') Your project needs a name.
+
     .form-group
         label(for='github-link') Github Link
-        input#github-link.form-control(type='text', ng-model='project_form.github')
-    .form-group
-        label(for='date_start') Starting Date
-        md-datepicker#date_start(ng-model='project.date_start', md-placeholder='', required)
-    .form-group
-        label(for='sprint_duration') Sprint Duration
-        input#sprint_duration.form-control(type='number', min="0" max="99", ng-model='project_form.sprint_duration', required)
+        input#github-link.form-control(type='text', name="github-link", ng-model='new_project.github')
+
+    .form-group(ng-class="{'has-warning':form.date_start.$invalid && form.date_start.$touched}")
+        label(for='date_start') Starting Date *
+        md-datepicker#date_start(ng-model='new_project.date_start',name = "date_start", md-placeholder='', required="")
+        div(ng-show='(!new_project.date_start) && form.date_start.$touched') You have to define a starting date.
+
+    .form-group(ng-class="{'has-warning':form.sprint_duration.$invalid && form.sprint_duration.$touched}")
+        label(for='sprint_duration') Sprint Duration *
+        input#sprint_duration.form-control(type='number',name = "sprint_duration", min="0" max="99", ng-model='new_project.sprint_duration', required="")
+        div(ng-show='(!new_project.sprint_duration) && form.sprint_duration.$touched') You have to define the sprint duration.
+
     .form-group
         label(for='description') Description:
-        textarea#description.form-control(rows='5', ng-model='project_form.description')
+        textarea#description.form-control(rows='5', name="description", ng-model='new_project.description')
 
-    input.btn.btn-default(type='submit', ng-click='createProject(project_form)', value='Save')
+    input.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createProject()', value='Save')

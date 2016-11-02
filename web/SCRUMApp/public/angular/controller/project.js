@@ -5,7 +5,7 @@ angular.module('Project', [])
                                             function($scope, $routeParams,$location,$http,Projects) {
 
         $scope.params = $routeParams;
-        $scope.project_form = {};
+        $scope.new_project = {};
       /*  if ( $scope.params.project_id == undefined){
             throw "no project_id given"
         }*/
@@ -34,6 +34,7 @@ angular.module('Project', [])
 
         };
 
+
         $scope.getProject = function(){
           Projects.get($scope.params.project_id)
               .success(function(data){
@@ -45,11 +46,11 @@ angular.module('Project', [])
         };
 
         $scope.createProject= function() {
-            Projects.create($scope.project_form)
+            Projects.create($scope.new_project )
                 .success(function(data) {
-                    $scope.project_form = {}; // clear the form so our user is ready to enter another
+                    $scope.new_project = {}; // clear the form so our user is ready to enter another
                     $scope.project = data;
-                    console.log(data);
+                    $location.path( '/project/'+$scope.project.id );
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);
