@@ -23,4 +23,4 @@ form.css-form(name = "form", novalidate)
         label(for='description') Description:
         textarea#description.form-control(rows='5', name="description", ng-model='new_project.description')
 
-    input.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createProject()', value='Save')
+    input#project_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createProject()', value='Save')
