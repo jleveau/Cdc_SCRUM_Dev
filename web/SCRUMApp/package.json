@@ -26,6 +26,8 @@
     "mocha": "^3.1.2",
     "mongoose": "^4.6.5",
     "morgan": "~1.7.0",
+    "nan": "^2.4.0",
+    "python": "0.0.4",
     "selenium-webdriver": "^3.0.0-beta-3",
     "serve-favicon": "~2.3.0"
   }

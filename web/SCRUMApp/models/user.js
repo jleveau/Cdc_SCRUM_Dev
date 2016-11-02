@@ -1,4 +1,4 @@
-var userdb = require('./userShema');
+var userdb = require('./userSchema');
 /**
  *
  */
