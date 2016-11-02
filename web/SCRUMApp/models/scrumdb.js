@@ -66,7 +66,11 @@ var tasks = new mongoose.Schema({
 
 //var users = mongoose.model('users', users);
 //module.exports = users;
+
+
 module.exports = mongoose.model('projects', projects);
 module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
 module.exports = mongoose.model('tasks', tasks);
+
+
