@@ -69,6 +69,17 @@ class user {
             cb(user);
         });
     }
+
+    /**
+     * this function get all users from db
+     * @param cb : callback function
+     */
+    static getAllUsers(cb){
+        userdb.find({},function (err, user) {
+            if (err) throw err;
+            cb(user);
+        });
+    }
 }
 
 module.exports = user;
