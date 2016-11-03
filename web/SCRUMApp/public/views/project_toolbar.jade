@@ -8,17 +8,17 @@ nav.navbar.navbar-default
                 span.icon-bar
 
         ul.nav.navbar-nav
-            li(ng-class="{ active: isActive('/project/{{project.id}}')}")
-                a(ng-href="/project/{{project.id}}") Project
-            li(ng-class="{ active: isActive('/project/{{project.id}}/team')}")
-                a(ng-href="/project/{{project.id}}/team") Members
-            li(ng-class="{ active: isActive('/project/{{project.id}}/backlog')}")
-                a(ng-href="/project/{{project.id}}/backlog") BackLog
-            li(ng-class="{ active: isActive('/project/{{project.id}}/sprints')}")
-                a(ng-href="/project/{{project.id}}/sprints") Sprints
-            li(ng-class="{ active: isActive('/project/{{project.id}}/tasks')}")
-                a(ng-href="/project/{{project.id}}/tasks") Tasks
-            li(ng-class="{ active: isActive('/project/{{project.id}}/pert')}")
-                a(ng-href="/project/{{project.id}}/pert") Pert
-            li(ng-class="{ active: isActive('/project/{{project.id}}/burndown')}")
-                a(ng-href="/project/{{project.id}}/burndown") Burn Down chart
+            li(ng-class="{ active: isActive('/project/{{project._id}}')}")
+                a(ng-href="/project/{{project._id}}") Project
+            li(ng-class="{ active: isActive('/project/{{project._id}}/team')}")
+                a(ng-href="/project/{{project._id}}/team") Members
+            li(ng-class="{ active: isActive('/project/{{project._id}}/backlog')}")
+                a(ng-href="/project/{{project._id}}/backlog") BackLog
+            li(ng-class="{ active: isActive('/project/{{project._id}}/sprints')}")
+                a(ng-href="/project/{{project._id}}/sprints") Sprints
+            li(ng-class="{ active: isActive('/project/{{project._id}}/tasks')}")
+                a(ng-href="/project/{{project._id}}/tasks") Tasks
+            li(ng-class="{ active: isActive('/project/{{project._id}}/pert')}")
+                a(ng-href="/project/{{project._id}}/pert") Pert
+            li(ng-class="{ active: isActive('/project/{{project._id}}/burndown')}")
+                a(ng-href="/project/{{project._id}}/burndown") Burn Down chart
