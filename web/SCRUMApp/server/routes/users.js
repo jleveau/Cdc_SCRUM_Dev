@@ -22,7 +22,7 @@ router.get('/', function (req, res, next) {
  * first that verify if there is an existing user in DB.
  */
 router.post('/adduser', function (req, res, next) {
-    user.count(req.body.username, req.body.email, function (count) {
+    user.count(req.body.username, req.body.email, function (count){
         if (count > 0) {
             console.log("REQUEST DENIED");
         } else {
@@ -65,5 +65,8 @@ router.get('/signout', function (req, res, next) {
     //TODO redirect the user.
 });
 
+/**
+ * function pour verifier si un user est connect
+ */
 
 module.exports = router;

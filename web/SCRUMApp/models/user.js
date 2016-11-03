@@ -19,9 +19,9 @@ class user {
             image: null,
             first_name: null,
             last_name: null,
-            // followed_projects: [{ type : Number, ref: 'projects' }],
+            followed_projects: [{ type : Number, ref: 'projects' }],
             date_created: new Date(),
-            date_updated: new Date()
+            date_updated: null
         });
 
         newuser.save(function (err) {
@@ -34,9 +34,8 @@ class user {
      * @param username
      * @param cb : callback function
      */
-    static count(username,email,cb){
-        userdb.count({$or:[{username: username}, {mail: email}]}, function(err, count)
-        {
+    static count(username, email, cb) {
+        userdb.count({$or: [{username: username}, {mail: email}]}, function (err, count) {
             if (err) throw err;
             cb(count);
         });
@@ -50,6 +49,23 @@ class user {
      */
     static signIn(username, password, cb) {
         userdb.find({username: username, password: password}, function (err, user) {
+            if (err) throw err;
+            cb(user);
+        });
+    }
+
+    /**
+     * this function update a user record
+     * @param username
+     * @param firstName
+     * @param lastName
+     * @param cb : callback function
+     */
+    static updateUserRecord(username, firstName, lastName, cb) {
+        userdb.findOneAndUpdate({username: username}, {
+            first_name: firstName,
+            last_name: lastName, date_updated: new Date()
+        }, function (err, user) {
             if (err) throw err;
             cb(user);
         });
