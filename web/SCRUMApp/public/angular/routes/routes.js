@@ -60,7 +60,6 @@ var Routes = angular.module('Routes',["ngRoute","ngResource"])
                         templateUrl: "/partials/user.jade",
                         controller: "UserController",
                     })
-
                     .otherwise({redirectTo: "/"});
                 $locationProvider.html5Mode(true);
             }

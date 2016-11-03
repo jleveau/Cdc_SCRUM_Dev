@@ -28,7 +28,6 @@ router.post('/adduser', function (req, res, next) {
         } else {
             user.addUser(req.body.username, req.body.email, req.body.password);
             res.send('respond with resource');
-            console.log("grjzgnrzgrgigzri");
         }
         //TODO add flush messages
     });

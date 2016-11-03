@@ -5,7 +5,6 @@ angular.module('User',[])
         $scope.params = $routeParams;
         //TODO replace with getAllUsers()
         $scope.users = [{id:1,username : "toto"}, {id:2,username: "tata"}, {id:3,username: "bertrand"}];
-
         // TODO Replace with getCurrent_User($scope.params.id)
         $scope.user = {
             username: "username",
