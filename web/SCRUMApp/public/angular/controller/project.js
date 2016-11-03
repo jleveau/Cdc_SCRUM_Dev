@@ -28,13 +28,17 @@ angular.module('Project', [])
                 'image' : '/public/images/github.png'
             },
             'member_list' : [{
+                'id' : 4,
                 'username' : "toto",
                 'image' : '/public/images/github.png'
             },{
+                'id' : 5,
                 'username' : "tata",
                 'image' : '/public/images/github.png'
             }],
         };
+
+        Projects.setProject($scope.project);
 
         $scope.getProject = function(){
           Projects.get($scope.params.project_id)

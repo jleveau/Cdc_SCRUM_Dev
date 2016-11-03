@@ -16,10 +16,12 @@ angular.module('Home',[])
     }, function errorCallback(response) {
         console.log("response");
     });
+    // TOREMOVE
+    $scope.projects = [{name: "toto"}, {name: "tata"}];
+
 
     ////////// SearchBar
     //TO DO replace with request to get all public projects + logged user project
-    $scope.projects_search = [];
     $scope.limit = 5; // max 10 project loaded
     $scope.projects_search = $scope.projects;
     $scope.searchProject = '';
