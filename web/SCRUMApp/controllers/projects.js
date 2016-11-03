@@ -28,17 +28,15 @@ module.exports.addproject = function(req, res) {
     console.log(Project);
     var project_squeleton =
     {
-        name: 		 "",
+        name: 	       "",
         specification: "",
         product_owner: "",
+        status : 'public',
         member_list: [],
         github: "",
-        status: "",
         date_start: new Date("12/12/12"),
         description: "",
-        sprint_duration: "",
-        date_created: new Date("12/12/12"),
-        date_updated: new Date("12/12/12")
+        sprint_duration: ""
     }
     for(var key in req.body) project_squeleton[key]=req.body[key];
     var project = new Project(project_squeleton);
@@ -68,3 +66,13 @@ module.exports.deleteProject = function(req, res) {
 	    })
 	});
 };
+
+// GET - Return all projects Publics in the DB
+module.exports.findProjectsPublics = function(req, res) {
+	Project.find({
+		'status' : 'public'
+		}, function (err, projects){
+			if(err) return res.send(500, err.message);
+			return res.status(200).jsonp(projects);
+		}
+)};
