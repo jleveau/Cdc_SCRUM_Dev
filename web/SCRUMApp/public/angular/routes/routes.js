@@ -30,10 +30,12 @@ var Routes = angular.module('Routes',["ngRoute","ngResource"])
                         title: "Project"
                      })
                     .when("/project/:project_id/team", {
+                        title: "Team",
                         templateUrl: "/partials/team.jade",
                         controller: "ProjectController",
                     })
                     .when("/project/:project_id/backlog", {
+                        title : "Backlog",
                         templateUrl: "/partials/backlog.jade",
                         controller: "ProjectController",
                     })
@@ -54,6 +56,7 @@ var Routes = angular.module('Routes',["ngRoute","ngResource"])
                         controller: "ProjectController",
                     })
                     .when("/users/:user_id", {
+                        title: "Member Page",
                         templateUrl: "/partials/user.jade",
                         controller: "UserController",
                     })

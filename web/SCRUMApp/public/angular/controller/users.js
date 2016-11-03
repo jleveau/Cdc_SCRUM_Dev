@@ -17,7 +17,7 @@ angular.module('User',[])
              followed_projects: [{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' }],
             date_created: new Date(),
             date_updated: new Date()
-        }
+        };
 
 ////////// SearchBar
         //TO DO replace with request to get all public projects + logged user project
@@ -29,15 +29,15 @@ angular.module('User',[])
             angular.copy(user_search_result,$scope.searchUser);
         };
 
-        $scope.add_user_to_project = function(project){
-            
+        $scope.add_user_to_project = function(){
+            var user_add = null;
             if ($scope.searchUser.hasOwnProperty("id")){
-                var user_add = angular.copy($scope.searchUser,user_add );
+                user_add = angular.copy($scope.searchUser,user_add );
                 Projects.addMember(user_add,function(){
                     Projects.updateProject();
                 });
             }
-        }
+        };
         ///////// End Searchbar
 
     }]);

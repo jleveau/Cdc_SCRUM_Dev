@@ -40,7 +40,6 @@ module.exports.addproject = function(req, res) {
     }
     for(var key in req.body) project_squeleton[key]=req.body[key];
     var project = new Project(project_squeleton);
-    console.log(project);
     project.save(function(err, project) {
 	if(err) return res.send(500, err.message);
     	return res.status(200).jsonp(project);
