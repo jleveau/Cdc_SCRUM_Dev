@@ -1,10 +1,18 @@
 //angular modules
 angular.module('User',[])
 
-    .controller('UserController', ['$scope','$routeParams','Projects', function($scope,$routeParams,Projects) {
+    .controller('UserController', ['$scope','$routeParams','Projects','$http', function($scope,$routeParams,Projects,$http) {
         $scope.params = $routeParams;
         //TODO replace with getAllUsers()
-        $scope.users = [{id:1,username : "toto"}, {id:2,username: "tata"}, {id:3,username: "bertrand"}];
+        $scope.users = [];
+        $scope.users_search = [];
+
+        $http.get('users/allusers').then(function(response){
+            $scope.users = response.data;
+            $scope.users_search = $scope.users;
+
+        });
+
         // TODO Replace with getCurrent_User($scope.params.id)
         $scope.user = {
             username: "username",
@@ -21,7 +29,6 @@ angular.module('User',[])
 ////////// SearchBar
         //TO DO replace with request to get all public projects + logged user project
         $scope.limit = 5; // max 10 project loaded
-        $scope.users_search = $scope.users;
         $scope.searchUser= '';
 
         $scope.setUser = function (user_search_result) {
@@ -30,7 +37,8 @@ angular.module('User',[])
 
         $scope.add_user_to_project = function(){
             var user_add = null;
-            if ($scope.searchUser.hasOwnProperty("id")){
+            console.log($scope.searchUser)
+            if ($scope.searchUser.hasOwnProperty("_id")){
                 user_add = angular.copy($scope.searchUser,user_add );
                 Projects.addMember(user_add,function(){
                     Projects.updateProject();

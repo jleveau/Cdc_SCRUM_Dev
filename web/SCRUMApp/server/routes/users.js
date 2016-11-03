@@ -35,6 +35,16 @@ router.post('/adduser', function (req, res, next) {
 });
 
 /**
+ * route retrieve all users
+ */
+router.get('/allusers', function (req, res, next) {
+    return user.getAllUsers(function(users){
+        res.status(200).jsonp(users);
+    });
+    //next();
+});
+
+/**
  * route to sign in
  * create session with user data
  * locals.user_data : to get user data in our views
