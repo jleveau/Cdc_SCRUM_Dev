@@ -55,7 +55,7 @@ router.post('/signin', function (req, res, next) {
     }
     user.signIn(req.body.username, req.body.password, function (user_info) {
         if (user_info[0] !== undefined) {
-            req.session.user_session = user_info[0]["username"] + " mail : " + user_info[0]["mail"];
+            req.session.user_session = user_info[0]["_id"];
             res.locals.user_data = req.session.user_session;
             res.render('/');
         } else {
