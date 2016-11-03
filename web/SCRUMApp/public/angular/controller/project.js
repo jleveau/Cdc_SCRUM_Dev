@@ -6,7 +6,7 @@ angular.module('Project', [])
                                             function($scope, $routeParams,$location,$http,Projects) {
 
         $scope.params = $routeParams;
-        $scope.new_project = {};
+        $scope.new_project = {status: 'public'};
 
         // TODO getCurrent_User($scope.params.id)
         $scope.user = {
