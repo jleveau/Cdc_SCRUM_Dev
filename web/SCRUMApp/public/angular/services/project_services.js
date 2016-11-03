@@ -27,6 +27,11 @@ angular.module('ProjectServices', [])
                     return response.data;
                 });;
             },
+            getPublic:function(){
+                return $http.get('/api/projectsPublic').then(function(response){
+                    return response.data;
+                });
+            },
             create : function(project_data) {
                 return $http.post('/api/project', project_data).then(function(response){
                     return response.data;
