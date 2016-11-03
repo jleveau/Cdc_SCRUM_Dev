@@ -14,16 +14,16 @@ var users = new mongoose.Schema({
 
 var projects = new mongoose.Schema({
 	member_list: [{ type : Number, ref: 'users' }],
-	name: String,
+	name: { type: String, required: true },
 	specification: Buffer,
 	product_owner: { type : Number, ref: 'users' },
 	github: String,
-	status: String, 
-	date_start: Date,
+	status: { type: String, enum: ['public', 'private'], default: 'public' },
+	date_start: { type: Date, required: true },
 	description: String,
-	sprint_duration: Number,
-	date_created: Date, 
-	date_updated: Date
+	sprint_duration: { type: Number, required: true },
+	date_created: { type: Date, default: Date.now },
+	date_updated: { type: Date, default: Date.now }
 });
 
 var sprints = new mongoose.Schema({
@@ -32,8 +32,8 @@ var sprints = new mongoose.Schema({
 	number_sprint: Number,
 	sprint_duration: Number,
 	project: { type : Number, ref: 'projects' },
-	date_created: Date, 
-	date_updated: Date	
+	date_created: { type: Date, default: Date.now },
+	date_updated: { type: Date, default: Date.now }
 });
 
 var userstories = new mongoose.Schema({
@@ -46,8 +46,8 @@ var userstories = new mongoose.Schema({
 	priority: Number,
 	estimated_cost: Number,
 	sprint: { type : Number, ref: 'sprint' },
-	date_created: Date, 
-	date_updated: Date
+	date_created: { type: Date, default: Date.now },
+	date_updated: { type: Date, default: Date.now }
 });
 
 var tasks = new mongoose.Schema({
@@ -60,8 +60,8 @@ var tasks = new mongoose.Schema({
 	state: String,
 	list_us: [{ type : Number, ref: 'userstories' }],
 	list_tasks_depend : [{ type : Number, ref: 'tasks' }],
-	date_created: Date, 
-	date_updated: Date
+	date_created: { type: Date, default: Date.now },
+	date_updated: { type: Date, default: Date.now }
 });
 
 //var users = mongoose.model('users', users);
