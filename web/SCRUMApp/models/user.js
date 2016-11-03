@@ -23,7 +23,6 @@ class user {
             date_created: new Date(),
             date_updated: null
         });
-
         newuser.save(function (err) {
             if (err) throw err;
         });

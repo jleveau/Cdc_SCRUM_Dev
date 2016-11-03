@@ -1,0 +1,33 @@
+.row
+    .col-md-8
+        include user-description
+    .col-md-4
+        .row
+            .panel.panel-primary
+                .panel-heading
+                    h3.panel-title Followed Projects
+                .panel-body
+                    .tab-content
+                        #followed_project_list.tab-pane.active
+                            ul(ng-repeat="followed_project in user.followed_projects")
+                                .media.user-media
+                                    .media-left
+                                        span.glyphicon.glyphicon-folder-open.project_icon
+
+                                    .media-body
+                                        h4.media-heading {{followed_project.name}}
+            .panel.panel-primary
+                .panel-heading
+                    h3.panel-title Your Projects
+                        a#add_project_button.glyphicon.glyphicon-plus(ng-href='/project/new')
+
+                .panel-body
+                    .tab-content
+                        #project_list.tab-pane.active
+                            ul(ng-repeat="project in user.projects")
+                                .media.user-media
+                                    .media-left
+                                        p
+                                            span.glyphicon.glyphicon-folder-open.project_icon
+                                    .media-body
+                                        h4.media-heading {{project.name}}

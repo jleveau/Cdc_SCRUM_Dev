@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var schema = require("../models/scrumdb");
 var Project  = mongoose.model('projects');
 
+
 //GET - Return all projects in the DB
 module.exports.findAllProjects = function(req, res) {
     Project.find(function(err, projects) {
@@ -24,15 +25,24 @@ module.exports.findById = function(req, res) {
 //POST - Insert a new Project in the DB
 module.exports.addproject = function(req, res) {
     console.log('POST');
-    console.log(req.body);
-
-    var project = new Project({
-	//TODO
-    });
-
+    console.log(Project);
+    var project_squeleton =
+    {
+        name: 	       "",
+        specification: "",
+        product_owner: "",
+        status : 'public',
+        member_list: [],
+        github: "",
+        date_start: new Date("12/12/12"),
+        description: "",
+        sprint_duration: ""
+    }
+    for(var key in req.body) project_squeleton[key]=req.body[key];
+    var project = new Project(project_squeleton);
     project.save(function(err, project) {
 	if(err) return res.send(500, err.message);
-    	res.status(200).jsonp(project);
+    	return res.status(200).jsonp(project);
     });
 };
 
@@ -56,3 +66,14 @@ module.exports.deleteProject = function(req, res) {
 	    })
 	});
 };
+
+
+// GET - Return all projects Publics in the DB
+module.exports.findProjectsPublics = function(req, res) {
+	Project.find({
+		'status' : 'public'
+		}, function (err, projects){
+			if(err) return res.send(500, err.message);
+			return res.status(200).jsonp(projects);
+		}
+)};
