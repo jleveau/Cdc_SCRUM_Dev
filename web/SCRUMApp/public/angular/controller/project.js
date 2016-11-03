@@ -13,7 +13,6 @@ angular.module('Project', [])
             username: "username"
         };
 
-        //TODO Get project
         if ($scope.params.project_id){
             Projects.get($scope.params.project_id).then(function(response){
                 $scope.project = response.data;
