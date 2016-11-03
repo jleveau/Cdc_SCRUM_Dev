@@ -12,15 +12,22 @@ angular.module('Project', [])
         };
 
         //TODO Get project
-
-        Projects.get($scope.params.project_id).then(function(response){
-            $scope.project = response.data;
-            Projects.setProject($scope.project);
-        });
+        if ($scope.params.project_id){
+            Projects.get($scope.params.project_id).then(function(response){
+                $scope.project = response.data;
+                Projects.setProject($scope.project);
+            });
+        }
 
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
+        };
+
+        $scope.createProject = function (){
+            Projects.create($scope.new_project).then(function(response){
+                $location.path( "/project/" + response._id);
+            });
         };
 
     }]);
