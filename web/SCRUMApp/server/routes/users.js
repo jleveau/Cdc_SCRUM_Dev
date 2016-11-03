@@ -75,6 +75,7 @@ router.get('/signout', function (req, res, next) {
     //TODO redirect the user.
 });
 
+
 /**
  * function pour verifier si un user est connect
  */
