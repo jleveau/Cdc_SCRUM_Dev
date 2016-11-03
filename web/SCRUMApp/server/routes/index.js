@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var models = require("../../controllers/projects");
 
 /* GET template by name */
 router.get('/partials/:name', function (req, res) {
@@ -11,7 +10,6 @@ router.get('/partials/:name', function (req, res) {
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index');
-
 });
 
 module.exports = router;

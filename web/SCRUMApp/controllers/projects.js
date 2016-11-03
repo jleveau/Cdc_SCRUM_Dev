@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var schema = require("../models/scrumdb");
-var Project  = mongoose.model('projects').schema;
+var Project  = mongoose.model('projects');
 
 
 //GET - Return all projects in the DB
@@ -25,15 +25,24 @@ module.exports.findById = function(req, res) {
 //POST - Insert a new Project in the DB
 module.exports.addproject = function(req, res) {
     console.log('POST');
-    console.log(req.body);
-   
-    var project = new Project({
-	name: 		 req.body.name,
-	github: 	 req.body.github-link,
-	sprint_duration: req.body.sprint_duration,
-	description:     req.body.description
-    });
-       
+    console.log(Project);
+    var project_squeleton =
+    {
+        name: 		 "",
+        specification: "",
+        product_owner: "",
+        member_list: [],
+        github: "",
+        status: "",
+        date_start: new Date("12/12/12"),
+        description: "",
+        sprint_duration: "",
+        date_created: new Date("12/12/12"),
+        date_updated: new Date("12/12/12")
+    }
+    for(var key in req.body) project_squeleton[key]=req.body[key];
+    var project = new Project(project_squeleton);
+    console.log(project);
     project.save(function(err, project) {
 	if(err) return res.send(500, err.message);
     	return res.status(200).jsonp(project);

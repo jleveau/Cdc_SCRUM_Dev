@@ -6,8 +6,8 @@ form.css-form(name = "form", novalidate)
         span(ng-show='(!new_project.name) && form.name.$touched') Your project needs a name.
 
     .form-group
-        label(for='github-link') Github Link
-        input#github-link.form-control(type='text', name="github-link", ng-model='new_project.github')
+        label(for='github_link') Github Link
+        input#github_link.form-control(type='text', name="github_link", ng-model='new_project.github')
 
     .form-group(ng-class="{'has-warning':form.date_start.$invalid && form.date_start.$touched}")
         label(for='date_start') Starting Date *
@@ -15,7 +15,7 @@ form.css-form(name = "form", novalidate)
         div(ng-show='(!new_project.date_start) && form.date_start.$touched') You have to define a starting date.
 
     .form-group(ng-class="{'has-warning':form.sprint_duration.$invalid && form.sprint_duration.$touched}")
-        label(for='sprint_duration') Sprint Duration *
+        label(for='sprint_duration') Sprint Duration (Day) *
         input#sprint_duration.form-control(type='number',name = "sprint_duration", min="0" max="99", ng-model='new_project.sprint_duration', required="")
         div(ng-show='(!new_project.sprint_duration) && form.sprint_duration.$touched') You have to define the sprint duration.
 
