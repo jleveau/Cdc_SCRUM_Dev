@@ -22,17 +22,30 @@ angular.module('ProjectServices', [])
             get : function(id) {
                 return $http.get('/api/project/' + id);
             },
+            getAll: function(){
+                return $http.get('/api/all_projects').then(function(response){
+                    return response.data;
+                });;
+            },
             create : function(project_data) {
-                return $http.post('/api/project', project_data);
+                return $http.post('/api/project', project_data).then(function(response){
+                    return response.data;
+                });;
             },
             delete : function(id) {
-                return $http.delete('/api/project/' + id);
+                return $http.delete('/api/project/' + id).then(function(response){
+                    return response.data;
+                });;
             },
             update : function(project_data){
-                return $http.put('/api/project/' + project_data.id, project_data);
+                return $http.put('/api/project/' + project_data.id, project_data).then(function(response){
+                    return response.data;
+                });;
             },
             updateProject : function(){
-                return $http.put('/api/project/' + project.id, project);
+                return $http.put('/api/project/' + project.id, project).then(function(response){
+                    return response.data;
+                });;
             },
             setProject: setProject,
             addMember: addMember
