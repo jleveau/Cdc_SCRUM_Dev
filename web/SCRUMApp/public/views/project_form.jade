@@ -30,8 +30,7 @@ form.css-form(name = "form", novalidate)
             input#privacy_private(type='radio', name='inlineRadioOptions', ng-model='new_project.status', value="private")
             |  private
         label.radio-inline
-            input#privacy_public(type='radio', name='inlineRadioOptions', ng-model='new_project.status', value="public", checked)
+            input#privacy_public(type='radio', name='inlineRadioOptions', ng-model='new_project.status', value="public", checked='checked')
             |  public
-
 
     input#project_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createProject()', value='Save')
