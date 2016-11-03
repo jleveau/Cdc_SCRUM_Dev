@@ -12,7 +12,7 @@ var userSchema = new Schema({
     image: Buffer,
     first_name: String,
     last_name: String,
-    // followed_projects: [{ type : Number, ref: 'projects' }],
+    followed_projects: [{ type : Number, ref: 'projects' }],
     date_created: Date,
     date_updated: Date
 });

@@ -1,4 +1,6 @@
 //angular modules
+
+angular.module('Project',[])
 angular.module('Project', [])
     .controller('ProjectController', ['$scope', '$routeParams','$location','$http', 'Projects',
                                             function($scope, $routeParams,$location,$http,Projects) {

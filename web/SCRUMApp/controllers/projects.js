@@ -67,6 +67,7 @@ module.exports.deleteProject = function(req, res) {
 	});
 };
 
+
 // GET - Return all projects Publics in the DB
 module.exports.findProjectsPublics = function(req, res) {
 	Project.find({

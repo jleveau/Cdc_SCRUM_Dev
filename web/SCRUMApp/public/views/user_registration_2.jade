@@ -1,0 +1,75 @@
+.container
+    form.form-horizontal(role='form')
+        h2 Registration Form
+        .form-group
+            label.col-sm-3.control-label(for='firstName') Full Name
+            .col-sm-9
+                input#firstName.form-control(type='text', placeholder='Full Name', autofocus='')
+                span.help-block Last Name, First Name, eg.: Smith, Harry
+        .form-group
+            label.col-sm-3.control-label(for='email') Email
+            .col-sm-9
+                input#email.form-control(type='email', placeholder='Email')
+        .form-group
+            label.col-sm-3.control-label(for='password') Password
+            .col-sm-9
+                input#password.form-control(type='password', placeholder='Password')
+        .form-group
+            label.col-sm-3.control-label(for='birthDate') Date of Birth
+            .col-sm-9
+                input#birthDate.form-control(type='date')
+        .form-group
+            label.col-sm-3.control-label(for='country') Country
+            .col-sm-9
+                select#country.form-control
+                    option Afghanistan
+                    option Bahamas
+                    option Cambodia
+                    option Denmark
+                    option Ecuador
+                    option Fiji
+                    option Gabon
+                    option Haiti
+        // /.form-group
+        .form-group
+            label.control-label.col-sm-3 Gender
+            .col-sm-6
+                .row
+                    .col-sm-4
+                        label.radio-inline
+                            input#femaleRadio(type='radio', value='Female')
+                            | Female
+                    .col-sm-4
+                        label.radio-inline
+                            input#maleRadio(type='radio', value='Male')
+                            | Male
+                    .col-sm-4
+                        label.radio-inline
+                            input#uncknownRadio(type='radio', value='Unknown')
+                            | Unknown
+        // /.form-group
+        .form-group
+            label.control-label.col-sm-3 Meal Preference
+            .col-sm-9
+                .checkbox
+                    label
+                        input#calorieCheckbox(type='checkbox', value='Low calorie')
+                        | Low calorie
+                .checkbox
+                    label
+                        input#saltCheckbox(type='checkbox', value='Low salt')
+                        | Low salt
+        // /.form-group
+        .form-group
+            .col-sm-9.col-sm-offset-3
+                .checkbox
+                    label
+                        input(type='checkbox')
+                        | I accept
+                        a(href='#') terms
+        // /.form-group
+        .form-group
+            .col-sm-9.col-sm-offset-3
+                button.btn.btn-primary.btn-block(type='submit') Register
+    // /form
+// ./container
