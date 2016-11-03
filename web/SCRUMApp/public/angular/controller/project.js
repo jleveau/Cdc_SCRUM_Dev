@@ -5,9 +5,13 @@ angular.module('Project', [])
 
         $scope.params = $routeParams;
         $scope.new_project = {};
-      /*  if ( $scope.params.project_id == undefined){
-            throw "no project_id given"
-        }*/
+
+        // TODO getCurrent_User($scope.params.id)
+        $scope.user = {
+            username: "username"
+        };
+
+        //TODO Get project
     /*
         $http.get('/api/project/' + $scope.params.project_id, function (req, res) {
             $scope.project = res.data;
@@ -30,9 +34,7 @@ angular.module('Project', [])
                 'username' : "tata",
                 'image' : '/public/images/github.png'
             }],
-
         };
-
 
         $scope.getProject = function(){
           Projects.get($scope.params.project_id)
@@ -45,6 +47,10 @@ angular.module('Project', [])
         };
 
         $scope.createProject= function() {
+            // TODO Add current user to member list for new_project
+           // $scope.new_project.member_list = [];
+           // $scope.new_project.member_list.push($scope.user);
+
             Projects.create($scope.new_project )
                 .success(function(data) {
                     $scope.new_project = {}; // clear the form so our user is ready to enter another
