@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var schema = require("../models/scrumdb");
 var Project  = mongoose.model('projects');
+var User = mongoose.model('users');
+var ObjectId = mongoose.Types.ObjectId;
 
 //var session = require('express-session');
 
@@ -17,6 +19,7 @@ module.exports.findAllProjects = function(req, res) {
 module.exports.findById = function(req, res) {
     Project.findById(req.params.id)
         .populate('member_list')
+        .populate('product_owner')
         .exec(function(err, project) {
          if(err) return res.send(500, err.message);
 
@@ -80,9 +83,11 @@ module.exports.findProjectsPublics = function(req, res) {
 //PUT - Update product_owner
 module.exports.updatePOproject = function(req, res) {
     Project.findById(req.params.id, function(err, project) {
+    console.log(typeof(req.body.product_owner));
 	project.product_owner = req.body.product_owner;
 	project.date_updated = Date.now();
     project.save(function(err) {
+
         if(err) return res.send(500, err.message);
             res.status(200).jsonp(project);
         });

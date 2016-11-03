@@ -9,12 +9,17 @@ angular.module('ProjectServices', [])
             project = _project;
         };
 
+        var setProductOwner = function(user,success){
+            if (user) {
+                project.product_owner = user;
+                success();
+            }
+        }
+
         var addMember = function(user,success, fail) {
             if (project.member_list.length == 0) success();
             if (!project.member_list.some(function(value){
-                    if (value == null)
-                        return false;
-                    return user.id == value.id;
+                    return user._id == value._id;
             })) {
                 project.member_list.push(user);
                 success();
@@ -47,13 +52,12 @@ angular.module('ProjectServices', [])
                     return response.data;
                 });
             },
-            update : function(project_data){
-                return $http.put('/api/project/' + project_data._id, project_data).then(function(response){
+            updateProductOwner: function(){
+                return $http.put('/api/project/product_owner/' + project._id, project).then(function(response){
                     return response.data;
                 });
             },
             updateMembers: function(){
-                console.log(project);
                 return $http.put('/api/project/members/' + project._id, project).then(function(response){
                     return response.data;
                 });
@@ -64,6 +68,7 @@ angular.module('ProjectServices', [])
                 });
             },
             setProject: setProject,
-            addMember: addMember
+            addMember: addMember,
+            setProductOwner: setProductOwner
         }
     });

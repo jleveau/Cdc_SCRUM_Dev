@@ -32,4 +32,10 @@ angular.module('Project', [])
             });
         };
 
+        $scope.updateProductOwner = function(user){
+            Projects.setProductOwner(user,function(){
+                 Projects.updateProductOwner();
+            });
+        }
+
     }]);
