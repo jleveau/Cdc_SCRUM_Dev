@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var schema = require("../models/scrumdb");
 var Project  = mongoose.model('projects');
 
+//var session = require('express-session');
+
 //GET - Return all projects in the DB
 module.exports.findAllProjects = function(req, res) {
     Project.find(function(err, projects) {
@@ -24,7 +26,7 @@ module.exports.findById = function(req, res) {
 //POST - Insert a new Project in the DB
 module.exports.addproject = function(req, res) {
     console.log('POST');
-    console.log(Project);
+    //console.log(req.session.user_session);
     var project_squeleton =
     {
         name: 	       "",
@@ -33,10 +35,10 @@ module.exports.addproject = function(req, res) {
         status : 'public',
         member_list: [],
         github: "",
-        date_start: new Date("12/12/12"),
+        date_start: Date.now(),
         description: "",
         sprint_duration: ""
-    }
+    };
     for(var key in req.body) project_squeleton[key]=req.body[key];
     var project = new Project(project_squeleton);
     project.save(function(err, project) {
@@ -47,9 +49,17 @@ module.exports.addproject = function(req, res) {
 
 //PUT - Update a register already exists
 module.exports.updateProject = function(req, res) {
-    console.log(req);
 
     Project.findById(req.params.id, function(err, project) {
+
+	project.name = req.body.name;
+	project.specification = req.body.specification;
+	project.github = req.body.github;
+	project.status = req.body.status;
+	project.date_start = req.body.date_start;
+	project.description = req.body.description;
+	project.sprint_duration = req.body.sprint_duration;
+	project.date_updated = Date.now();
     project.save(function(err) {
         if(err) return res.send(500, err.message);
             res.status(200).jsonp(project);
@@ -77,3 +87,29 @@ module.exports.findProjectsPublics = function(req, res) {
 			return res.status(200).jsonp(projects);
 		}
 )};
+
+//PUT - Update product_owner
+module.exports.updatePOproject = function(req, res) {
+    Project.findById(req.params.id, function(err, project) {
+	project.product_owner = req.body.product_owner;
+	project.date_updated = Date.now();
+    project.save(function(err) {
+        if(err) return res.send(500, err.message);
+            res.status(200).jsonp(project);
+        });
+    });
+};
+
+//PUT - Update member_list
+module.exports.updateListMemberProject = function(req, res) {
+    Project.findById(req.params.id, function(err, project) {
+	project.member_list.push(req.body.product_owner);
+	project.date_updated = Date.now();
+    project.save(function(err) {
+        if(err) return res.send(500, err.message);
+            res.status(200).jsonp(project);
+        });
+    });
+};
+
+

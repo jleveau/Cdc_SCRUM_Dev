@@ -16,6 +16,10 @@ module.exports = function(app, ctrl) {
 
 	app.get('/api/projectsPublic', ctrl.findProjectsPublics);
 
+	app.put('/api/project/:id', ctrl.updatePOproject);
+
+	app.put('/api/project/:id', ctrl.updateListMemberProject);
+
 	//api routes. use it to return json objects
 	app.get('/api/reachable_projects', function (req, res) {
 		res.send("{projects : [" +
