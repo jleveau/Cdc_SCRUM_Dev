@@ -37,11 +37,12 @@ angular.module('User',[])
 
         $scope.add_user_to_project = function(){
             var user_add = null;
-            console.log($scope.searchUser)
+            if ($scope.searchUser == null)
+                return;
             if ($scope.searchUser.hasOwnProperty("_id")){
                 user_add = angular.copy($scope.searchUser,user_add );
                 Projects.addMember(user_add,function(){
-                    Projects.updateProject();
+                    Projects.updateMembers();
                 });
             }
         };

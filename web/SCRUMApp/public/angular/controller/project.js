@@ -17,6 +17,7 @@ angular.module('Project', [])
             Projects.get($scope.params.project_id).then(function(response){
                 $scope.project = response.data;
                 Projects.setProject($scope.project);
+                console.log($scope.project);
             });
         }
 

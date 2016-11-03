@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var users = new mongoose.Schema({
 	username: String,
@@ -13,10 +14,10 @@ var users = new mongoose.Schema({
 });
 
 var projects = new mongoose.Schema({
-	member_list: [{ type : Number, ref: 'users' }],
+	member_list: [{ type :ObjectId, ref: 'users' }],
 	name: { type: String, required: true },
 	specification: Buffer,
-	product_owner: { type : Number, ref: 'users' },
+	product_owner: { type :ObjectId, ref: 'users' },
 	github: String,
 	status: { type: String, enum: ['public', 'private'], default: 'public' },
 	date_start: { type: Date, required: true },
