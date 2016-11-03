@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var schema = require("../models/scrumdb");
 var Project  = mongoose.model('projects');
 
-
 //GET - Return all projects in the DB
 module.exports.findAllProjects = function(req, res) {
     Project.find(function(err, projects) {
@@ -48,8 +47,9 @@ module.exports.addproject = function(req, res) {
 
 //PUT - Update a register already exists
 module.exports.updateProject = function(req, res) {
+    console.log(req);
+
     Project.findById(req.params.id, function(err, project) {
-	//TODO
     project.save(function(err) {
         if(err) return res.send(500, err.message);
             res.status(200).jsonp(project);
