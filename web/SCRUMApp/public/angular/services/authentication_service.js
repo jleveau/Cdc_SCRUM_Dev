@@ -16,14 +16,15 @@ angular.module('AuthenticationService',[])
 
 
             function getUserStatus() {
-                console.log(user);
                 return user;
             }
 
+            //retrieve data using current
             function getCurrentUser(){
-                return getUserById(user.id);
+                return getUserById(user._id);
             }
 
+            //retrieve data for the user
             function getUserById(id){
                 var deferred = $q.defer();
 
@@ -31,12 +32,12 @@ angular.module('AuthenticationService',[])
                 $http.get('/users/info/' + id)
                 // handle success
                     .success(function (data) {
-                        user = data;
+                        if (data)
+                          user = data;
                         deferred.resolve();
                     })
                     // handle error
                     .error(function (data) {
-                        user = false;
                         deferred.reject();
                     });
 
@@ -44,6 +45,7 @@ angular.module('AuthenticationService',[])
                 return deferred.promise;
             }
 
+            //Set id for logged user
             function getLoggedUser(){
                 var deferred = $q.defer();
 
@@ -51,7 +53,8 @@ angular.module('AuthenticationService',[])
                 $http.get('/users/logged')
                 // handle success
                     .success(function (data) {
-                        user = data;
+                        if (data)
+                            user = {_id: data.id};
                         deferred.resolve();
                     })
                     // handle error

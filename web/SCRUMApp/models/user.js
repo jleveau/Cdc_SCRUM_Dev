@@ -87,7 +87,9 @@ class user {
      * @param cb : callback function
      */
     static getUserById(id,cb){
-        userdb.findById(id,function (err, user) {
+        userdb.findById(id)
+            .populate('user')
+            .exec(function (err, user){
             if (err) throw err;
             cb(user);
         });

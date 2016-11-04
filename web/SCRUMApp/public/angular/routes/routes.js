@@ -87,7 +87,7 @@ Routes.run(function ($rootScope, $location, $route, AuthService) {
         function (event, next, current) {
             AuthService.getLoggedUser().then(function(){
                 if (next.url == '/' && AuthService.getUserStatus()){
-                    $location.path('/users/' + AuthService.getUserStatus().id);
+                    $location.path('/users/' + AuthService.getUserStatus()._id);
                     $route.reload();
                 }
                 if (next.access){
