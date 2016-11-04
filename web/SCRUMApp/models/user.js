@@ -80,6 +80,19 @@ class user {
             cb(user);
         });
     }
+
+    /**
+     * return the user data
+     * @param id : user id
+     * @param cb : callback function
+     */
+    static getUserById(id,cb){
+        userdb.findById(id,function (err, user) {
+            if (err) throw err;
+            cb(user);
+        });
+    }
+
 }
 
 module.exports = user;

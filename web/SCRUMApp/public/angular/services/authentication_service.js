@@ -1,4 +1,4 @@
-angular.module('Authentication',[])
+angular.module('AuthenticationService',[])
     .factory('AuthService',
     ['$q', '$timeout', '$http',
         function ($q, $timeout, $http) {
@@ -14,8 +14,54 @@ angular.module('Authentication',[])
                 }
             }
 
+
             function getUserStatus() {
+                console.log(user);
                 return user;
+            }
+
+            function getCurrentUser(){
+                return getUserById(user.id);
+            }
+
+            function getUserById(id){
+                var deferred = $q.defer();
+
+                // send a get request to the server
+                $http.get('/users/info/' + id)
+                // handle success
+                    .success(function (data) {
+                        user = data;
+                        deferred.resolve();
+                    })
+                    // handle error
+                    .error(function (data) {
+                        user = false;
+                        deferred.reject();
+                    });
+
+                // return promise object
+                return deferred.promise;
+            }
+
+            function getLoggedUser(){
+                var deferred = $q.defer();
+
+                // send a get request to the server
+                $http.get('/users/logged')
+                // handle success
+                    .success(function (data) {
+                        user = data;
+                        deferred.resolve();
+                    })
+                    // handle error
+                    .error(function (data) {
+                        user = false;
+                        deferred.reject();
+                    });
+
+                // return promise object
+                return deferred.promise;
             }
 
             function login(username, password) {
@@ -28,11 +74,11 @@ angular.module('Authentication',[])
                     {username: username, password: password})
                 // handle success
                     .success(function (data, status) {
-                        if(status === 200 && data.status){
-                            user = true;
+                        if(status === 200 && data){
+                            user = data;
                             deferred.resolve();
                         } else {
-                            user = false;
+                            user = null;
                             deferred.reject();
                         }
                     })
@@ -98,10 +144,13 @@ angular.module('Authentication',[])
             // return available functions for use in the controllers
             return ({
                 isLoggedIn: isLoggedIn,
+                getLoggedUser: getLoggedUser,
                 getUserStatus: getUserStatus,
+                getUserById: getUserById,
                 login: login,
                 logout: logout,
-                register: register
+                register: register,
+                getCurrentUser:getCurrentUser
             });
 
         }]);

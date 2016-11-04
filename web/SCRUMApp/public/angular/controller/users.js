@@ -1,7 +1,7 @@
 //angular modules
 angular.module('User',[])
 
-    .controller('UserController', ['$scope','$routeParams','Projects','$http', function($scope,$routeParams,Projects,$http) {
+    .controller('UserController', ['$scope','$routeParams','Projects','$http','AuthService', function($scope,$routeParams,Projects,$http,AuthService) {
         $scope.params = $routeParams;
         //TODO replace with getAllUsers()
         $scope.users = [];
@@ -12,6 +12,12 @@ angular.module('User',[])
             $scope.users_search = $scope.users;
 
         });
+
+        // TODO Replace with getCurrent_User($scope.params.id)
+        AuthService.getCurrentUser().then(function(){
+            $scope.user = AuthService.getUserStatus();
+        });
+
 
         // TODO Replace with getCurrent_User($scope.params.id)
         $scope.user = {

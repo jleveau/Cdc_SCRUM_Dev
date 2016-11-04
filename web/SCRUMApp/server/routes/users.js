@@ -34,6 +34,32 @@ router.post('/adduser', function (req, res, next) {
     //next();
 });
 
+
+
+/**
+ * route retrieve all users
+ */
+router.get('/info/:id', function (req, res, next) {
+    return user.getUserById(req.params.id,function(user){
+        res.status(200).jsonp(user);
+    });
+});
+
+
+/**
+ * route to retrived currently logged user
+ */
+router.get('/logged', function (req, res, next) {
+    console.log("GET /logged");
+    if (req.session.user_session){
+        res.status(200).jsonp({id: req.session.user_session});
+    }
+    else {
+        res.status(200).jsonp(false);
+    }
+});
+
+
 /**
  * route retrieve all users
  */
@@ -49,7 +75,7 @@ router.get('/allusers', function (req, res, next) {
  * create session with user data
  * locals.user_data : to get user data in our views
  */
-router.post('/signin', function (req, res, next) {
+router.post('/login', function (req, res, next) {
     if (!req.session.user_session) {
         req.session.user_session = {};
     }
@@ -57,7 +83,7 @@ router.post('/signin', function (req, res, next) {
         if (user_info[0] !== undefined) {
             req.session.user_session = user_info[0]["_id"];
             res.locals.user_data = req.session.user_session;
-            res.render('/');
+            res.status(200).jsonp(user_info);
         } else {
             res.send("user doesn't exist !");
         }
@@ -69,7 +95,7 @@ router.post('/signin', function (req, res, next) {
  * route to sign out
  * destroy session
  */
-router.get('/signout', function (req, res, next) {
+router.get('/logout', function (req, res, next) {
     req.session.destroy();
     res.send('session destroyed !');
     //TODO redirect the user.
