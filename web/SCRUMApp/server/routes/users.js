@@ -36,8 +36,6 @@ router.post('/adduser', function (req, res, next) {
     //next();
 });
 
-
-
 /**
  * route retrieve all users
  */
@@ -46,7 +44,6 @@ router.get('/info/:id', function (req, res, next) {
         res.status(200).jsonp(user);
     });
 });
-
 
 /**
  * route to retrived currently logged user
@@ -90,7 +87,6 @@ router.post('/login', function (req, res, next) {
             res.status(400);
         }
     })
-    //TODO : redirect the user to continue the registration or in his profile page.
 });
 
 /**

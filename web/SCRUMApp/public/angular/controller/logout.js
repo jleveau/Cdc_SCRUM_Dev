@@ -11,7 +11,6 @@ angular.module('Authentication')
             // call logout from service
             AuthService.logout()
                 .then(function () {
-                    console.log("in");
                     $location.path('/');
                 });
 

@@ -31,10 +31,10 @@ class user {
     /**
      * this function count the number of users with the given 'username' or 'mail'
      * @param username
+     * @param mail
      * @param cb : callback function
      */
     static count(username, mail, cb) {
-        console.log({$or: [{username: username}, {mail: mail}]});
         userdb.count({$or: [{username: username}, {mail: mail}]}, function (err, count) {
             if (err) throw err;
             cb(count);
@@ -44,7 +44,7 @@ class user {
     /**
      * this function search for a user in DB
      * @param username
-     * @param email
+     * @param password
      * @param cb : callback function
      */
     static signIn(username, password, cb) {

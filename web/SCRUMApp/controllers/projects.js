@@ -83,7 +83,6 @@ module.exports.findProjectsPublics = function(req, res) {
 //PUT - Update product_owner
 module.exports.updatePOproject = function(req, res) {
     Project.findById(req.params.id, function(err, project) {
-    console.log(typeof(req.body.product_owner));
 	project.product_owner = req.body.product_owner;
 	project.date_updated = Date.now();
     project.save(function(err) {
