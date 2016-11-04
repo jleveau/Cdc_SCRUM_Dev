@@ -24,8 +24,6 @@ router.get('/', function (req, res, next) {
 router.post('/adduser', function (req, res, next) {
     user.count(req.body.username, req.body.mail, function (count){
         if (count > 0) {
-            console.log(req.body);
-            console.log(count);
             res.error = {error : "Username or email already taken"};
             res.status(400).send(res.error);
         } else {
@@ -33,9 +31,7 @@ router.post('/adduser', function (req, res, next) {
             res.status(200).json({
                 status: 'Registration successful!'
             });
-
         }
-        //TODO add flush messages
     });
     //next();
 });
@@ -91,7 +87,7 @@ router.post('/login', function (req, res, next) {
             res.locals.user_data = req.session.user_session;
             res.status(200).jsonp(user_info);
         } else {
-            res.send("user doesn't exist !");
+            res.status(400);
         }
     })
     //TODO : redirect the user to continue the registration or in his profile page.
@@ -103,10 +99,8 @@ router.post('/login', function (req, res, next) {
  */
 router.get('/logout', function (req, res, next) {
     req.session.destroy();
-    res.send('session destroyed !');
-    //TODO redirect the user.
+    res.status(200).send("session destroyed");
 });
-
 
 /**
  * function pour verifier si un user est connect

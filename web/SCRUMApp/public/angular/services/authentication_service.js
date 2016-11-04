@@ -2,7 +2,6 @@ angular.module('AuthenticationService',[])
     .factory('AuthService',
     ['$q', '$timeout', '$http',
         function ($q, $timeout, $http) {
-
             // create user variable
             var user = null;
 
@@ -101,7 +100,7 @@ angular.module('AuthenticationService',[])
                 var deferred = $q.defer();
 
                 // send a get request to the server
-                $http.get('/users/signout')
+                $http.get('/users/logout')
                 // handle success
                     .success(function (data) {
                         user = false;
