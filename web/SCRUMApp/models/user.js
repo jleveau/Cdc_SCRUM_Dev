@@ -33,8 +33,9 @@ class user {
      * @param username
      * @param cb : callback function
      */
-    static count(username, email, cb) {
-        userdb.count({$or: [{username: username}, {mail: email}]}, function (err, count) {
+    static count(username, mail, cb) {
+        console.log({$or: [{username: username}, {mail: mail}]});
+        userdb.count({$or: [{username: username}, {mail: mail}]}, function (err, count) {
             if (err) throw err;
             cb(count);
         });

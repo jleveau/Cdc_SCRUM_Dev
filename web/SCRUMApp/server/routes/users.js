@@ -22,14 +22,14 @@ router.get('/', function (req, res, next) {
  * first that verify if there is an existing user in DB.
  */
 router.post('/adduser', function (req, res, next) {
-    user.count(req.body.username, req.body.email, function (count){
+    user.count(req.body.username, req.body.mail, function (count){
         if (count > 0) {
             console.log(req.body);
             console.log(count);
             res.error = {error : "Username or email already taken"};
             res.status(400).send(res.error);
         } else {
-            user.addUser(req.body.username, req.body.email, req.body.password);
+            user.addUser(req.body.username, req.body.mail, req.body.password);
             res.status(200).json({
                 status: 'Registration successful!'
             });
