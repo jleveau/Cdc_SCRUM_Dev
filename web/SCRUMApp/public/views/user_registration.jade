@@ -1,14 +1,15 @@
-.alert.alert-danger(ng-show='error') {{errorMessage}}
+div(ng-controller="RegistrationController")
+    .alert.alert-danger(ng-show='error') {{errorMessage}}
 
-form(ng-submit='register()')
-    .form-group
-        label(for='InputUsername')
-        input#InputUsername.form-control(type='text', ng-model='registerForm.username', placeholder='Username' name='username')
-    .form-group
-        label(for='InputEmail1')
-        input#InputEmail1.form-control(type='email', ng-model='registerForm.email', placeholder='Email' name='email')
-    .form-group
-        label(for='InputPassword')
-        input#InputPassword.form-control(type='password', ng-model='registerForm.password', placeholder='Password' name='password')
+    form(ng-submit='register()')
+        .form-group
+            label(for='InputUsername')
+            input#InputUsername.form-control(type='text', ng-model='registerForm.username', placeholder='Username' name='username')
+        .form-group
+            label(for='InputEmail1')
+            input#InputEmail1.form-control(type='email', ng-model='registerForm.email', placeholder='Email' name='email')
+        .form-group
+            label(for='InputPassword')
+            input#InputPassword.form-control(type='password', ng-model='registerForm.password', placeholder='Password' name='password')
 
-    button#button-registration-home.btn.btn-success(type='submit', ng-disabled='disabled') Sign Up to SCRUMApp
+        button#button-registration-home.btn.btn-success(type='submit', ng-disabled='disabled') Sign Up to SCRUMApp

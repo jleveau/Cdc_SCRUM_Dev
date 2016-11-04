@@ -24,10 +24,16 @@ router.get('/', function (req, res, next) {
 router.post('/adduser', function (req, res, next) {
     user.count(req.body.username, req.body.email, function (count){
         if (count > 0) {
-            console.log("REQUEST DENIED");
+            console.log(req.body);
+            console.log(count);
+            res.error = {error : "Username or email already taken"};
+            res.status(400).send(res.error);
         } else {
             user.addUser(req.body.username, req.body.email, req.body.password);
-            res.send('respond with resource');
+            res.status(200).json({
+                status: 'Registration successful!'
+            });
+
         }
         //TODO add flush messages
     });

@@ -21,9 +21,10 @@ angular.module('Authentication')
                 // handle error
                 .catch(function () {
                     $scope.error = true;
-                    $scope.errorMessage = "Something went wrong!";
+                    $scope.errorMessage = "Username already taken";
                     $scope.disabled = false;
                     $scope.registerForm = {};
+                    console.log($scope.errorMessage + " " + $scope.error);
                 });
 
         };

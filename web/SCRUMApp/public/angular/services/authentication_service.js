@@ -128,7 +128,7 @@ angular.module('AuthenticationService',[])
                     {username: username, password: password})
                 // handle success
                     .success(function (data, status) {
-                        if(status === 200 && data.status){
+                        if(status === 200 && data){
                             deferred.resolve();
                         } else {
                             deferred.reject();
