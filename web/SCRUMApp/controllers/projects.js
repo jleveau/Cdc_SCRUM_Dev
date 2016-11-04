@@ -4,7 +4,6 @@ var Project  = mongoose.model('projects');
 var User = mongoose.model('users');
 var ObjectId = mongoose.Types.ObjectId;
 
-//var session = require('express-session');
 
 //GET - Return all projects in the DB
 module.exports.findAllProjects = function(req, res) {
@@ -31,8 +30,6 @@ module.exports.findById = function(req, res) {
 //POST - Insert a new Project in the DB
 module.exports.addproject = function(req, res) {
     console.log('POST');
-    //console.log(req.session.user_session);
-
     var project = new Project(req.body);
     project.save(function(err, project) {
 	if(err) return res.send(500, err.message);
