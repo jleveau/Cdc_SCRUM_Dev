@@ -1,4 +1,5 @@
 var userdb = require('./userSchema');
+
 /**
  * this class ...
  *
@@ -19,7 +20,7 @@ class user {
             image: null,
             first_name: null,
             last_name: null,
-           // followed_projects: [{ type : Number, ref: 'projects' }],
+            //followed_projects: [{ type : Number, ref: 'projects' }],
             date_created: new Date(),
             date_updated: null
         });
@@ -80,6 +81,7 @@ class user {
             cb(user);
         });
     }
+
 }
 
 module.exports = user;

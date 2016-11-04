@@ -72,12 +72,13 @@ router.post('/signin', function (req, res, next) {
 router.get('/signout', function (req, res, next) {
     req.session.destroy();
     res.send('session destroyed !');
-    //TODO redirect the user.
 });
 
+// TODO getProjects d'un user (function + mongoose)
+// TODO Editer user / update des infos apres le login et un clique sur img.
+// TODO les tests de validation (frameword mocha / selenium-drive) => Edition utilisateur
 
-/**
- * function pour verifier si un user est connect
- */
+
+
 
 module.exports = router;

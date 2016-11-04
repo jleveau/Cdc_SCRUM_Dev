@@ -1,4 +1,6 @@
-var express = require('express');
+var express = require('express')
+
+//var express = require('express-session');
 var router = express.Router();
 
 /* GET template by name */
