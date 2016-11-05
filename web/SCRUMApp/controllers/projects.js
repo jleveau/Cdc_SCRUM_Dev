@@ -5,7 +5,6 @@ var UserProject = mongoose.model('user_project');
 var User = mongoose.model('users');
 var ObjectId = mongoose.Types.ObjectId;
 
-
 //GET - Return all projects in the DB
 module.exports.findAllProjects = function(req, res) {
     Project.find(function(err, projects) {
@@ -112,5 +111,3 @@ module.exports.updateListMemberProject = function(req, res) {
         });
     });
 };
-
-

@@ -2,7 +2,6 @@ var express = require('express');
 var session = require('express-session');
 var body = require('body-parser');
 var user = require('./../../models/user');
-
 var router = express.Router();
 
 router.use(session({
@@ -70,14 +69,21 @@ router.get('/allusers', function (req, res, next) {
 /**
  * Just for a test - GET PROJECTS by user ID. from session or params
  */
-router.get('/userprojects',function(req,res){
-    user.getUserProjects(req.session.user_session,function(projects){
-        for(p of projects){
-            user.getProjectsById(p._idProject,function(projects){
-                console.log(projects);
-            });
+router.get('/userprojects/:user_id',function(req,res){
+
+    user.getUserProjects(req.params.user_id,function(user_projects){
+        var project_array = [];
+        var mongoose = require("mongoose");
+        var Schema = mongoose.model('projects');
+        for(user_project of user_projects){
+            Schema.findById(user_project._idProject, function(err, project) {
+                project_array.push(project);
+                if (user_projects.length == project_array.length){
+                    res.status(200).jsonp(project_array);
+                }
+            })
         }
-        res.status(200).jsonp(projects);
+
     });
 });
 
