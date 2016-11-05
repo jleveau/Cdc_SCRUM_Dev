@@ -26,7 +26,6 @@ angular.module('Authentication')
                     $scope.errorMessage = "Username already taken";
                     $scope.disabled = false;
                     $scope.registerForm = {};
-                    console.log($scope.errorMessage + " " + $scope.error);
                 });
 
         };

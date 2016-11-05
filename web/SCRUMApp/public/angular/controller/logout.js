@@ -1,17 +1,19 @@
 //angular modules
 angular.module('Authentication')
-    .controller('LogoutController',
-        [
-            function ($scope, $location, AuthService) {
+    .controller('LogoutController', ['$scope', '$location','AuthService',function ($scope, $location, AuthService) {
 
-                $scope.logout = function () {
+        $scope.logged = function(){
+            return AuthService.isLoggedIn();
+        };
 
-                    // call logout from service
-                    AuthService.logout()
-                        .then(function () {
-                            $location.path('/');
-                        });
+        $scope.logout = function () {
 
-                };
+            // call logout from service
+            AuthService.logout()
+                .then(function () {
+                    $location.path('/');
+                });
 
-            }]);
+        };
+
+    }]);

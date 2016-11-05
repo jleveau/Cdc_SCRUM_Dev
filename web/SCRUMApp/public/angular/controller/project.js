@@ -22,7 +22,6 @@ angular.module('Project', [])
         };
 
         $scope.createProject = function (){
-            console.log($scope.current_user);
             $scope.new_project.product_owner = $scope.current_user;
             $scope.new_project.member_list = [$scope.current_user];
             Projects.create($scope.new_project).then(function(response){
