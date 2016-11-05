@@ -68,7 +68,7 @@ router.get('/allusers', function (req, res, next) {
     //next();
 });
 /**
- *
+ * Just for a test - GET PROJECTS by user ID. from session or params
  */
 router.get('/userprojects',function(req,res){
     return user.getUserProjects(req.session.user_session,function(prj){
