@@ -30,8 +30,10 @@ module.exports.findById = function(req, res) {
 //POST - Insert a new Project in the DB
 module.exports.addproject = function(req, res) {
     console.log('POST');
+
     var project = new Project(req.body);
     project.save(function(err, project) {
+        console.log(project);
 	if(err) return res.send(500, err.message);
     	return res.status(200).jsonp(project);
     });

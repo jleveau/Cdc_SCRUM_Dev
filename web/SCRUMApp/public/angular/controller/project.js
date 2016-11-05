@@ -17,6 +17,12 @@ angular.module('Project', [])
             });
         }
 
+        $scope.isProductOwner = function(){
+            if (!$scope.current_user || !$scope.project) return false;
+            console.log($scope.project);
+            return $scope.current_user._id == $scope.project.product_owner._id;
+        }
+
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
         };

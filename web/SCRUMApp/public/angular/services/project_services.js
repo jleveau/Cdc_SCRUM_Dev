@@ -67,6 +67,7 @@ angular.module('ProjectServices', [])
                     return response.data;
                 });
             },
+
             setProject: setProject,
             addMember: addMember,
             setProductOwner: setProductOwner

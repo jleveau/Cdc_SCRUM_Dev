@@ -15,6 +15,10 @@ angular.module('User',[])
         if ($scope.params.user_id){
             $http.get('users/info/' + $scope.params.user_id).then(function(response){
                 $scope.user = response.data;
+            }).then(function(){
+                $http.get('users/userprojects/' + $scope.user._id).then(function(response){
+                    $scope.user_project = response.data;
+                });
             });
         }
 
