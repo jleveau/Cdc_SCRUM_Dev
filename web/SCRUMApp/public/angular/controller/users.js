@@ -3,7 +3,6 @@ angular.module('User',[])
 
     .controller('UserController', ['$scope','$routeParams','Projects','$http','AuthService', function($scope,$routeParams,Projects,$http,AuthService) {
         $scope.params = $routeParams;
-        //TODO replace with getAllUsers()
         $scope.users = [];
         $scope.users_search = [];
 
@@ -25,7 +24,6 @@ angular.module('User',[])
         AuthService.getCurrentUser().then(function(){
             $scope.current_user = AuthService.getUserStatus();
         });
-
 
 ////////// SearchBar
         //TO DO replace with request to get all public projects + logged user project

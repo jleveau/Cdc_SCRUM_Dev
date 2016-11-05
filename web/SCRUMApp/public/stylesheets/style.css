@@ -45,3 +45,11 @@ a {
 #product-owner-select{
   width:auto;
 }
+
+.user_picture{
+  cursor: pointer
+}
+
+.pointer{
+  cursor: pointer;
+}
