@@ -95,7 +95,7 @@ router.post('/login', function (req, res, next) {
             res.locals.user_data = req.session.user_session;
             res.status(200).jsonp(user_info);
         } else {
-            res.status(400);
+            res.status(400).jsonp({message: "Wrong password or username"});
         }
     })
     //  TODO : redirect the user to continue the registration or in his profile page.
