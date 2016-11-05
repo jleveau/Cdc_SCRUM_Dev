@@ -2,6 +2,10 @@ include project_toolbar
 .row
     .col-md-8
         h2 {{project.name}}
+        .btn-group(ng-if='isProjectMember()',role='group', aria-label='...')
+            button.btn.btn-default(type='button') Edit
+            button.btn.btn-danger(type='button', ng-click='deleteProject()') Delete
+
         .container-fluid#project-description-container
 
             p {{project.description}}

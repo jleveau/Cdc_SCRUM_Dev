@@ -20,9 +20,17 @@ angular.module('Project', [])
 
         $scope.isProductOwner = function(){
             if (!$scope.current_user || !$scope.project) return false;
-            console.log($scope.project);
             return $scope.current_user._id == $scope.project.product_owner._id;
-        }
+        };
+
+        $scope.isProjectMember = function(){
+            if (!$scope.current_user || !$scope.project) return false;
+            console.log($scope.project.member_list);
+            console.log($scope.current_user);
+            return $scope.project.member_list.some(function(member){
+                return member._id == $scope.current_user._id;
+            });
+        };
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
@@ -35,6 +43,12 @@ angular.module('Project', [])
                 $location.path( "/project/" + response._id);
             });
         };
+
+        $scope.deleteProject = function(){
+            Projects.delete($scope.project._id).then(function(response){
+                $location.path( "/users/" + $scope.current_user._id);
+            });
+        }
 
         $scope.updateProductOwner = function(user){
             Projects.setProductOwner(user,function(){

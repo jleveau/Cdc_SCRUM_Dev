@@ -61,9 +61,11 @@ module.exports.updateProject = function(req, res) {
 //DELETE - Delete a Project with specified ID
 module.exports.deleteProject = function(req, res) {
 	Project.findById(req.params.id, function(err, project) {
+        console.log(project);
 	    project.remove(function(err) {
-	    if(err) return res.send(500, err.message);
-                res.status(200);
+	        if(err) return res.send(500, err.message);
+            res.send(200);
+
 	    })
 	});
 };
