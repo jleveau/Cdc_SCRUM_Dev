@@ -35,6 +35,10 @@
     color: white;
 }
 
+.project_media{
+    color: inherit;
+}
+
 .panel-primary>.panel-heading {
     color: #FFFFFF;
     background-color: #000000;

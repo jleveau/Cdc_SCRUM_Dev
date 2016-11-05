@@ -33,9 +33,9 @@
                     .tab-content
                         #project_list.tab-pane.active
                             ul(ng-repeat="project in user.projects")
-                                .media.user-media
-                                    .media-left
-                                        p
+                                a.project_media(ng-href='/project/{{project._id}}' )
+                                    .media.user-media
+                                        .media-left
                                             span.glyphicon.glyphicon-folder-open.project_icon
-                                    .media-body
-                                        h4.media-heading {{project.name}}
+                                        .media-body
+                                            h4.media-heading {{project.name}}
