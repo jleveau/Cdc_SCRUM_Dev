@@ -1,1 +1,1 @@
-var SCRUMApp = angular.module('SCRUMApp', ['Routes','Home','ProjectServices' ,'Project', 'User', 'ngMaterial']);
+var SCRUMApp = angular.module('SCRUMApp', ['Routes','Home','Project','Authentication','ProjectServices','User', 'ngMaterial','AuthenticationService']);

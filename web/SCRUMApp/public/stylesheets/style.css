@@ -27,6 +27,10 @@ a {
   background-color: #f7f7f9;
 }
 
+#product-owner-header{
+  padding-top: 10px;
+}
+
 .user-media{
   padding-top: 10px;
   padding-bottom: 10px;

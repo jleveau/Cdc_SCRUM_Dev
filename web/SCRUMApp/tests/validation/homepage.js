@@ -12,7 +12,6 @@ const timeOut = 15000;
 test.describe('testing homepage', function() {
     this.timeout(timeOut);
 
-
     before(function() {
 
     });
@@ -46,12 +45,7 @@ test.describe('testing homepage', function() {
                     }, 1000);
                 });
             });
-
         });
-
-
-
-
     });
 
 

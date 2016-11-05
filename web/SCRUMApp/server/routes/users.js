@@ -22,16 +22,45 @@ router.get('/', function (req, res, next) {
  * first that verify if there is an existing user in DB.
  */
 router.post('/adduser', function (req, res, next) {
-    user.count(req.body.username, req.body.email, function (count){
+    user.count(req.body.username, req.body.mail, function (count){
         if (count > 0) {
-            console.log("REQUEST DENIED");
+            console.log(req.body);
+            console.log(count);
+            res.error = {error : "Username or email already taken"};
+            res.status(400).send(res.error);
         } else {
-            user.addUser(req.body.username, req.body.email, req.body.password);
-            res.send('respond with resource');
+            user.addUser(req.body.username, req.body.mail, req.body.password);
+            res.status(200).json({
+                status: 'Registration successful!'
+            });
+
         }
         //TODO add flush messages
     });
     //next();
+});
+
+/**
+ * route retrieve all users
+ */
+router.get('/info/:id', function (req, res, next) {
+    return user.getUserById(req.params.id,function(user){
+        res.status(200).jsonp(user);
+    });
+});
+
+
+/**
+ * route to retrived currently logged user
+ */
+router.get('/logged', function (req, res, next) {
+    console.log("GET /logged");
+    if (req.session.user_session){
+        res.status(200).jsonp({id: req.session.user_session});
+    }
+    else {
+        res.status(200).jsonp(false);
+    }
 });
 
 /**
@@ -43,13 +72,25 @@ router.get('/allusers', function (req, res, next) {
     });
     //next();
 });
+/**
+ *
+ */
+router.get('/userprojects',function(req,res){
+    return user.getUserProjects(req.session.user_session,function(prj){
+        for(p of prj){
+            user.getProjectsById(p._idProject,function(projects){
+                console.log(projects);
+            });
+        }
+    });
+});
 
 /**
  * route to sign in
  * create session with user data
  * locals.user_data : to get user data in our views
  */
-router.post('/signin', function (req, res, next) {
+router.post('/login', function (req, res, next) {
     if (!req.session.user_session) {
         req.session.user_session = {};
     }
@@ -57,24 +98,24 @@ router.post('/signin', function (req, res, next) {
         if (user_info[0] !== undefined) {
             req.session.user_session = user_info[0]["_id"];
             res.locals.user_data = req.session.user_session;
-            res.render('/');
+            res.status(200).jsonp(user_info);
         } else {
             res.send("user doesn't exist !");
         }
     })
-    //TODO : redirect the user to continue the registration or in his profile page.
+    //  TODO : redirect the user to continue the registration or in his profile page.
 });
 
 /**
  * route to sign out
  * destroy session
  */
-router.get('/signout', function (req, res, next) {
+router.get('/logout', function (req, res, next) {
     req.session.destroy();
     res.send('session destroyed !');
 });
 
-// TODO getProjects d'un user (function + mongoose)
+
 // TODO Editer user / update des infos apres le login et un clique sur img.
 // TODO les tests de validation (frameword mocha / selenium-drive) => Edition utilisateur
 

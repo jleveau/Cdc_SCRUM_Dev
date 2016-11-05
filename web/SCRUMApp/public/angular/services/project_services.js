@@ -9,8 +9,18 @@ angular.module('ProjectServices', [])
             project = _project;
         };
 
+        var setProductOwner = function(user,success){
+            if (user) {
+                project.product_owner = user;
+                success();
+            }
+        }
+
         var addMember = function(user,success, fail) {
-            if (!project.member_list.some(function(value){ return user.id == value.id; })) {
+            if (project.member_list.length == 0) success();
+            if (!project.member_list.some(function(value){
+                    return user._id == value._id;
+            })) {
                 project.member_list.push(user);
                 success();
             }
@@ -25,7 +35,7 @@ angular.module('ProjectServices', [])
             getAll: function(){
                 return $http.get('/api/all_projects').then(function(response){
                     return response.data;
-                });;
+                });
             },
             getPublic:function(){
                 return $http.get('/api/projectsPublic').then(function(response){
@@ -35,24 +45,30 @@ angular.module('ProjectServices', [])
             create : function(project_data) {
                 return $http.post('/api/project', project_data).then(function(response){
                     return response.data;
-                });;
+                });
             },
             delete : function(id) {
                 return $http.delete('/api/project/' + id).then(function(response){
                     return response.data;
-                });;
+                });
             },
-            update : function(project_data){
-                return $http.put('/api/project/' + project_data.id, project_data).then(function(response){
+            updateProductOwner: function(){
+                return $http.put('/api/project/product_owner/' + project._id, project).then(function(response){
                     return response.data;
-                });;
+                });
+            },
+            updateMembers: function(){
+                return $http.put('/api/project/members/' + project._id, project).then(function(response){
+                    return response.data;
+                });
             },
             updateProject : function(){
-                return $http.put('/api/project/' + project.id, project).then(function(response){
+                return $http.put('/api/project/' + project._id, project).then(function(response){
                     return response.data;
-                });;
+                });
             },
             setProject: setProject,
-            addMember: addMember
+            addMember: addMember,
+            setProductOwner: setProductOwner
         }
     });

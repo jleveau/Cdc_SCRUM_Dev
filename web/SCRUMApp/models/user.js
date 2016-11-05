@@ -1,4 +1,8 @@
+var mongoose = require('mongoose');
 var userdb = require('./userSchema');
+var scumdb = require('./scrumdb');
+var Project = mongoose.model('projects');
+var user_project = mongoose.model('user_project');
 
 /**
  * this class ...
@@ -24,6 +28,7 @@ class user {
             date_created: new Date(),
             date_updated: null
         });
+
         newuser.save(function (err) {
             if (err) throw err;
         });
@@ -34,8 +39,9 @@ class user {
      * @param username
      * @param cb : callback function
      */
-    static count(username, email, cb) {
-        userdb.count({$or: [{username: username}, {mail: email}]}, function (err, count) {
+    static count(username, mail, cb) {
+        console.log({$or: [{username: username}, {mail: mail}]});
+        userdb.count({$or: [{username: username}, {mail: mail}]}, function (err, count) {
             if (err) throw err;
             cb(count);
         });
@@ -75,13 +81,50 @@ class user {
      * this function get all users from db
      * @param cb : callback function
      */
-    static getAllUsers(cb){
-        userdb.find({},function (err, user) {
+    static getAllUsers(cb) {
+        userdb.find({}, function (err, user) {
             if (err) throw err;
             cb(user);
         });
     }
 
+    /**
+     * return the user data
+     * @param id : user id
+     * @param cb : callback function
+     */
+    static getUserById(id, cb) {
+        userdb.findById(id)
+            .populate('user')
+            .exec(function (err, user) {
+                if (err) throw err;
+                cb(user);
+            });
+    }
+
+    /**
+     * get projects data
+     * @param idProject
+     * @param cb
+     */
+    static getProjectsById(idProject, cb) {
+        Project.find({_id: idProject}, function (err, projects) {
+            if (err) throw err;
+            cb(projects);
+        });
+    }
+
+    /**
+     * this function return id's of projects from a user. "voir schema user_project"
+     * @param idUser
+     * @param cb
+     */
+    static getUserProjects(idUser, cb) {
+        user_project.find({_idUser: idUser}, function (err, ids) {
+            if (err) throw err;
+            cb(ids)
+        });
+    }
 }
 
 module.exports = user;

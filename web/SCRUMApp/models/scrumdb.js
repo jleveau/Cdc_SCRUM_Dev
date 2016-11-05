@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var users = new mongoose.Schema({
 	username: String,
@@ -13,17 +14,22 @@ var users = new mongoose.Schema({
 });
 
 var projects = new mongoose.Schema({
-	member_list: [{ type : Number, ref: 'users' }],
+	//member_list: [{ type :ObjectId, ref: 'users' }],
 	name: { type: String, required: true },
 	specification: Buffer,
-	product_owner: { type : Number, ref: 'users' },
+	//product_owner: { type :ObjectId, ref: 'users' },
 	github: String,
 	status: { type: String, enum: ['public', 'private'], default: 'public' },
 	date_start: { type: Date, required: true },
 	description: String,
-	sprint_duration: { type: Number, required: true },
+	//sprint_duration: { type: Number, required: true },
 	date_created: { type: Date, default: Date.now },
 	date_updated: { type: Date, default: Date.now }
+});
+
+var user_project = new mongoose.Schema({
+_idUser : {type : ObjectId , ref : 'users'},
+_idProject : {type : ObjectId , ref : 'projects'}
 });
 
 var sprints = new mongoose.Schema({
@@ -72,5 +78,6 @@ module.exports = mongoose.model('projects', projects);
 module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
 module.exports = mongoose.model('tasks', tasks);
+module.exports = mongoose.model('user_project', user_project);
 
 

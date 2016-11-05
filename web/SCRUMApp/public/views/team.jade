@@ -1,14 +1,28 @@
 include project_toolbar
 
-form(name='Form-product-owner')
-    label(for='product-owner-select')  Product Owner:
-    select#product-owner-select.form-control(name='repeatSelect', ng-model='project.product_owner',ng-change = 'updateProject()' )
-        option(ng-repeat="user in project.member_list", value='{{user}}') {{user.username}}
+h3 Product Owner
 
+form(name='Form-product-owner')
+    label(for='product-owner-select')
+    select#product-owner-select.form-control(name='repeatSelect',ng-model='project.product_owner',
+        ng-change = 'updateProductOwner(project.product_owner)',
+        ng-options= "user.username for user in project.member_list")
+
+.container-fluid#product-owner-header
+    .media-left
+        a(href='#')
+            img.user-desc-image(ng-src="{{project.product_owner.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
+    .media-body
+        h4.media-heading {{project.product_owner.username}}
 
 h3 Members
 .container-fluid#project-memberlist(ng-repeat="user in project.member_list")
-    include user-description
+    .media.user-media
+        .media-left
+            a(ng-href='/users/{{user._id}}')
+                img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
+        .media-body
+            h4.media-heading {{user.username}}
 
 
 form.navbar-form(ng-controller="UserController")

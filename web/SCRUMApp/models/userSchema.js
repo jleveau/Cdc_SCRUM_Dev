@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 //var SALT_WORK_FACTOR = 10;
 
-// create a shema
+// create a schema
 
 var userSchema = new Schema({
     username: {type: String, unique: true},
@@ -17,27 +17,6 @@ var userSchema = new Schema({
     date_updated: Date
 });
 
-/**
- * crypt password before save user data in DB
- */
-/*
-userSchema.pre('save', function(next) {
-    var user = this;
-    if (!user.isModified('password')) return next();
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-        if (err) return next(err);
-        bcrypt.hash(user.password, salt, function(err, hash) {
-            if (err) return next(err);
-            user.password = hash;
-            next();
-        });
-    });
-});
-*/
-// a model using the shema
 var myusers = mongoose.model('users', userSchema);
-
-// make this available in node applications
 module.exports = myusers;
-
 

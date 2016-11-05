@@ -30,8 +30,9 @@
 }
 
 #add_project_button{
-    padding-left: 30px;
     cursor: pointer;
+    padding-left: 30px;
+
 }
 
 .panel-primary>.panel-heading {
