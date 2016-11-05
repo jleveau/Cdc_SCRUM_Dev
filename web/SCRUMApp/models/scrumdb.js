@@ -22,7 +22,7 @@ var projects = new mongoose.Schema({
 	status: { type: String, enum: ['public', 'private'], default: 'public' },
 	date_start: { type: Date, required: true },
 	description: String,
-	//sprint_duration: { type: Number, required: true },
+	sprint_duration: { type: Number, required: true },
 	date_created: { type: Date, default: Date.now },
 	date_updated: { type: Date, default: Date.now }
 });

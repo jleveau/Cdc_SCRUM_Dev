@@ -5,7 +5,12 @@ angular.module('Project', [])
                                             function($scope, $routeParams,$location,$http,Projects, AuthService) {
 
         $scope.params = $routeParams;
-        $scope.new_project = {status: 'public'};
+        $scope.min_date = Date.now();
+
+        if ($location.path() === "/project/new"){
+            $scope.project = {status: 'public'};
+            Projects.setProject($scope.project);
+        }
 
         AuthService.getCurrentUser().then(function(){
             $scope.current_user = AuthService.getUserStatus();
@@ -14,6 +19,8 @@ angular.module('Project', [])
         if ($scope.params.project_id){
             Projects.get($scope.params.project_id).then(function(response){
                 $scope.project = response.data;
+
+                $scope.project.date_start = new Date($scope.project.date_start);
                 Projects.setProject($scope.project);
             });
         }
@@ -32,14 +39,23 @@ angular.module('Project', [])
             });
         };
 
+        $scope.isCreate = function() {
+            return $location.path() === "/project/new";
+        };
+
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
         };
 
+        $scope.go_to_edit = function() {
+            if ($scope.project)
+                $location.path( "/project/edit/" + $scope.project._id);
+        };
+
         $scope.createProject = function (){
-            $scope.new_project.product_owner = $scope.current_user;
-            $scope.new_project.member_list = [$scope.current_user];
-            Projects.create($scope.new_project).then(function(response){
+            $scope.project.product_owner = $scope.current_user;
+            $scope.project.member_list = [$scope.current_user];
+            Projects.create($scope.project).then(function(response){
                 $location.path( "/project/" + response._id);
             });
         };
@@ -48,7 +64,13 @@ angular.module('Project', [])
             Projects.delete($scope.project._id).then(function(response){
                 $location.path( "/users/" + $scope.current_user._id);
             });
-        }
+        };
+
+        $scope.updateProject = function(){
+            Projects.updateProject().then(function(response){
+                $location.path( "/project/" + $scope.project._id);
+            });
+        };
 
         $scope.updateProductOwner = function(user){
             Projects.setProductOwner(user,function(){

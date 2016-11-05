@@ -33,6 +33,13 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
                         title: "New Project",
                         access: {restricted: true}
                     })
+                    .when("/project/edit/:project_id", {
+                        templateUrl: "/partials/project_form.jade",
+                        controller: "ProjectController",
+                        url: "/project/edit",
+                        title: "Edit Project",
+                        access: {restricted: true}
+                    })
                     .when("/project/:project_id", {
                         templateUrl: "/partials/project.jade",
                         controller: "ProjectController",
