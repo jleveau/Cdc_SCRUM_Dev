@@ -32,6 +32,13 @@ angular.module('User',[])
         $scope.limit = 5; // max 10 project loaded
         $scope.searchUser= '';
 
+        $scope.isCurrentUser = function(user){
+            if (user && $scope.current_user) {
+                return $scope.current_user._id == user._id;
+            }
+            return false;
+        };
+
         $scope.setUser = function (user_search_result) {
             angular.copy(user_search_result,$scope.searchUser);
         };

@@ -22,7 +22,7 @@
                                     .media-body
                                         h4.media-heading {{followed_project.name}}-//
             .panel.panel-primary
-                .panel-heading(ng-controller='CurrentUserController')
+                .panel-heading
                     div(ng-if='isCurrentUser(user)')
                         span.panel-title Your Projects
                         a(ng-href='/project/new')

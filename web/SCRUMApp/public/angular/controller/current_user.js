@@ -8,6 +8,7 @@ angular.module('Authentication')
                 if (AuthService.getUserStatus()){
                     AuthService.getCurrentUser().then(function(){
                         $scope.current_user = AuthService.getUserStatus();
+
                     });
                 }
             });
@@ -17,12 +18,6 @@ angular.module('Authentication')
                 $scope.current_user = AuthService.getUserStatus();
             });
         }
-
-        $scope.isCurrentUser = function(user){
-            if (user && $scope.current_user)
-                return $scope.current_user._id = user._id;
-            return false;
-        };
 
         $scope.go_to_userpage = function ( ) {
             $location.path( "/users/" + $scope.current_user._id);
