@@ -22,12 +22,13 @@
                                     .media-body
                                         h4.media-heading {{followed_project.name}}-//
             .panel.panel-primary
-                .panel-heading
-                    h3.panel-title(ng-if='isCurrentUser(user)') Your Projects
-                    h3.panel-title(ng-if='!isCurrentUser(user)') {{user.username}}'s Projects
-
-                    a#add_project_button.glyphicon.glyphicon-plus(ng-href='/project/new')
-
+                .panel-heading(ng-controller='CurrentUserController')
+                    div(ng-if='isCurrentUser(user)')
+                        span.panel-title Your Projects
+                        a(ng-href='/project/new')
+                             span#add_project_button.glyphicon.glyphicon-plus
+                    div(ng-if='!isCurrentUser(user)')
+                        span.panel-title {{user.username}}'s Projects
                 .panel-body
                     .tab-content
                         #project_list.tab-pane.active

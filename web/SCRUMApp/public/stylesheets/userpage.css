@@ -32,7 +32,7 @@
 #add_project_button{
     cursor: pointer;
     padding-left: 30px;
-
+    color: white;
 }
 
 .panel-primary>.panel-heading {
