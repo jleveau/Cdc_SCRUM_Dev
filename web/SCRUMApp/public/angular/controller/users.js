@@ -18,7 +18,6 @@ angular.module('User',[])
                 $scope.user.projects = [];
             }).then(function(){
                 $http.get('users/userprojects/' + $scope.user._id).then(function(response){
-                    console.log(response);
                     $scope.user.projects= response.data;
                 });
             });

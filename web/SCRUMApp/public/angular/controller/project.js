@@ -32,8 +32,6 @@ angular.module('Project', [])
 
         $scope.isProjectMember = function(){
             if (!$scope.current_user || !$scope.project) return false;
-            console.log($scope.project.member_list);
-            console.log($scope.current_user);
             return $scope.project.member_list.some(function(member){
                 return member._id == $scope.current_user._id;
             });

@@ -116,9 +116,7 @@ module.exports.updateListMemberProject = function(req, res) {
                         '_idProject': project.id,
                         '_idUser': new_member
                     });
-                    console.log(user_project);
                     user_project.save(function (err, user_project) {
-                        console.log(user_project);
                     });
                 }
                 if(err) return res.send(500, err.message);

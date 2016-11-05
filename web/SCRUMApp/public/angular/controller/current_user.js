@@ -1,6 +1,7 @@
 //angular modules
 angular.module('Authentication')
     .controller('CurrentUserController', ['$scope', '$location','AuthService',function ($scope, $location, AuthService) {
+        $scope.current_user = null;
 
         if (!AuthService.getUserStatus()){
             AuthService.getLoggedUser().then(function() {
