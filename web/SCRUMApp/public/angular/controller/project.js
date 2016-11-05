@@ -55,7 +55,7 @@ angular.module('Project', [])
         $scope.createProject = function (){
             $scope.project.product_owner = $scope.current_user;
             $scope.project.member_list = [$scope.current_user];
-            Projects.create($scope.project).then(function(response){
+            Projects.create($scope.project,$scope.current_user._id).then(function(response){
                 $location.path( "/project/" + response._id);
             });
         };

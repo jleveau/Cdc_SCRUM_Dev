@@ -42,8 +42,9 @@ angular.module('ProjectServices', [])
                     return response.data;
                 });
             },
-            create : function(project_data) {
-                return $http.post('/api/project', project_data).then(function(response){
+            create : function(project_data, user_id) {
+                var req_body = {user : user_id, project : project_data}
+                return $http.post('/api/project', req_body).then(function(response){
                     return response.data;
                 });
             },

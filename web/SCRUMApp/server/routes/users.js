@@ -71,12 +71,13 @@ router.get('/allusers', function (req, res, next) {
  * Just for a test - GET PROJECTS by user ID. from session or params
  */
 router.get('/userprojects',function(req,res){
-    return user.getUserProjects(req.session.user_session,function(prj){
-        for(p of prj){
+    user.getUserProjects(req.session.user_session,function(projects){
+        for(p of projects){
             user.getProjectsById(p._idProject,function(projects){
                 console.log(projects);
             });
         }
+        res.status(200).jsonp(projects);
     });
 });
 
@@ -98,8 +99,6 @@ router.post('/login', function (req, res, next) {
             res.status(400).jsonp({message: "Wrong password or username"});
         }
     })
-    //  TODO : redirect the user to continue the registration or in his profile page.
-
 });
 
 /**

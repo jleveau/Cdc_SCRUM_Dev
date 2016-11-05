@@ -6,6 +6,7 @@ angular.module('User',[])
         $scope.users = [];
         $scope.users_search = [];
 
+
         $http.get('users/allusers').then(function(response){
             $scope.users = response.data;
             $scope.users_search = $scope.users;
@@ -14,9 +15,10 @@ angular.module('User',[])
         if ($scope.params.user_id){
             $http.get('users/info/' + $scope.params.user_id).then(function(response){
                 $scope.user = response.data;
+                $scope.user.projects = [];
             }).then(function(){
-                $http.get('users/userprojects/' + $scope.user._id).then(function(response){
-                    $scope.user_project = response.data;
+                $http.get('users/userprojects').then(function(response){
+                    $scope.user.projects= response.data;
                 });
             });
         }
