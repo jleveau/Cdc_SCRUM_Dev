@@ -121,8 +121,9 @@ class user {
      * @param cb
      */
     static getUserProjects(idUser, cb) {
+	
         user_project.find({_idUser: idUser}, function (err, ids) {
-            if (err) throw err;
+            if (err) return res.send(500, err.message);
             cb(ids)
         });
     }

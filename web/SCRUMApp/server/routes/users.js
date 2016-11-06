@@ -70,12 +70,14 @@ router.get('/allusers', function (req, res, next) {
  * Just for a test - GET PROJECTS by user ID. from session or params
  */
 router.get('/userprojects/:user_id',function(req,res){
-
     user.getUserProjects(req.params.user_id,function(user_projects){
+	
         var project_array = [];
+	var user_project = {};
         var mongoose = require("mongoose");
         var Schema = mongoose.model('projects');
         for(user_project of user_projects){
+	    console.log(user_project);
             Schema.findById(user_project._idProject, function(err, project) {
                 project_array.push(project);
                 if (user_projects.length == project_array.length){

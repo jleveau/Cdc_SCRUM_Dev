@@ -28,8 +28,8 @@ var projects = new mongoose.Schema({
 });
 
 var user_project = new mongoose.Schema({
-_idUser : {type : ObjectId , ref : 'users'},
-_idProject : {type : ObjectId , ref : 'projects'}
+	_idUser : {type : ObjectId , ref : 'users'},
+	_idProject : {type : ObjectId , ref : 'projects'}
 });
 
 var sprints = new mongoose.Schema({

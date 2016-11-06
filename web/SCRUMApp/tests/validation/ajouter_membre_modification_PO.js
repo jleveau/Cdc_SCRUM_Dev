@@ -26,8 +26,9 @@ test.describe('Testing modification members projet', function() {
         driver.get("http://localhost:8080/project/581e54710bcffd3721e0c3f9").then(function(){
             
 			driver.manage().timeouts().implicitlyWait(50000).then(function(){
-                
-				driver.findElement(selenium.By.name('login')).click();
+                driver.findElement(selenium.By.id('search-input')).sendKeys("lili").then(function(input) {
+					driver.findElement(selenium.By.id('search-button')).click();
+					
 				
                 });
             });
