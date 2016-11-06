@@ -34,7 +34,7 @@ test.describe('Testing inscription et login', function() {
 						driver.findElement(selenium.By.name('password')).sendKeys("ana").then(function(input) {
 							
 							driver.findElement(selenium.By.id('button-registration-home')).click();
-							driver.wait(function() {
+							driver.wait(until.elementTextContains(driver.getElementsByTagName('h2')[0], 'Hello!'));
 								
 								driver.findElement(selenium.By.name('username')).sendKeys("ana").then(function(input) { 
 
@@ -46,14 +46,15 @@ test.describe('Testing inscription et login', function() {
 											return driver.getElementsByTagName('h4')[0].innerHTML.then(function(text) {
 												return text === 'ana';
 											});
-										}, 1000);
+										}, 50000);
 								 		
 									});
 					  	    	});
-							}, 1000);
+							//
 						});
                     });
                 });
             });
         });
     });
+})
