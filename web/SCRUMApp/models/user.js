@@ -3,6 +3,7 @@ var userdb = require('./userSchema');
 var scumdb = require('./scrumdb');
 var Project = mongoose.model('projects');
 var user_project = mongoose.model('user_project');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 /**
  * this class ...
@@ -67,13 +68,51 @@ class user {
      * @param lastName
      * @param cb : callback function
      */
-    static updateUserRecord(username, firstName, lastName, cb) {
+    static updateUserRecord(username, firstName, lastName, email, cb) {
         userdb.findOneAndUpdate({username: username}, {
             first_name: firstName,
-            last_name: lastName, date_updated: new Date()
+            last_name: lastName,
+            date_updated: new Date(),
+            mail: email
         }, function (err, user) {
             if (err) throw err;
             cb(user);
+        });
+    }
+
+    /**
+     * change password
+     * @param idUser
+     * @param currentPassword
+     * @param newPassword
+     * @param cb
+     */
+    static changePassword(idUser, currentPassword, newPassword, cb) {
+        userdb.findById({_id: idUser}, function (err, user) {
+            if (err) throw err;
+            if (user.password == currentPassword) {
+                user.password = newPassword;
+                user.save(function (err, user) {
+                    cb(user);
+                })
+            } else {
+                cb("wrong password");
+            }
+        });
+    }
+
+    /**
+     * delete user from db
+     * @param idUser
+     * @param cb
+     */
+    static deleteUser(idUser,cb){
+        userdb.findById({_id : idUser}, function(err,user){
+            if(err) throw err;
+            user.remove(function(err){
+                if(err) throw err;
+                cb('User deleted');
+            });
         });
     }
 
@@ -125,6 +164,7 @@ class user {
             cb(ids)
         });
     }
+
 }
 
 module.exports = user;

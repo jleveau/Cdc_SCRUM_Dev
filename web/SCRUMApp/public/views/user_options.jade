@@ -1,0 +1,10 @@
+div(ng-controller='LogoutController', ng-hide='!logged()')
+    div(ng-controller='CurrentUserController')
+
+        .media-left
+            a(ng-click='go_to_userpage()')
+                    img.user-desc-image.user_picture(ng-src="{{current_user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
+        .media-body
+            h4.media-heading {{current_user.username}}
+
+        a.logout(ng-click='logout()') Logout

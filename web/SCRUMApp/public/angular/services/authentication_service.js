@@ -20,7 +20,10 @@ angular.module('AuthenticationService',[])
 
             //retrieve data using current
             function getCurrentUser(){
-                return getUserById(user._id);
+                if (user){
+                   return getUserById(user._id);
+                }
+                return null;
             }
 
             //retrieve data for the user

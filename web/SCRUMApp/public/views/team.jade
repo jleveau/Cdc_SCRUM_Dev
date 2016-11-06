@@ -2,7 +2,7 @@ include project_toolbar
 
 h3 Product Owner
 
-form(name='Form-product-owner')
+form(name='Form-product-owner', ng_if = 'isProductOwner()')
     label(for='product-owner-select')
     select#product-owner-select.form-control(name='repeatSelect',ng-model='project.product_owner',
         ng-change = 'updateProductOwner(project.product_owner)',

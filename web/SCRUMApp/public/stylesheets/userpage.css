@@ -32,7 +32,11 @@
 #add_project_button{
     cursor: pointer;
     padding-left: 30px;
+    color: white;
+}
 
+.project_media{
+    color: inherit;
 }
 
 .panel-primary>.panel-heading {

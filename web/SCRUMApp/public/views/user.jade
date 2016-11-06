@@ -2,7 +2,7 @@
     .col-md-8
         .media.user-media
             .media-left
-                a(ng-href='/users/{{user._id}}')
+                a(ng-href='/users/update')
                     img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
             .media-body
                 h4.media-heading {{user.username}}
@@ -23,16 +23,19 @@
                                         h4.media-heading {{followed_project.name}}-//
             .panel.panel-primary
                 .panel-heading
-                    h3.panel-title Your Projects
-                        a#add_project_button.glyphicon.glyphicon-plus(ng-href='/project/new')
-
+                    div(ng-if='isCurrentUser(user)')
+                        span.panel-title Your Projects
+                        a(ng-href='/project/new')
+                             span#add_project_button.glyphicon.glyphicon-plus
+                    div(ng-if='!isCurrentUser(user)')
+                        span.panel-title {{user.username}}'s Projects
                 .panel-body
                     .tab-content
                         #project_list.tab-pane.active
                             ul(ng-repeat="project in user.projects")
-                                .media.user-media
-                                    .media-left
-                                        p
+                                a.project_media(ng-href='/project/{{project._id}}' )
+                                    .media.user-media
+                                        .media-left
                                             span.glyphicon.glyphicon-folder-open.project_icon
-                                    .media-body
-                                        h4.media-heading {{project.name}}
+                                        .media-body
+                                            h4.media-heading {{project.name}}

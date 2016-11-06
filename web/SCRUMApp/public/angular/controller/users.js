@@ -3,9 +3,9 @@ angular.module('User',[])
 
     .controller('UserController', ['$scope','$routeParams','Projects','$http','AuthService', function($scope,$routeParams,Projects,$http,AuthService) {
         $scope.params = $routeParams;
-        //TODO replace with getAllUsers()
         $scope.users = [];
         $scope.users_search = [];
+
 
         $http.get('users/allusers').then(function(response){
             $scope.users = response.data;
@@ -15,6 +15,11 @@ angular.module('User',[])
         if ($scope.params.user_id){
             $http.get('users/info/' + $scope.params.user_id).then(function(response){
                 $scope.user = response.data;
+                $scope.user.projects = [];
+            }).then(function(){
+                $http.get('users/userprojects/' + $scope.user._id).then(function(response){
+                    $scope.user.projects= response.data;
+                });
             });
         }
 
@@ -22,11 +27,17 @@ angular.module('User',[])
             $scope.current_user = AuthService.getUserStatus();
         });
 
-
 ////////// SearchBar
         //TO DO replace with request to get all public projects + logged user project
         $scope.limit = 5; // max 10 project loaded
         $scope.searchUser= '';
+
+        $scope.isCurrentUser = function(user){
+            if (user && $scope.current_user) {
+                return $scope.current_user._id == user._id;
+            }
+            return false;
+        };
 
         $scope.setUser = function (user_search_result) {
             angular.copy(user_search_result,$scope.searchUser);
