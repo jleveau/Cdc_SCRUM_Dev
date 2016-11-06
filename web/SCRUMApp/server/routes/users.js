@@ -22,9 +22,9 @@ router.get('/', function (req, res, next) {
  * first that verify if there is an existing user in DB.
  */
 router.post('/adduser', function (req, res, next) {
-    user.count(req.body.username, req.body.mail, function (count){
+    user.count(req.body.username, req.body.mail, function (count) {
         if (count > 0) {
-            res.error = {error : "Username or email already taken"};
+            res.error = {error: "Username or email already taken"};
             res.status(400).send(res.error);
         } else {
             user.addUser(req.body.username, req.body.mail, req.body.password);
@@ -40,17 +40,18 @@ router.post('/adduser', function (req, res, next) {
  * route retrieve all users
  */
 router.get('/info/:id', function (req, res, next) {
-    return user.getUserById(req.params.id,function(user){
+    return user.getUserById(req.params.id, function (user) {
         res.status(200).jsonp(user);
     });
 });
+
 
 /**
  * route to retrived currently logged user
  */
 router.get('/logged', function (req, res, next) {
     console.log("GET /logged");
-    if (req.session.user_session){
+    if (req.session.user_session) {
         res.status(200).jsonp({id: req.session.user_session});
     }
     else {
@@ -62,7 +63,7 @@ router.get('/logged', function (req, res, next) {
  * route retrieve all users
  */
 router.get('/allusers', function (req, res, next) {
-    return user.getAllUsers(function(users){
+    return user.getAllUsers(function (users) {
         res.status(200).jsonp(users);
     });
     //next();
@@ -70,14 +71,9 @@ router.get('/allusers', function (req, res, next) {
 /**
  * Just for a test - GET PROJECTS by user ID. from session or params
  */
-router.get('/userprojects',function(req,res){
-    return user.getUserProjects(req.session.user_session,function(prj){
-        for(p of prj){
-            user.getProjectsById(p._idProject,function(projects){
-                console.log(projects);
-            });
-        }
-    });
+
+router.get('/userprojects', function (req, res) {
+
 });
 
 /**
@@ -98,8 +94,6 @@ router.post('/login', function (req, res, next) {
             res.status(400);
         }
     })
-    //  TODO : redirect the user to continue the registration or in his profile page.
-
 });
 
 /**
@@ -113,7 +107,7 @@ router.get('/logout', function (req, res, next) {
 
 
 // TODO Editer user / update des infos apres le login et un clique sur img.
-// TODO les tests de validation (frameword mocha / selenium-drive) => Edition utilisateur
+// TODO les tests de validation (framework mocha / selenium-drive) => Edition utilisateur
 
 
 module.exports = router;
