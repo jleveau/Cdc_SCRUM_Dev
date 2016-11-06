@@ -77,10 +77,13 @@ router.get('/allusers', function (req, res, next) {
 
 router.get('/userprojects/:user_id', function (req, res) {
     user.getUserProjects(req.params.user_id, function (user_projects) {
+
         var project_array = [];
+        var user_project = {};
         var mongoose = require("mongoose");
         var Schema = mongoose.model('projects');
         for (user_project of user_projects) {
+            console.log(user_project);
             Schema.findById(user_project._idProject, function (err, project) {
                 project_array.push(project);
                 if (user_projects.length == project_array.length) {
@@ -100,7 +103,7 @@ router.post('/login', function (req, res, next) {
     if (!req.session.user_session) {
         req.session.user_session = {};
     }
-    if(req.body !== undefined){
+    if (req.body !== undefined) {
         user.signIn(req.body.username, req.body.password, function (user_info) {
             if (user_info[0] !== undefined) {
                 req.session.user_session = user_info[0]["_id"];
@@ -110,7 +113,7 @@ router.post('/login', function (req, res, next) {
                 res.status(400).jsonp({message: "Wrong password or username"});
             }
         })
-    }else{
+    } else {
         console.log("req.body, undefined");
     }
 });
