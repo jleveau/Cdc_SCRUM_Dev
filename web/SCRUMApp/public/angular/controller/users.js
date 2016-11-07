@@ -1,7 +1,8 @@
 //angular modules
 angular.module('User',[])
 
-    .controller('UserController', ['$scope','$routeParams','Projects','$http','AuthService', function($scope,$routeParams,Projects,$http,AuthService) {
+    .controller('UserController', ['$scope','$routeParams','Projects','$http','$location','AuthService',
+        function($scope,$routeParams,Projects,$http,$location,AuthService) {
         $scope.params = $routeParams;
         $scope.users = [];
         $scope.users_search = [];
@@ -27,34 +28,37 @@ angular.module('User',[])
             $scope.current_user = AuthService.getUserStatus();
         });
 
-////////// SearchBar
-        //TO DO replace with request to get all public projects + logged user project
-        $scope.limit = 5; // max 10 project loaded
-        $scope.searchUser= '';
-
         $scope.isCurrentUser = function(user){
             if (user && $scope.current_user) {
                 return $scope.current_user._id == user._id;
             }
             return false;
         };
+            
+        ////////// SearchBar
+        //TO DO replace with request to get all public projects + logged user project
+        Projects.getAll().then(function(response){
+                $scope.projects = response;
+                $scope.projects_search = $scope.projects;
+            }, function(response){
+                $scope.data = response.status;
+                $scope.projects_search = $scope.projects;
+            }
+        );
 
-        $scope.setUser = function (user_search_result) {
-            angular.copy(user_search_result,$scope.searchUser);
+        $scope.limit = 5; // max 10 project loaded
+        $scope.searchProject = '';
+
+        $scope.setProject = function (project) {
+            angular.copy(project,$scope.searchProject);
         };
 
-        $scope.add_user_to_project = function(){
-            var user_add = null;
-            if ($scope.searchUser == null)
-                return;
-            if ($scope.searchUser.hasOwnProperty("_id")){
-                user_add = angular.copy($scope.searchUser,user_add );
+        $scope.go = function ( path ) {
+            $location.path( path );
+        };
 
-                Projects.addMember(user_add,function(){
-                    Projects.updateMembers();
-                });
-            }
+        $scope.go_to_project = function ( ) {
+            $location.path( "/project/" + $scope.searchProject._id);
         };
         ///////// End Searchbar
-
     }]);
