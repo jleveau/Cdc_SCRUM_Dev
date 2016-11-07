@@ -27,7 +27,7 @@ block content
                 h4.media-heading {{user.username}}
 
 
-    form.navbar-form(ng-controller="UserController")
+    form.navbar-form(ng-controller="UserController", ng-hide='!isProjectMember()')
         .form-group
             input#search-input.form-control(type='text', placeholder='Search registered user', ng-model = 'searchUser.username' )
             button#search-button.btn.btn-info(type='submit', ng-click='add_user_to_project()')
