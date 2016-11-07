@@ -13,17 +13,6 @@ nav.navbar
 
         ul.nav.navbar-nav.navbar-right
             li
-
-            li
-                form.navbar-form
-                    .form-group
-                        input#search-input.form-control(type='text', placeholder='Search public project', ng-model = "searchProject.name" )
-                        button#search-button.btn.btn-info(type='submit', ng-click='go_to_project()')
-                            span.glyphicon.glyphicon-search
-                            |  Search
-                        ul.list-group.search
-                            li.result(ng-repeat='project in projects_search | filter:searchProject.name | limitTo:limit', ng-hide="!(searchProject.name) + (searchProject.name.length == 0 )")
-                                a.list-group-item(ng-click='setProject(project)') {{project.name}}
             li
                 .navbar-btn
                     a#home-signup.btn.btn-default(ng-href="/login") Sign in
