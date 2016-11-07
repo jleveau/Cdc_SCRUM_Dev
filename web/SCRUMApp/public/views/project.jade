@@ -1,24 +1,26 @@
-include project_toolbar
-.row
-    .col-md-8
-        h2 {{project.name}}
-        .btn-group(ng-if='isProjectMember()',role='group', aria-label='...')
-            button.btn.btn-default(type='button', ng-click='go_to_edit()') Edit
-            button.btn.btn-danger(type='button', ng-click='deleteProject()') Delete
+extends layout
+block content
+    include project_toolbar
+    .row
+        .col-md-8
+            h2 {{project.name}}
+            .btn-group(ng-if='isProjectMember()',role='group', aria-label='...')
+                button.btn.btn-default(type='button', ng-click='go_to_edit()') Edit
+                button.btn.btn-danger(type='button', ng-click='deleteProject()') Delete
 
-        .container-fluid#project-description-container
+            .container-fluid#project-description-container
 
-            p {{project.description}}
-            span started at :
-            p(ng-bind="project.date_start | date:'MM/dd/yyyy'")
+                p {{project.description}}
+                span started at :
+                p(ng-bind="project.date_start | date:'MM/dd/yyyy'")
 
-    .col-md-4
-        h3 With :
+        .col-md-4
+            h3 With :
 
-        .container-fluid#project-memberlist(ng-repeat="user in project.member_list")
-            .media.user-media
-                .media-left
-                    a(ng-href='/users/{{user._id}}')
-                        img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
-                .media-body
-                    h4.media-heading {{user.username}}
+            .container-fluid#project-memberlist(ng-repeat="user in project.member_list")
+                .media.user-media
+                    .media-left
+                        a(ng-href='/users/{{user._id}}')
+                            img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
+                    .media-body
+                        h4.media-heading {{user.username}}

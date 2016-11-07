@@ -55,12 +55,15 @@ angular.module('AuthenticationService',[])
                 $http.get('/users/logged')
                 // handle success
                     .success(function (data) {
+
                         if (data)
                             user = {_id: data.id};
                         deferred.resolve();
                     })
                     // handle error
                     .error(function (data) {
+                        console.log(data);
+
                         user = false;
                         deferred.reject();
                     });
