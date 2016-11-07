@@ -28,7 +28,13 @@ angular.module('User',[])
             $scope.current_user = AuthService.getUserStatus();
         });
 
-
+        $scope.isCurrentUser = function(user){
+            if (user && $scope.current_user) {
+                return $scope.current_user._id == user._id;
+            }
+            return false;
+        };
+            
         ////////// SearchBar
         //TO DO replace with request to get all public projects + logged user project
         Projects.getAll().then(function(response){

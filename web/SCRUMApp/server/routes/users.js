@@ -114,7 +114,7 @@ router.post('/login', function (req, res, next) {
             }
         })
     } else {
-        console.log("req.body, undefined");
+        res.status(400).jsonp({message: "req.body, undefined"});
     }
 });
 
