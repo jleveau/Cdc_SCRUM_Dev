@@ -1,6 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var body = require('body-parser');
+var bcrypt = require('bcrypt-nodejs');
 var user = require('./../../models/user');
 var router = express.Router();
 
@@ -27,7 +28,8 @@ router.post('/adduser', function (req, res, next) {
                 res.error = {error: "Username or email already taken"};
                 res.status(400).send(res.error);
             } else {
-                user.addUser(req.body.username, req.body.mail, req.body.password);
+                var hashPassword = bcrypt.hashSync(req.body.password);
+                user.addUser(req.body.username, req.body.mail, hashPassword);
                 res.status(200).json({
                     status: 'Registration successful!'
                 });
@@ -77,7 +79,6 @@ router.get('/allusers', function (req, res, next) {
 
 router.get('/userprojects/:user_id', function (req, res) {
     user.getUserProjects(req.params.user_id, function (user_projects) {
-
         var project_array = [];
         var user_project = {};
         var mongoose = require("mongoose");
@@ -99,13 +100,14 @@ router.get('/userprojects/:user_id', function (req, res) {
  * create session with user data
  * locals.user_data : to get user data in our views
  */
+
 router.post('/login', function (req, res, next) {
     if (!req.session.user_session) {
         req.session.user_session = {};
     }
     if (req.body !== undefined) {
-        user.signIn(req.body.username, req.body.password, function (user_info) {
-            if (user_info[0] !== undefined) {
+        user.signIn(req.body.username,function (user_info) {
+            if (user_info[0] !== undefined && bcrypt.compareSync(req.body.password,user_info[0]['password'])) {
                 req.session.user_session = user_info[0]["_id"];
                 res.locals.user_data = req.session.user_session;
                 res.status(200).jsonp(user_info);
@@ -126,10 +128,5 @@ router.get('/logout', function (req, res, next) {
     req.session.destroy();
     res.send('session destroyed !');
 });
-
-
-// TODO Editer user / update des infos apres le login et un clique sur img.
-// TODO les tests de validation (framework mocha / selenium-drive) => Edition utilisateur
-
 
 module.exports = router;

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 var userdb = require('./userSchema');
 var scumdb = require('./scrumdb');
 var Project = mongoose.model('projects');
@@ -18,6 +19,7 @@ class user {
      * @param password
      */
     static addUser(username, email, password) {
+
         var newuser = new userdb({
             username: username,
             mail: email,
@@ -54,8 +56,8 @@ class user {
      * @param password
      * @param cb : callback function
      */
-    static signIn(username, password, cb) {
-        userdb.find({username: username, password: password}, function (err, user) {
+    static signIn(username,cb) {
+        userdb.find({username: username}, function (err, user) {
             if (err) throw err;
             cb(user);
         });
@@ -90,8 +92,9 @@ class user {
     static changePassword(idUser, currentPassword, newPassword, cb) {
         userdb.findById({_id: idUser}, function (err, user) {
             if (err) throw err;
-            if (user.password == currentPassword) {
-                user.password = newPassword;
+            console.log(user.password);
+            if (bcrypt.compareSync(currentPassword,user.password)) {
+                user.password = bcrypt.hashSync(newPassword);
                 user.save(function (err, user) {
                     cb(user);
                 })
