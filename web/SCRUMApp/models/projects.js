@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var schema = require("../models/scrumdb");
+var schema = require("./scrumdb");
 var Project  = mongoose.model('projects');
 var UserProject = mongoose.model('user_project');
 var User = mongoose.model('users');

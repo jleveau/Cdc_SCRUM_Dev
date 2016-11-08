@@ -21,15 +21,27 @@ html( ng-app='SCRUMApp')
         script(src='/js/angular-animate.js')
         script(src='/js/angular-aria.js')
 
-        script(src='/public/angular/controller/login.js')
-        script(src='/public/angular/controller/logout.js')
-        script(src='/public/angular/controller/registration.js')
+        script(src='/public/angular/controller/authentication/login.js')
+        script(src='/public/angular/controller/authentication/logout.js')
+        script(src='/public/angular/controller/authentication/registration.js')
+        script(src='/public/angular/controller/authentication/current_user.js')
+
+        script(src='/public/angular/controller/tasks/add.js')
+        script(src='/public/angular/controller/tasks/edit.js')
+        script(src='/public/angular/controller/tasks/list.js')
+
+        script(src='/public/angular/controller/userstories/add.js')
+        script(src='/public/angular/controller/userstories/edit.js')
+        script(src='/public/angular/controller/userstories/list.js')
 
         script(src='/public/angular/controller/home.js')
         script(src='/public/angular/controller/project.js')
-        script(src='/public/angular/controller/current_user.js')
         script(src='/public/angular/controller/users.js')
+
         script(src='/public/angular/services/project_services.js')
         script(src='/public/angular/services/authentication_service.js')
+        script(src='/public/angular/services/tasks_services.js')
+        script(src='/public/angular/services/userstories_services.js')
+
         script(src='/public/angular/routes/routes.js')
         script(src='/public/angular/core.js')

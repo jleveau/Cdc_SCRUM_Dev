@@ -34,11 +34,17 @@ test.describe('Testing inscription et login', function() {
 						driver.findElement(selenium.By.name('password')).sendKeys("ana").then(function (input) {
 
 							driver.findElement(selenium.By.id('button-registration-home')).click();
+
 							driver.wait(function () {
 
 								driver.findElement(selenium.By.name('username')).sendKeys("ana").then(function (input) {
 
 									driver.findElement(selenium.By.name('password')).sendKeys("ana").then(function (input) {
+
+							driver.wait(until.elementTextContains(driver.getElementsByTagName('h2')[0], 'Hello!'));
+								
+								driver.findElement(selenium.By.name('username')).sendKeys("ana").then(function(input) { 
+
 
 										driver.findElement(selenium.By.name('login')).click();
 										driver.wait(function () {
@@ -57,4 +63,6 @@ test.describe('Testing inscription et login', function() {
 			});
 		});
 	});
-});
+	});
+	});
+

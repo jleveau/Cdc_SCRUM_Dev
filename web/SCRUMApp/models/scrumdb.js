@@ -63,7 +63,7 @@ var tasks = new mongoose.Schema({
 	estimated_cost: Number,
 	estimated_duration: Number,
 	responsable: { type : Number, ref: 'users' },
-	state: String,
+	state: { type: String, enum: ['TODO', 'DOING', 'DONE'], default: 'public' },
 	list_us: [{ type : Number, ref: 'userstories' }],
 	list_tasks_depend : [{ type : Number, ref: 'tasks' }],
 	date_created: { type: Date, default: Date.now },

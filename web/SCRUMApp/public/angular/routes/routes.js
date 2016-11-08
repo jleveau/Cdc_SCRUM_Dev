@@ -84,6 +84,7 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
                         controller: "UserController",
                         access: {restricted: true}
                     })
+
                     .otherwise({redirectTo: "/"});
                 $locationProvider.html5Mode(true);
             }

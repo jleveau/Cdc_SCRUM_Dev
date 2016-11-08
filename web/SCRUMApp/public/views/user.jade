@@ -1,27 +1,41 @@
-.row
-    .col-md-8
-        .media.user-media
-            .media-left
-                a(ng-href='/users/update')
-                    img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
-            .media-body
-                h4.media-heading {{user.username}}
-    .col-md-4
-        .row
-            //.panel.panel-primary
-                .panel-heading
-                    h3.panel-title Followed Projects
-                .panel-body
-                    .tab-content
-                        #followed_project_list.tab-pane.active
-                            ul(ng-repeat="followed_project in user.followed_projects")
-                                .media.user-media
-                                    .media-left
-                                        span.glyphicon.glyphicon-folder-open.project_icon
+extends layout
+block content
+    .row.searchbar
+        .col-md-4
+            .media.user-media
+                .media-left
+                    a(ng-href='/users/update')
+                        img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
+                .media-body
+                    h4.media-heading {{user.username}}
+        .col-md-4
+            form.form-inline
+                .form-group
+                    input#search-input.form-control(type='text', placeholder='Search public project', ng-model = "searchProject.name" )
+                    button#search-button.btn.btn-info(type='submit', ng-click='go_to_project()')
+                        span.glyphicon.glyphicon-search
+                        |  Search
+                    ul.list-group.search
+                        li.result(ng-repeat='project in projects_search | filter:searchProject.name | limitTo:limit', ng-hide="!(searchProject.name) + (searchProject.name.length == 0 )")
+                            a.list-group-item(ng-click='setProject(project)') {{project.name}}
 
-                                    .media-body
-                                        h4.media-heading {{followed_project.name}}-//
-            .panel.panel-primary
+    .row
+        //.panel.panel-primary
+            .panel-heading
+                h3.panel-title Followed Projects
+            .panel-body
+                .tab-content
+                    #followed_project_list.tab-pane.active
+                        ul(ng-repeat="followed_project in user.followed_projects")
+                            .media.user-media
+                                .media-left
+                                    span.glyphicon.glyphicon-folder-open.project_icon
+
+                                .media-body
+                                    h4.media-heading {{followed_project.name}}-//
+        .col-md-8
+        .col-md-4
+            .panel.panel-primary#user_projects
                 .panel-heading
                     div(ng-if='isCurrentUser(user)')
                         span.panel-title Your Projects

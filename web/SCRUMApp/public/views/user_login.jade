@@ -1,19 +1,21 @@
-.alert.alert-danger(ng-show='error') {{errorMessage}}
+extends layout
+block content
+    .alert.alert-danger(ng-show='error') {{errorMessage}}
 
-#login.well.well-sm
-    form.form(ng-submit='login()')
-        .col-md-5
-        h2 Hello!
-        .col-md-5
-        h6 Please Login To Your Account
-        .form-group.col-xs-6
-            label Username
-            input.form-control.input-sm(type='text', name='username', ng-model='loginForm.username', required)
-        .form-group.col-xs-6
-            label Password
-            input.form-control.input-sm(type='password', name='password', ng-model='loginForm.password', required)
-        .form-group
+    #login.well.well-sm
+        form.form(ng-submit='login()')
             .col-md-5
-            button.btn.btn-primary.btn-sm(type='submit', ng-disabled='disabled' name='login') Login
-        .clearfix
-.clearfix
+            h2 Hello!
+            .col-md-5
+            h6 Please Login To Your Account
+            .form-group.col-xs-6
+                label Username
+                input.form-control.input-sm(type='text', name='username', ng-model='loginForm.username', required)
+            .form-group.col-xs-6
+                label Password
+                input.form-control.input-sm(type='password', name='password', ng-model='loginForm.password', required)
+            .form-group
+                .col-md-5
+                button.btn.btn-primary.btn-sm(type='submit', ng-disabled='disabled' name='login') Login
+            .clearfix
+    .clearfix
