@@ -69,3 +69,13 @@ a {
 #field {
   margin-bottom:20px;
 }
+
+#bind_task_dependencies_btn{
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+#bind_userstory_btn{
+  letter-spacing: 0;
+  text-transform: none;
+}

@@ -75,12 +75,13 @@ block content
                      label(for='cost') Estimated cost (man/days) :
                      input#cost(type='number', min="0", step="1").form-control
 
-                 md-button.md-primary.md-raised(ng-click='showPrompt($event)')
-                     | Prompt Dialog
+                 .form-group
+                     md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)')
+                         | Bind UserStories
 
+                     md-button#bind_task_dependencies_btn.md-primary.md-raised(ng-click='showDependencies($event)')
+                         | Add Dependencies
 
-
-
-
-                 button.btn.btn-default(type='submit') Create Task
+                 .form-group
+                     button#submit_create_task.btn.btn-default(type='submit') Create Task
 
