@@ -65,7 +65,7 @@ block content
 
                  .form-group
                      label(for='in_charge') Dev in charge :
-                     select#in_charge.form-control
+                     select#in_charge.form-control(name="in_charge")
                          option Toto
                          option Tata
                          option Bernard
@@ -73,7 +73,7 @@ block content
                          option Le pere noel
                  .form-group
                      label(for='cost') Estimated cost (man/days) :
-                     input#cost(type='number', min="0", step="1").form-control
+                     input#cost(name="cost",type='number', min="0", step="1").form-control
 
                  .form-group
                      md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)')

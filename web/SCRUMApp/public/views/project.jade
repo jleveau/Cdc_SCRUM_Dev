@@ -21,6 +21,6 @@ block content
                 .media.user-media
                     .media-left
                         a(ng-href='/users/{{user._id}}')
-                            img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
+                            img.user-desc-image(ng-src="{{user.image || '/public/images/default.png'}}", alt="user_image",height="60", width="60")
                     .media-body
                         h4.media-heading {{user.username}}
