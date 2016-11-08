@@ -15,14 +15,12 @@ block content
 
             ul.nav.navbar-nav.navbar-right
                 li
-                li
                     .navbar-btn
                         a#home-signup.btn.btn-default(ng-href="/login") Sign in
                // li
                     .navbar-btn
                         a#home-signin.btn.btn-default(ng-href="/registration") Sign up -//
 
-<<<<<<< HEAD
             li
                 form.navbar-form
                     .form-group
@@ -33,15 +31,11 @@ block content
                         ul.list-group.search
                             li.result(ng-repeat='project in projects_search | filter:searchProject.name | limitTo:limit', ng-hide="!(searchProject.name) + (searchProject.name.length == 0 )")
                                 a.list-group-item(ng-click='setProject(project)') {{project.name}}
-            li
-                .navbar-btn
-                    a#home-signup.btn.btn-default(ng-href="/login") Sign in
+
 
            // li
                 .navbar-btn
                     a#home-signin.btn.btn-default(ng-href="/registration") Sign up -//
-=======
->>>>>>> 35bb876a3b3ff63411d225edd5c6a9e190de1889
 
     #home.row.jumbotron
         .col-md-1
