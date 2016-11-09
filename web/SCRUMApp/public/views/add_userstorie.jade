@@ -1,0 +1,40 @@
+.container-fluid
+h2 Add a User Story
+    .container
+    form.css-form(name = "form", novalidate)
+
+.form-group
+    label(for='description') Description :
+    textarea#description.form-control(type='description',name = "description",rows="3" placeholder="En tant que ..., je souhaite..., afin de ...")
+.form-group
+    label(for='duration') Duration :
+    select#duration.form-control(name="in_charge")
+        option 1
+        option 2
+        option 3
+        option 4
+        option 5
+        option 6
+.form-group
+    label(for='priority') Priority :
+    select#priority.form-control(name="in_charge")
+        option 1
+        option 2
+        option 3
+        option 4
+        option 5
+        option 6
+.form-group
+    label(for='sprint') Sprint :
+    select#sprint.form-control(name="sprint")
+        option Sprint 1
+        option Sprint 2
+        option Sprint 3
+        option Sprint 4
+        option Sprint 5
+.form-group
+    label(for='validation')
+        input#validation(type='checkbox', value='checkbox-true')
+        |  validation test
+.form-group
+    button#userstory_submit.btn.btn-default(type='submit') Create user Story
