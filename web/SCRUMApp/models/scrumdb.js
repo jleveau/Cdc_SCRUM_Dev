@@ -8,7 +8,7 @@ var users = new mongoose.Schema({
 	image: Buffer,
 	first_name: String,
 	last_name: String,
-	followed_projects: [{ type : Number, ref: 'projects' }],
+	followed_projects: [{ type : ObjectId, ref: 'projects' }],
 	date_created: Date, 
 	date_updated: Date
 });
@@ -37,21 +37,21 @@ var sprints = new mongoose.Schema({
 	date_end: Date,
 	number_sprint: Number,
 	sprint_duration: Number,
-	project: { type : Number, ref: 'projects' },
+	project: { type : ObjectId, ref: 'projects' },
 	date_created: { type: Date, default: Date.now },
 	date_updated: { type: Date, default: Date.now }
 });
 
 var userstories = new mongoose.Schema({
 	number_us: Number,
-	id_project: { type : Number, ref: 'projects' },
+	id_project: { type : ObjectId, ref: 'projects' },
 	description: String,
 	state: String,
 	commit_validation: String,
 	date_validation: Date, 
 	priority: Number,
 	estimated_cost: Number,
-	sprint: { type : Number, ref: 'sprint' },
+	sprint: { type : ObjectId, ref: 'sprint' },
 	date_created: { type: Date, default: Date.now },
 	date_updated: { type: Date, default: Date.now }
 });
@@ -62,9 +62,9 @@ var tasks = new mongoose.Schema({
 	date_end: Date,
 	estimated_cost: Number,
 	estimated_duration: Number,
-	responsable: { type : Number, ref: 'users' },
+	responsable: { type : ObjectId, ref: 'users' },
 	state: { type: String, enum: ['TODO', 'DOING', 'DONE'], default: 'public' },
-	list_us: [{ type : Number, ref: 'userstories' }],
+	list_us: [{ type : ObjectId, ref: 'userstories' }],
 	list_tasks_depend : [{ type : Number, ref: 'tasks' }],
 	date_created: { type: Date, default: Date.now },
 	date_updated: { type: Date, default: Date.now }

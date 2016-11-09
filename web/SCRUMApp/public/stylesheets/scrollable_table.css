@@ -26,6 +26,17 @@ thead {
     /* fallback */
 }
 
+thead.listBackLog th {
+    width: 14.2%;
+}
+
+tbody.listBackLog td {
+    width: 14.2%;
+}
+
+tbody.listBackLog input {
+    width: 50%;
+}
 
 tbody td, thead th {
     width: 19.2%;

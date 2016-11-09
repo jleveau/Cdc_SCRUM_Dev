@@ -1,23 +1,40 @@
-.container-fluid
+.container-fluid(ng-controller='UserStoriesListController')
     h2 User story details
     table.table.table-striped
-        thead
-             tr
+        thead.listBackLog
+            tr
                 th ID
                 th User Story
-                th Priroty
+                th Priority
+                th Cost
                 th Sprint
+                th State
                 th Action
-        tbody
-             tr
-                td US1
-                td En tant que..., je souhaite..., afin de ...
-                td 5
-                td Sprint 2
-                td action
-             tr
-                td US2
-                td En tant que..., je souhaite..., afin de ...
-                td 7
-                td Sprint 3
-                td Action
+        tbody.listBackLog
+            tr
+                td.filterable-cell US1
+                td.filterable-cell En tant que
+                td.filterable-cell
+                    input(type='number' , value='3')
+                td.filterable-cell
+                    input(type='number' , value='3')
+                td.filterable-cell
+                    a.pointer Sprint#1
+                td.filterable-cell Valide
+                td.filterable-cell
+                    a.pointer Delete
+            tr
+                td.filterable-cell US2
+                td.filterable-cell afin de...
+                td.filterable-cell 3
+                td.filterable-cell 5
+                td.filterable-cell
+                    a.pointer Sprint2
+                td.filterable-cell non Valide
+                td.filterable-cell
+                    a.pointer Delete
+
+            tr(ng-repeat="user_story in listUserStories")
+                td(ng-repeat="row in user_story"){{row.value}}
+
+    br
