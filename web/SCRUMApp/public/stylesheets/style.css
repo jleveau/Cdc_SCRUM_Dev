@@ -53,3 +53,29 @@ a {
 .pointer{
   cursor: pointer;
 }
+
+#add-task-container{
+  margin-top: 1em;
+  background-color: #dddddd;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+* {
+.border-radius(0) !important;
+}
+
+#field {
+  margin-bottom:20px;
+}
+
+#bind_task_dependencies_btn{
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+#bind_userstory_btn{
+  letter-spacing: 0;
+  text-transform: none;
+}

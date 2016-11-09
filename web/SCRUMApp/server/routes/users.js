@@ -30,6 +30,7 @@ router.post('/adduser', function (req, res, next) {
             } else {
                 var hashPassword = bcrypt.hashSync(req.body.password);
                 user.addUser(req.body.username, req.body.mail, hashPassword);
+                console.log("here !");
                 res.status(200).json({
                     status: 'Registration successful!'
                 });

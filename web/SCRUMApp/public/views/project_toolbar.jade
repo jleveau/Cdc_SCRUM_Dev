@@ -9,16 +9,16 @@ nav.navbar.navbar-default
 
         ul.nav.navbar-nav
             li(ng-class="{ active: isActive('/project/{{project._id}}')}")
-                a(ng-href="/project/{{project._id}}") Project
+                a(name = "toobar_project",ng-href="/project/{{project._id}}") Project
             li(ng-class="{ active: isActive('/project/{{project._id}}/team')}")
-                a(ng-href="/project/{{project._id}}/team") Members
+                a(name = "toobar_members",ng-href="/project/{{project._id}}/team") Members
             li(ng-class="{ active: isActive('/project/{{project._id}}/backlog')}")
-                a(ng-href="/project/{{project._id}}/backlog") BackLog
+                a(name = "toobar_backlog",ng-href="/project/{{project._id}}/backlog") BackLog
             li(ng-class="{ active: isActive('/project/{{project._id}}/sprints')}")
-                a(ng-href="/project/{{project._id}}/sprints") Sprints
+                a(name = "toobar_sprints",ng-href="/project/{{project._id}}/sprints") Sprints
             li(ng-class="{ active: isActive('/project/{{project._id}}/tasks')}")
-                a(ng-href="/project/{{project._id}}/tasks") Tasks
+                a(name = "toobar_tasks",ng-href="/project/{{project._id}}/tasks") Tasks
             li(ng-class="{ active: isActive('/project/{{project._id}}/pert')}")
-                a(ng-href="/project/{{project._id}}/pert") Pert
+                a(name = "toobar_pert",ng-href="/project/{{project._id}}/pert") Pert
             li(ng-class="{ active: isActive('/project/{{project._id}}/burndown')}")
-                a(ng-href="/project/{{project._id}}/burndown") Burn Down chart
+                a(name = "toobar_burndown",ng-href="/project/{{project._id}}/burndown") Burn Down chart

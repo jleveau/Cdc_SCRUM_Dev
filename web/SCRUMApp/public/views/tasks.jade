@@ -1,4 +1,87 @@
 extends layout
 block content
     include project_toolbar
-    'tasks'
+    .container-fluid(ng-controller='TasksAddController')
+        h2 Tasks
+        table.table.table-striped
+            thead
+                tr
+                    th ID
+                    th Description
+                    th Cost man/days
+                    th State
+                    th Action
+            tbody
+                tr
+                    td.filterable-cell Task#1
+                    td.filterable-cell Creating a page to register laboratories
+                    td.filterable-cell 2
+                    td.filterable-cell On Going
+                    td.filterable-cell
+                        a.pointer Delete
+                tr
+                    td.filterable-cell Task#2
+                    td.filterable-cell Creating a page to register laboratories
+                    td.filterable-cell 2
+                    td.filterable-cell To Do
+                    td.filterable-cell
+                        a.pointer Delete
+                tr
+                    td.filterable-cell Task#3
+                    td.filterable-cell Creating a page to register laboratories
+                    td.filterable-cell 2
+                    td.filterable-cell Done
+                    td.filterable-cell
+                        a.pointer Delete
+                tr
+                    td.filterable-cell Task#4
+                    td.filterable-cell Creating a page to register laboratories
+                    td.filterable-cell 2
+                    td.filterable-cell On Going
+                    td.filterable-cell
+                        a.pointer Delete
+                tr
+                    td.filterable-cell Task#5
+                    td.filterable-cell Creating a page to register laboratories
+                    td.filterable-cell 2
+                    td.filterable-cell On Going
+                    td.filterable-cell
+                        a.pointer Delete
+                tr
+                    td.filterable-cell Task#6
+                    td.filterable-cell Creating a page to register laboratories
+                    td.filterable-cell 2
+                    td.filterable-cell On Going
+                    td.filterable-cell
+                        a.pointer Delete
+        br
+
+        h3 Add a Task
+        .container#add-task-container
+             form.css-form(name = "form", novalidate)
+                 .form-group
+                     label(for='description') Description * :
+                     textarea#description.form-control(type='description',name = "description",rows="3")
+
+                 .form-group
+                     label(for='in_charge') Dev in charge :
+                     select#in_charge.form-control(name="in_charge")
+                         option Toto
+                         option Tata
+                         option Bernard
+                         option Paul
+                         option Le pere noel
+                 .form-group
+                     label(for='cost') Estimated cost (man/days) :
+                     input#cost(name="cost",type='number', min="0", step="1").form-control
+
+                 .form-group
+                     md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)')
+                         | Bind UserStories
+
+                     md-button#bind_task_dependencies_btn.md-primary.md-raised(ng-click='showDependencies($event)')
+                         | Add Dependencies
+
+                 .form-group
+                     button#submit_create_task.btn.btn-default(type='submit') Create Task
+
