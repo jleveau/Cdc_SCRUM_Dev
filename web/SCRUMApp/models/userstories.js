@@ -26,11 +26,9 @@ module.exports.findById = function(req, res) {
 module.exports.addUserstory = function(req, res) {
     console.log('POST');
     var userstory = new Userstory(req.body.userstory);
-
     userstory.save(function(err, userstory) {
 	if(err) return res.send(500, err.message);	
            res.status(200).jsonp(userstory);
-        
     });
 
 };
@@ -42,7 +40,7 @@ module.exports.updateUserstory = function(req, res) {
         
         userstory.save(function(err) {
         if(err) return res.send(500, err.message);
-            res.status(200).jsonp(project);
+            res.status(200).jsonp(userstory);
         });
     });
 };
@@ -56,5 +54,3 @@ module.exports.deleteUserstory = function(req, res) {
 	    })
 	});
 };
-
-
