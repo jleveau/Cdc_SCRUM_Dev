@@ -1,4 +1,22 @@
 extends layout
 block content
     include project_toolbar
-    'sprints'
+    p kanban
+         table.table
+            thead
+                tr.info
+                    th User Stories
+                    th TO DO
+                    th Doing
+                    th Done
+            tbody
+                tr
+                    td US1
+                    td En tant que..., je souhaite..., afin de ...
+                    td
+                    td
+                tr
+                    td US2
+                    td
+                    td En tant que..., je souhaite..., afin de ...
+                    td
