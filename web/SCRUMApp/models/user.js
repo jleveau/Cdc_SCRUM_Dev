@@ -11,7 +11,6 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
  *
  */
 class user {
-
     /**
      * to add a new user in DB
      * @param username
