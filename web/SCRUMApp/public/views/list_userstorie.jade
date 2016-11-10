@@ -35,6 +35,12 @@
                     a.pointer Delete
 
             tr(ng-repeat="user_story in listUserStories")
-                td(ng-repeat="row in user_story"){{row.value}}
-
-    br
+                td.filterable-cell US{{user_story.number_us}}
+                td.filterable-cell{{user_story.description}}
+                td.filterable-cell{{user_story.priority}}
+                td.filterable-cell{{user_story.estimated_cost}}
+                td.filterable-cell Sprint {{user_story.sprint}}
+                td.filterable-cell{{user_story.state}}
+                td.filterable-cell
+                    a.pointer Delete
+    br                

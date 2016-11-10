@@ -18,21 +18,19 @@ module.exports.findByIdProject = function(req, res) {
 
     var data = [
         {
-            'id' : 1,
-            'desc' : 'IEEE Computer Society',
-            'prio' : 4,
-            'cost' : 2,
-            'sprint' : 'sprint2',
-            'state' : 'valid',
-            'action' : 'delete'
+            'number_us' : 1,
+            'description' : 'IEEE Computer Society',
+            'priority' : 4,
+            'estimated_cost' : 2,
+            'sprint' : 1,
+            'state' : 'valid'
         }, {
-            'id' : 2,
-            'desc' : 'National Academy of Engineering',
-            'prio' : 1,
-            'cost' : 5,
-            'sprint' : 'sprint1',
-            'state' : 'non-valid',
-            'action' : 'delete'
+            'number_us' : 2,
+            'description' : 'National Academy of Engineering',
+            'priority' : 1,
+            'estimated_cost' : 5,
+            'sprint' : 2,
+            'state' : 'non-valid'
         }
     ];
 

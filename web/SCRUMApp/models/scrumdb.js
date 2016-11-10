@@ -46,12 +46,12 @@ var userstories = new mongoose.Schema({
 	number_us: Number,
 	id_project: { type : ObjectId, ref: 'projects' },
 	description: String,
-	state: String,
+	state: { type: String, enum: ['Valid', 'Not Valid'], default: 'Not Valid'},
 	commit_validation: String,
 	date_validation: Date, 
 	priority: Number,
 	estimated_cost: Number,
-	sprint: { type : ObjectId, ref: 'sprint' },
+	sprint: { type : Number, ref: 'sprint' },
 	date_created: { type: Date, default: Date.now },
 	date_updated: { type: Date, default: Date.now }
 });
@@ -63,7 +63,7 @@ var tasks = new mongoose.Schema({
 	estimated_cost: Number,
 	estimated_duration: Number,
 	responsable: { type : ObjectId, ref: 'users' },
-	state: { type: String, enum: ['TODO', 'DOING', 'DONE'], default: 'public' },
+	state: { type: String, enum: ['TODO', 'DOING', 'DONE']},
 	list_us: [{ type : ObjectId, ref: 'userstories' }],
 	list_tasks_depend : [{ type : Number, ref: 'tasks' }],
 	date_created: { type: Date, default: Date.now },
