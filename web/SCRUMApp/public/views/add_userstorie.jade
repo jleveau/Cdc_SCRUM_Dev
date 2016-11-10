@@ -1,14 +1,13 @@
-.container-fluid
-h2 Add a User Story
-    .container#add-userstory-container
-    form.css-form(name = "form", novalidate)
-
+.container-fluid(ng-controller='UserStoriesAddController')
+block content
+    h2 Add a User Story
+    form.css-form( name = "form", novalidate)
 .form-group
     label(for='description') Description :
-    textarea#description.form-control(type='description',name = "description",rows="3" placeholder="En tant que ..., je souhaite..., afin de ...")
+    textarea#description.form-control(type='description',name = "description",ng-model='userstoy.description',rows="3" placeholder="En tant que ..., je souhaite..., afin de ...")
 .form-group
     label(for='duration') Duration :
-    select#duration.form-control(name="in_charge")
+    select#duration.form-control(name="in_charge" ng-model='userstoy.duration')
         option 1
         option 2
         option 3
@@ -17,7 +16,7 @@ h2 Add a User Story
         option 6
 .form-group
     label(for='priority') Priority :
-    select#priority.form-control(name="in_charge")
+    select#priority.form-control(name="in_charge" ng-model='userstoy.priority')
         option 1
         option 2
         option 3
@@ -26,7 +25,7 @@ h2 Add a User Story
         option 6
 .form-group
     label(for='sprint') Sprint :
-    select#sprint.form-control(name="sprint")
+    select#sprint.form-control(name="sprint" ng-model='userstoy.sprint')
         option Sprint 1
         option Sprint 2
         option Sprint 3
@@ -34,7 +33,7 @@ h2 Add a User Story
         option Sprint 5
 .form-group
     label(for='validation')
-        input#validation(type='checkbox', value='checkbox-true')
+        input#validation(type='checkbox', value='checkbox-true' ng-model='userstoy.testValidation')
         |  validation test
 .form-group
-    button#userstory_submit.btn.btn-default(type='submit') Create user Story
+    button#userstory_submit.btn.btn-default(type='submit',ng-click='createUserStory()') Create user Story
