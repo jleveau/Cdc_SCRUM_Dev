@@ -13,8 +13,8 @@ angular.module('UserStories')
                     get : function(id) {
                         return $http.get('/api/project/backlog/' + id);
                     },
-                    create : function (userstory_data,user_id) {
-                        var req_dody = {user : user_id , userStory : userstory_data}
+                    create : function (userstory_data) {
+                        var req_dody = {userstory: userstory_data}
                         return $http.post('/api/userstory',req_dody).then(function (response) {
                             return response.data;
                         });
