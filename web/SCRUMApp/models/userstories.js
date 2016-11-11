@@ -14,23 +14,25 @@ module.exports.findAllUserstories = function (req, res) {
 
 //GET - Return a userstory with specified project_ID
 module.exports.findByIdProject = function (req, res) {
-    console.log('Cotrl GET/' + req.params.id);
+    console.log('Ctrl GET/' + req.params.id);
 
     var data = [
         {
+            '_id' : 1,
             'number_us': 1,
             'description': 'IEEE Computer Society',
             'priority': 4,
             'estimated_cost': 2,
             'sprint': 1,
-            'state': 'valid'
+            'state': 'Valid'
         }, {
+            '_id' : 2,
             'number_us': 2,
             'description': 'National Academy of Engineering',
             'priority': 1,
             'estimated_cost': 5,
             'sprint': 2,
-            'state': 'non-valid'
+            'state': 'Not Valid'
         }
     ];
 

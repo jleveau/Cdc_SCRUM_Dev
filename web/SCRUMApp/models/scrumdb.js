@@ -20,6 +20,7 @@ var projects = new mongoose.Schema({
     product_owner: {type: ObjectId, ref: 'users'},
     github: String,
     status: {type: String, enum: ['public', 'private'], default: 'public'},
+    tasks: [{type: ObjectId, ref: 'tasks'}],
     date_start: {type: Date, required: true},
     description: String,
     sprint_duration: {type: Number, required: true},
@@ -59,14 +60,26 @@ var userstories = new mongoose.Schema({
     date_updated: {type: Date, default: Date.now}
 });
 
+var userstories_projects = new mongoose.Schema({
+    _idUserstory: {type: ObjectId, ref: 'userstories'},
+    _idProject: {type: ObjectId, ref: 'projects'}
+});
+
+var userstories_tasks = new mongoose.Schema({
+    _idUserstory: {type: ObjectId, ref: 'userstories'},
+    _idTasks: {type: ObjectId, ref: 'tasks'}
+});
+
+
 var tasks = new mongoose.Schema({
     description: String,
+    id_project: { type : ObjectId, ref: 'projects' },
     date_start: Date,
     date_end: Date,
     estimated_cost: Number,
     estimated_duration: Number,
     responsable: {type: ObjectId, ref: 'users'},
-    state: {type: String, enum: ['TODO', 'DOING', 'DONE']},
+    state: {type: String, enum: ['TODO', 'DOING', 'DONE'], default: 'TODO'},
     list_us: [{type: ObjectId, ref: 'userstories'}],
     list_tasks_depend: [{type: Number, ref: 'tasks'}],
     date_created: {type: Date, default: Date.now},
@@ -78,5 +91,9 @@ module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
 module.exports = mongoose.model('tasks', tasks);
 module.exports = mongoose.model('user_project', user_project);
+module.exports = mongoose.model('userstories_projects', userstories_projects);
+module.exports = mongoose.model('userstories_tasks', userstories_tasks);
+
+
 
 

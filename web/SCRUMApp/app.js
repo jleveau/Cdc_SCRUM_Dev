@@ -43,12 +43,16 @@ app.use(express.static(path.join(__dirname, 'server')));
 var models = require('./models/scrumdb')(app, mongoose);
 var ProjectsCtrl = require('./models/projects');
 var UserStoriesCtrl = require('./models/userstories');
+var TasksCtrl = require('./models/tasks');
+
 
 // api routes
 app.use('/', routes);
 app.use('/users', users);
 require('./server/routes/projects')(app, ProjectsCtrl);
 require('./server/routes/userstories')(app, UserStoriesCtrl);
+require('./server/routes/tasks')(app, TasksCtrl);
+
 
 // Ressources route
 

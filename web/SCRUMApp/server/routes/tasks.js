@@ -2,9 +2,9 @@
 
 module.exports = function(app, ctrl) {
 
-	app.get('/api/tasks', ctrl.findAllProjects);
+	app.get('/api/tasks', ctrl.findAllTasks);
 
-	app.post('/api/task', ctrl.addproject);
+	app.post('/api/task/new', ctrl.addTask);
 
 	app.get('/api/tasks/:id', ctrl.findById);
 	
