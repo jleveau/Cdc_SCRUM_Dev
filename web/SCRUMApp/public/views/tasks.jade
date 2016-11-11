@@ -1,7 +1,7 @@
 extends layout
 block content
     include project_toolbar
-    .container-fluid(ng-controller='TasksAddController')
+    .container-fluid(ng-controller='TasksListController')
         h2 Tasks
         table.table.table-striped
             thead
@@ -57,7 +57,7 @@ block content
         br
 
         h3 Add a Task
-        .container#add-task-container
+        .container#add-task-container(ng-controller='TasksAddController')
              form.css-form(name = "form", novalidate)
                  .form-group
                      label(for='description') Description * :

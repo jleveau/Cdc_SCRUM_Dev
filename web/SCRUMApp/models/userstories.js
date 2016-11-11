@@ -77,7 +77,10 @@ module.exports.updateUserstory = function (req, res) {
 
 //DELETE - Delete a userstory with specified ID
 module.exports.deleteUserstory = function (req, res) {
-    Userstory.findById(req.params.id, function (err, userstory) {
+    Userstory.findOne({
+            'id_project': req.params.id,
+            '_id' : req.params.id_us
+        }, function (err, userstory) {
         userstory.remove(function (err) {
             if (err) return res.send(500, err.message);
             res.send(200);

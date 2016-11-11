@@ -46,15 +46,14 @@ var userstories = new mongoose.Schema({
    // number_us: Number, // TO ADD
     id_project: { type : ObjectId, ref: 'projects' },
     description: String,
-    duration: Number,
-    priority: Number,
-    sprint: Number,
-    testValidation: String,
     state: {type: String, enum: ['Valid', 'Not Valid'], default: 'Not Valid'},
+    duration: Number, //c'est quoi ca?
+    testValidation: String,
     //commit_validation: String,
     //date_validation: Date,
     priority: Number,
-    //estimated_cost: Number,
+    estimated_cost: Number,
+    sprint: Number,
     //sprint: { type : Number, ref: 'sprint' },
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
