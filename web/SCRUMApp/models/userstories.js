@@ -14,7 +14,7 @@ module.exports.findAllUserstories = function (req, res) {
 
 //GET - Return a userstory with specified project_ID
 module.exports.findByIdProject = function (req, res) {
-    console.log('Cotrl GET/' + req.params.id);
+    console.log('Ctrl GET/' + req.params.id);
 
     var data = [
         {

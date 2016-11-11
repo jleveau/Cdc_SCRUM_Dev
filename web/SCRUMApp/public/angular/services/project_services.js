@@ -46,7 +46,7 @@ angular.module('ProjectServices', [])
         };
 
         var getProjectUserstories = function(project_id){
-            return $http.get('/api/project/backlog/:id' + project_id).then(function(response){
+            return $http.get('/api/project/backlog/' + project_id).then(function(response){
                 return response.data;
             });
         }
