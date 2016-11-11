@@ -10,6 +10,6 @@ module.exports = function(app, ctrl) {
 	
 	app.put('/api/userstory/:id', ctrl.updateUserstory);
 
-	app.delete('/api/userstory/:id', ctrl.deleteUserstory);
+	app.delete('/api/project/:id/backlog/userstory/:id_us', ctrl.deleteUserstory);
 
 };
