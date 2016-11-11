@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var schema = require("./scrumdb");
 var Userstory = mongoose.model('userstories');
-var Userstories_projects = mongoose.model('userstories_projects');
 var ObjectId = mongoose.Types.ObjectId;
 
 //GET - Return all userstories in the DB
@@ -50,6 +49,7 @@ module.exports.addUserstory = function (req, res) {
     console.log('POST');
 
     var userstory = new Userstory({
+        id_project : req.body.idProject,
         description: req.body.userstory.description,
         duration: req.body.userstory.duration,
         priority: req.body.userstory.priority,
@@ -59,16 +59,7 @@ module.exports.addUserstory = function (req, res) {
     userstory.save(function (err, userstory) {
         if (err) return res.status(500).send(err.message);
 
-        var userstory_projects = new Userstories_projects(
-            {
-                //_idProject : ,
-                _idUserstory: userstory._id
-            }
-        );
-
-        userstory_projects.save(function () {
             return res.status(200).jsonp(userstory);
-        });
     });
 };
 

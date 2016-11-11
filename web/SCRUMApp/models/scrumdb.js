@@ -43,8 +43,8 @@ var sprints = new mongoose.Schema({
 });
 
 var userstories = new mongoose.Schema({
-    //number_us: Number,
-    //id_project: { type : ObjectId, ref: 'projects' },
+   // number_us: Number, // TO ADD
+    id_project: { type : ObjectId, ref: 'projects' },
     description: String,
     duration: Number,
     priority: Number,
@@ -58,11 +58,6 @@ var userstories = new mongoose.Schema({
     //sprint: { type : Number, ref: 'sprint' },
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
-});
-
-var userstories_projects = new mongoose.Schema({
-    _idUserstory: {type: ObjectId, ref: 'userstories'},
-    _idProject: {type: ObjectId, ref: 'projects'}
 });
 
 var tasks = new mongoose.Schema({
@@ -84,6 +79,5 @@ module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
 module.exports = mongoose.model('tasks', tasks);
 module.exports = mongoose.model('user_project', user_project);
-module.exports = mongoose.model('userstories_projects', userstories_projects);
 
 
