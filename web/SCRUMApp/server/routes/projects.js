@@ -19,4 +19,6 @@ module.exports = function(app, ctrl) {
 	app.put('/api/project/product_owner/:id', ctrl.updatePOproject);
 
 	app.put('/api/project/members/:id', ctrl.updateListMemberProject);
+
 };
+

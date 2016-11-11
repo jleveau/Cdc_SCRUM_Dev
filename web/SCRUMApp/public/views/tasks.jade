@@ -1,7 +1,7 @@
 extends layout
 block content
     include project_toolbar
-    .container-fluid(ng-controller='TasksAddController')
+    .container-fluid
         h2 Tasks
         table.table.table-striped
             thead
@@ -57,23 +57,23 @@ block content
         br
 
         h3 Add a Task
-        .container#add-task-container
+        .container#add-task-container(ng-controller='TasksAddController')
+             .alert.alert-success(ng-show='error') {{successMessage}}
              form.css-form(name = "form", novalidate)
-                 .form-group
+                 .form-group(ng-class="{'has-warning':form.description.$invalid && form.description.$touched}")
                      label(for='description') Description * :
-                     textarea#description.form-control(type='description',name = "description",rows="3")
+                     textarea#description.form-control(type='description',name = "description",rows="3", ng-model='task.description', required="")
+                     span(ng-show='(!task.description) && form.description.$touched') You have to describe your new task
 
                  .form-group
                      label(for='in_charge') Dev in charge :
-                     select#in_charge.form-control(name="in_charge")
-                         option Toto
-                         option Tata
-                         option Bernard
-                         option Paul
-                         option Le pere noel
-                 .form-group
-                     label(for='cost') Estimated cost (man/days) :
-                     input#cost(name="cost",type='number', min="0", step="1").form-control
+                     select#in_charge.form-control(name="in_charge", ng-model='task.responsable'
+                         ng-options= "member.username for member in project.member_list")
+
+                 .form-group(ng-class="{'has-warning':form.cost.$invalid && form.cost.$touched}")
+                     label(for='cost') Estimated cost (man/days) *:
+                     input#cost(name="cost",type='number', min="0", step="1", ng-model='task.estimated_cost', required="").form-control
+                     span(ng-show='(!task.estimated_cost) && form.cost.$touched') You have to define a cost
 
                  .form-group
                      md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)')
@@ -83,5 +83,5 @@ block content
                          | Add Dependencies
 
                  .form-group
-                     button#submit_create_task.btn.btn-default(type='submit') Create Task
+                     input#project_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createTask()', value='Create')
 

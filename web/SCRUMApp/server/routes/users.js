@@ -30,7 +30,6 @@ router.post('/adduser', function (req, res, next) {
             } else {
                 var hashPassword = bcrypt.hashSync(req.body.password);
                 user.addUser(req.body.username, req.body.mail, hashPassword);
-                console.log("here !");
                 res.status(200).json({
                     status: 'Registration successful!'
                 });
@@ -85,7 +84,6 @@ router.get('/userprojects/:user_id', function (req, res) {
         var mongoose = require("mongoose");
         var Schema = mongoose.model('projects');
         for (user_project of user_projects) {
-            console.log(user_project);
             Schema.findById(user_project._idProject, function (err, project) {
                 project_array.push(project);
                 if (user_projects.length == project_array.length) {

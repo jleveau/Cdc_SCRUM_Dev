@@ -92,7 +92,6 @@ class user {
     static changePassword(idUser, currentPassword, newPassword, cb) {
         userdb.findById({_id: idUser}, function (err, user) {
             if (err) throw err;
-            console.log(user.password);
             if (bcrypt.compareSync(currentPassword,user.password)) {
                 user.password = bcrypt.hashSync(newPassword);
                 user.save(function (err, user) {
