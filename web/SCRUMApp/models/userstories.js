@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var schema = require("./scrumdb");
 var Userstory = mongoose.model('userstories');
+var UserstoriesTasks = mongoose.model('userstories_tasks');
+var Tasks = mongoose.model('tasks');
 var ObjectId = mongoose.Types.ObjectId;
 
 //GET - Return all userstories in the DB
@@ -9,6 +11,29 @@ module.exports.findAllUserstories = function (req, res) {
         if (err) res.send(500, err.message);
         console.log('GET');
         res.status(200).jsonp(userstories);
+    });
+};
+
+//GET - Return all tasks for a userstory
+module.exports.findUserstoryTasks = function(req, res){
+    var userstory_id = req.params.id;
+    Userstory.findById(req.params.id, function (err, userstory) {
+        if (err) res.send(500, err.message);
+        if (!userstory) res.send(400, "no userstory for id " + userstory_id);
+        UserstoriesTasks.find({'_idUserstory' : userstory_id},function(err, userstory_tasks){
+            var tasks = [];
+            for (userstory_task of userstory_tasks){
+                Tasks.findById(userstory_task._idTasks, function(err, task){
+                    if (err) res.send(500, err.message);
+                    if (err) console.log(err.errors);
+
+                    tasks.push(task);
+                    if (userstory_tasks.length == tasks.length) {
+                        res.send(200, tasks);
+                    }
+                });
+            }
+        });
     });
 };
 

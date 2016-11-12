@@ -22,7 +22,6 @@ angular.module('Tasks',[])
 
             Projects.getProjectUserstories(project_id).then(function(response){
                 $scope.userstories = response;
-                console.log(response);
             });
 
             $scope.createTask = function(){

@@ -7,6 +7,8 @@ module.exports = function(app, ctrl) {
 	app.post('/api/userstory', ctrl.addUserstory);
 
 	app.get('/api/project/backlog/:id', ctrl.findByIdProject);
+
+	app.get('/api/userstory/:id/tasks', ctrl.findUserstoryTasks);
 	
 	app.put('/api/userstory/:id', ctrl.updateUserstory);
 

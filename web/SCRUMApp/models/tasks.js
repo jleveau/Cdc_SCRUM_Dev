@@ -37,12 +37,11 @@ module.exports.addTask = function(req, res) {
     my_task.save(function(err, task) {
         if (err) console.log(err.errors);
         if(err) return res.send(500, err.message);
-
         var related_usertories = task.list_us;
         for (us of related_usertories){
             var us_task = new US_Task({
                 _idTasks : task._id,
-                _idUserstory : ObjectId(us._id)
+                _idUserstory : us
             });
             us_task.save(function(err, us_task){
                 if (err) console.log(err.errors);
