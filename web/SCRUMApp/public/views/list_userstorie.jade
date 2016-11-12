@@ -26,17 +26,18 @@
 
             tr(ng-repeat="user_story in listUserStories")
                 td.filterable-cell
-                    a.pointer(ng-click='view_us({{user_story.number_us}})') US{{user_story.number_us}}
+                    a.pointer(ng-click='view_us(user_story.number_us)') US{{user_story.number_us}}
                 td.filterable-cell {{user_story.description}}
                 td.filterable-cell
-                    input(type='number' , ng-show='isProductOwner()', value='{{user_story.priority}}')
+                    input(type='number' , ng-show='isProductOwner()', name='form_priority',
+                        value='{{user_story.priority}}')
                     span(ng-hide='isProductOwner()') {{user_story.priority}}
                 td.filterable-cell
                     input(type='number' , ng-show='isProjectMember()', value='{{user_story.estimated_cost}}')
                     span(ng-hide='isProjectMember()') {{user_story.estimated_cost}}
                 td.filterable-cell
-                    a.pointer(ng-click='view_sprint({{user_story.sprint}})') Sprint {{user_story.sprint}}
+                    a.pointer(ng-click="view_sprint(user_story.sprint)") Sprint {{user_story.sprint}}
                 td.filterable-cell {{user_story.state}}
                 td.filterable-cell
-                    a.pointer(ng-click='delete_us({{user_story.number_us}})') Delete
+                    a.pointer(ng-click="delete_us(user_story._id)") Delete
 br

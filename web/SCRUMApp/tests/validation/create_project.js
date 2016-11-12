@@ -9,34 +9,62 @@ var test = require('selenium-webdriver/testing');
 const timeOut = 15000;
 
 
-test.describe('Testing form project', function() {
+test.describe('Testing inscription et login', function() {
     this.timeout(timeOut);
 
 
-    before(function() {
+    before(function () {
 
     });
 
-    after(function() {
+    after(function () {
         driver.quit();
     });
 
-    test.it("create a new project", function() {
+    test.it("creation du project", function () {
         driver = new selenium.Builder().withCapabilities(selenium.Capabilities.chrome()).build();
-        driver.get("http://localhost:8080/project/new").then(function(){
-            driver.manage().timeouts().implicitlyWait(50000).then(function(){
-                driver.findElement(selenium.By.name('name')).sendKeys("projet").then(function(input) {
-                    driver.findElement(selenium.By.name('github-link')).sendKeys("https://github.com/jleveau/").then(function(input) {
-                        driver.findElement(selenium.By.name('sprint_duration')).sendKeys("7").then(function(input) {
-                            driver.findElement(selenium.By.name('date_start')).sendKeys(new Date("10/11/2016")).then(function(input) {
-                                driver.findElement(selenium.By.id('project_submit')).click();
-								driver.wait(function() {
+        driver.get("http://localhost:8080/").then(function () {
 
-									return driver.getElementsByTagName('h2')[0].innerHTML.then(function(text) {
-										return text === 'projet';
-									});
-								}, 1000);
+            driver.wait(selenium.until.elementLocated(selenium.By.id("home-signup"),timeOut)).then(function () {
 
+                driver.findElement(selenium.By.id('home-signup')).click();
+
+                driver.wait(selenium.until.elementLocated(selenium.By.name('login'),timeOut)).then(function () {
+
+                    driver.findElement(selenium.By.name('username')).sendKeys("ana").then(function (input) {
+
+                        driver.findElement(selenium.By.name('password')).sendKeys("ana").then(function (input) {
+
+                            driver.findElement(selenium.By.name('login')).click();
+
+                            driver.wait(selenium.until.elementLocated(selenium.By.id('add_project_button'), timeOut)).then(function () {
+
+                                driver.findElement(selenium.By.id("add_project_button")).click();
+
+                                driver.wait(selenium.until.elementLocated(selenium.By.id('project_submit'), timeOut)).then(function () {
+
+                                    driver.findElement(selenium.By.id('name')).sendKeys("project_cdp").then(function (input) {
+
+                                        driver.findElement(selenium.By.css('input.md-datepicker-input')).sendKeys("12/12/2016").then(function (input) {
+
+                                            driver.findElement(selenium.By.id('sprint_duration')).sendKeys("5").then(function (input) {
+
+                                                driver.findElement(selenium.By.id('description')).sendKeys("description project, description project ").then(function (input) {
+
+                                                    driver.wait(function() {
+                                                        //return (driver.findElement(selenium.By.name('create_submit')));
+                                                        driver.findElement(selenium.By.name('create_submit')).doubleClick();
+
+                                                        driver.wait(selenium.until.elementLocated(selenium.By.id('add_project_button'), timeOut)).then(function () {
+                                                            return driver.findElement(selenium.By.name('project_cdp'));
+                                                        });
+                                                    },3000);
+                                                });
+                                            });
+                                        });
+
+                                    });
+                                });
                             });
                         });
                     });
@@ -45,3 +73,4 @@ test.describe('Testing form project', function() {
         });
     });
 });
+

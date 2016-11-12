@@ -46,7 +46,6 @@ module.exports.addproject = function(req, res) {
 //PUT - Update a register already exists
 module.exports.updateProject = function(req, res) {
     Project.findById(req.params.id, function(err, project) {
-
         project.name = req.body.name;
         project.specification = req.body.specification;
         project.github = req.body.github;
@@ -55,7 +54,9 @@ module.exports.updateProject = function(req, res) {
         project.description = req.body.description;
         project.sprint_duration = req.body.sprint_duration;
         project.date_updated = Date.now();
+        project.tasks = req.body.tasks;
         project.save(function(err) {
+        if(err) console.log(err.errors);
         if(err) return res.send(500, err.message);
             res.status(200).jsonp(project);
         });
@@ -126,3 +127,4 @@ module.exports.updateListMemberProject = function(req, res) {
         });
     });
 };
+

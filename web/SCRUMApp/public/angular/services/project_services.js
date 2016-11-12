@@ -28,6 +28,29 @@ angular.module('ProjectServices', [])
                 fail();
         };
 
+        var updateProject=  function(){
+            return $http.put('/api/project/' + project._id, project).then(function(response){
+                return response.data;
+            });
+        };
+
+        var addTask = function(task){
+            project.tasks.push(task);
+            return updateProject();
+        };
+
+        var getProjectTasks= function (){
+            return $http.get('/api/project/:project_id/tasks/:task_id').then(function(response){
+                return response.data;
+            });
+        };
+
+        var getProjectUserstories = function(project_id){
+            return $http.get('/api/project/backlog/' + project_id).then(function(response){
+                return response.data;
+            });
+        }
+
         return {
             get : function(id) {
                 return $http.get('/api/project/' + id);
@@ -63,14 +86,14 @@ angular.module('ProjectServices', [])
                     return response.data;
                 });
             },
-            updateProject : function(){
-                return $http.put('/api/project/' + project._id, project).then(function(response){
-                    return response.data;
-                });
-            },
 
+
+            updateProject: updateProject,
+            addTask: addTask,
             setProject: setProject,
             addMember: addMember,
-            setProductOwner: setProductOwner
+            setProductOwner: setProductOwner,
+            getProjectTasks: getProjectTasks,
+            getProjectUserstories : getProjectUserstories,
         }
     });

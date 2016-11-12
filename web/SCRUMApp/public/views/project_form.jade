@@ -33,5 +33,6 @@ block content
                 input#privacy_public(type='radio', name='inlineRadioOptions', ng-model='project.status', value="public", checked='checked')
                 |  public
 
-    input#project_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid',ng-if='isCreate()', ng-click='createProject()', value='Create')
-    input#project_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid',ng-if='!isCreate()', ng-click='updateProject()', value='Update')
+
+    input#project_submit.btn.btn-default(type='submit', name='create_submit' ,ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid',ng-if='isCreate()', ng-click='createProject()', value='Create')
+    input#project_submit.btn.btn-default(type='submit', name='update_submit' ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid',ng-if='!isCreate()', ng-click='updateProject()', value='Update')
