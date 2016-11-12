@@ -60,7 +60,7 @@ block content
 
         h3 Add a Task
         .container#add-task-container(ng-controller='TasksAddController')
-             .alert.alert-success(ng-show='error') {{successMessage}}
+             .alert.alert-success(ng-show='successMessage') {{successMessage}}
 
              form.css-form(name = "form", novalidate)
                  .form-group(ng-class="{'has-warning':form.description.$invalid && form.description.$touched}")

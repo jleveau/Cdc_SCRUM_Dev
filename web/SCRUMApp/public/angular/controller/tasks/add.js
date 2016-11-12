@@ -2,16 +2,18 @@
  * Created by julien on 07/11/16.
  */
 angular.module('Tasks',[])
-    .controller('TasksAddController', ['$scope', '$location', '$routeParams', '$mdDialog', 'TasksServices', 'Projects','UserStoriesServices',
-        function ($scope, $location, $routeParams, $mdDialog, TasksServices, Projects, UserStoriesServices) {
+    .controller('TasksAddController', ['$scope', '$timeout', '$location', '$routeParams', '$mdDialog', 'TasksServices', 'Projects','UserStoriesServices',
+        function ($scope,  $timeout,  $location, $routeParams, $mdDialog, TasksServices, Projects, UserStoriesServices) {
 
 
-            $scope.task = {};
+            $scope.task = {list_tasks_depend: []};
             $scope.successMessage = '';
             var project_id = $routeParams.project_id;
             $scope.userstories = [];
-            $scope.related_userstories =  TasksServices.getRelatedUserstories();
+            var related_userstories =  TasksServices.getRelatedUserstories();
+            var list_dependencies = TasksServices.getListDependencies();
             $scope.project = null;
+
 
 
             Projects.get(project_id).then(function(response){
@@ -20,36 +22,21 @@ angular.module('Tasks',[])
 
             Projects.getProjectUserstories(project_id).then(function(response){
                 $scope.userstories = response;
+                console.log(response);
             });
 
             $scope.createTask = function(){
                 $scope.task.list_us = TasksServices.getRelatedUserstories();
+                $scope.task.list_tasks_depend = TasksServices.getListDependencies();
                 TasksServices.create($scope.task).then(function(response){
                     $scope.task=response;
                     Projects.addTask($scope.task).then(function(response){
-                        successMessage = 'New task added to the project';
-                        $scope.task = {};
+                        $scope.successMessage = 'New task added to the project';
+                        $scope.task = {list_tasks_depend: []};
+                        $scope.form.$setUntouched()
+                        $timeout(function () { $scope.successMessage = ''; }, 3000);
                     });
                 });
-            };
-
-            $scope.showUserStory = function($event){
-                    var parentEl = angular.element(document.body);
-                $mdDialog.show({
-                    parent: parentEl,
-                    targetEvent: $event,
-                    templateUrl: '/partials/dialog_tasks_userstories.jade',
-                    locals: {
-                        items: $scope.items
-                    },
-                    controller: DialogController
-                });
-                function DialogController($scope, $mdDialog, items) {
-                    $scope.items = items;
-                    $scope.closeDialog = function() {
-                        $mdDialog.hide();
-                    }
-                }
             };
 
             $scope.showDependencies = function($event){
@@ -67,16 +54,36 @@ angular.module('Tasks',[])
                     $scope.items = items;
                     $scope.closeDialog = function() {
                         $mdDialog.hide();
-                        TasksServices.setRelatedUserstories($scope.related_userstories);
+                        TasksServices.setListDependencies(list_dependencies);
                     }
                 }
 
             };
 
+            $scope.showUserStory = function($event){
+                    var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    targetEvent: $event,
+                    templateUrl: '/partials/dialog_tasks_userstories.jade',
+                    locals: {
+                        items: $scope.items
+                    },
+                    controller: DialogController
+                });
+                function DialogController($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.closeDialog = function() {
+                        $mdDialog.hide();
+                        TasksServices.setRelatedUserstories(related_userstories);
+                    }
+                }
+            };
+
             $scope.isChecked = function(id){
                 var match = false;
-                for(var i=0 ; i < $scope.related_userstories.length; i++) {
-                    if($scope.related_userstories[i]._id == id){
+                for(var i=0 ; i < related_userstories.length; i++) {
+                    if(related_userstories[i]._id == id){
                         match = true;
                     }
                 }
@@ -86,13 +93,39 @@ angular.module('Tasks',[])
             $scope.sync = function(bool, item){
                 if(bool){
                     // add item
-                    $scope.related_userstories.push(item);
+                    related_userstories.push(item);
                 } else {
                     // remove item
-                    for(var i=0 ; i < $scope.related_userstories.length; i++) {
+                    for(var i=0 ; i < related_userstories.length; i++) {
 
-                        if($scope.related_userstories[i]._id == item._id){
-                            $scope.related_userstories.splice(i,1);
+                        if(related_userstories[i]._id == item._id){
+                            related_userstories.splice(i,1);
+                        }
+                    }
+                }
+            };
+
+            $scope.taskIsChecked = function(id){
+                var match = false;
+
+                for(var i=0 ; i < list_dependencies.length; i++) {
+                    if(list_dependencies[i]._id == id){
+                        match = true;
+                    }
+                }
+                return match;
+            };
+
+            $scope.taskSync = function(bool, item){
+                if(bool){
+                    // add item
+                    list_dependencies.push(item);
+                } else {
+                    // remove item
+                    for(var i=0 ; i < list_dependencies.length; i++) {
+
+                        if(list_dependencies[i]._id == item._id){
+                            list_dependencies.splice(i,1);
                         }
                     }
                 }

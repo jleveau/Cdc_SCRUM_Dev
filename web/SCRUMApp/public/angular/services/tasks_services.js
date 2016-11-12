@@ -5,7 +5,9 @@ angular.module('Tasks')
 
             function ($q, $timeout, $http) {
 
-                related_userstories = [];
+                var related_userstories = [];
+                var list_dependencies = [];
+
 
                 function setRelatedUserstories(usertories){
                     related_userstories = usertories;
@@ -13,6 +15,16 @@ angular.module('Tasks')
 
                 function getRelatedUserstories(){
                     return related_userstories;
+                }
+
+
+                function setListDependencies(dependencies){
+                    list_dependencies = dependencies;
+                }
+
+                function getListDependencies(){
+
+                    return list_dependencies;
                 }
 
                 function getTask(){
@@ -47,13 +59,16 @@ angular.module('Tasks')
                 }
 
                 return ({
-                    getTask,getTask,
+                    getTask : getTask,
+                    setListDependencies : setListDependencies,
+                    getListDependencies : getListDependencies,
+                    setRelatedUserstories,
+                    getRelatedUserstories,
                     getList: getList,
                     create: create,
                     deleteTask: deleteTask,
                     update : update,
-                    setRelatedUserstories,
-                    getRelatedUserstories
+
                 });
 
             }]);
