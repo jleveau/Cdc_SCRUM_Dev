@@ -68,6 +68,11 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
                         controller: "ProjectController",
                         access: {restricted: true}
                     })
+                    .when("/project/:project_id/tasks/:task_id/edit", {
+                        templateUrl: "/partials/task_edit.jade",
+                        controller: "ProjectController",
+                        access: {restricted: true}
+                    })
                     .when("/project/:project_id/pert", {
                         templateUrl: "/partials/pert.jade",
                         controller: "ProjectController",

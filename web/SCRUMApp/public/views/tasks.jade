@@ -3,88 +3,11 @@ block content
     include project_toolbar
 
     .container-fluid(ng-controller='TasksListController')
-
-        h2 Tasks
-        table.table.table-striped
-            thead
-                tr
-                    th ID
-                    th Description
-                    th Cost man/days
-                    th State
-                    th Action
-            tbody
-                tr
-                    td.filterable-cell Task#1
-                    td.filterable-cell Creating a page to register laboratories
-                    td.filterable-cell 2
-                    td.filterable-cell On Going
-                    td.filterable-cell
-                        a.pointer Delete
-                tr
-                    td.filterable-cell Task#2
-                    td.filterable-cell Creating a page to register laboratories
-                    td.filterable-cell 2
-                    td.filterable-cell To Do
-                    td.filterable-cell
-                        a.pointer Delete
-                tr
-                    td.filterable-cell Task#3
-                    td.filterable-cell Creating a page to register laboratories
-                    td.filterable-cell 2
-                    td.filterable-cell Done
-                    td.filterable-cell
-                        a.pointer Delete
-                tr
-                    td.filterable-cell Task#4
-                    td.filterable-cell Creating a page to register laboratories
-                    td.filterable-cell 2
-                    td.filterable-cell On Going
-                    td.filterable-cell
-                        a.pointer Delete
-                tr
-                    td.filterable-cell Task#5
-                    td.filterable-cell Creating a page to register laboratories
-                    td.filterable-cell 2
-                    td.filterable-cell On Going
-                    td.filterable-cell
-                        a.pointer Delete
-                tr
-                    td.filterable-cell Task#6
-                    td.filterable-cell Creating a page to register laboratories
-                    td.filterable-cell 2
-                    td.filterable-cell On Going
-                    td.filterable-cell
-                        a.pointer Delete
+        include list_tasks
         br
+        include task_form
 
-        h3 Add a Task
-        .container#add-task-container(ng-controller='TasksAddController')
-             .alert.alert-success(ng-show='successMessage') {{successMessage}}
 
-             form.css-form(name = "form", novalidate)
-                 .form-group(ng-class="{'has-warning':form.description.$invalid && form.description.$touched}")
-                     label(for='description') Description * :
-                     textarea#description.form-control(type='description',name = "description",rows="3", ng-model='task.description', required="")
-                     span(ng-show='(!task.description) && form.description.$touched') You have to describe your new task
 
-                 .form-group
-                     label(for='in_charge') Dev in charge :
-                     select#in_charge.form-control(name="in_charge", ng-model='task.responsable'
-                         ng-options= "member.username for member in project.member_list")
 
-                 .form-group(ng-class="{'has-warning':form.cost.$invalid && form.cost.$touched}")
-                     label(for='cost') Estimated cost (man/days) *:
-                     input#cost(name="cost",type='number', min="0", step="1", ng-model='task.estimated_cost', required="").form-control
-                     span(ng-show='(!task.estimated_cost) && form.cost.$touched') You have to define a cost
-
-                 .form-group
-                     md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)')
-                         | Bind UserStories
-
-                     md-button#bind_task_dependencies_btn.md-primary.md-raised(ng-click='showDependencies($event)')
-                         | Add Dependencies
-
-                 .form-group
-                     input#project_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createTask()', value='Create')
 

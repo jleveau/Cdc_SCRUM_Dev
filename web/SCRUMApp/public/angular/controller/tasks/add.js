@@ -38,6 +38,7 @@ angular.module('Tasks',[])
                 });
             };
 
+
             $scope.showDependencies = function($event){
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
