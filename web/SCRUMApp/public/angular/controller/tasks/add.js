@@ -8,14 +8,11 @@ angular.module('Tasks',[])
 
             $scope.task = {list_tasks_depend: []};
             $scope.successMessage = '';
-            $scope.create=true;
             var project_id = $routeParams.project_id;
             $scope.userstories = [];
             var related_userstories =  TasksServices.getRelatedUserstories();
             var list_dependencies = TasksServices.getListDependencies();
             $scope.project = null;
-
-
 
             Projects.get(project_id).then(function(response){
                 $scope.project = response.data;
@@ -28,15 +25,20 @@ angular.module('Tasks',[])
             $scope.createTask = function(){
                 $scope.task.list_us = TasksServices.getRelatedUserstories();
                 $scope.task.list_tasks_depend = TasksServices.getListDependencies();
+                $scope.task.id_project = $scope.project._id;
                 TasksServices.create($scope.task).then(function(response){
                     $scope.task=response;
                     Projects.addTask($scope.task).then(function(response){
                         $scope.successMessage = 'New task added to the project';
                         $scope.task = {list_tasks_depend: []};
-                        $scope.form.$setUntouched()
+                        $scope.form.$setUntouched();
                         $timeout(function () { $scope.successMessage = ''; }, 3000);
                     });
                 });
+            };
+
+            $scope.create= function(){
+                return true;
             };
 
 
@@ -53,12 +55,12 @@ angular.module('Tasks',[])
                 });
                 function DialogController($scope, $mdDialog, items) {
                     $scope.items = items;
+                    $scope.create = true;
                     $scope.closeDialog = function() {
                         $mdDialog.hide();
                         TasksServices.setListDependencies(list_dependencies);
                     }
                 }
-
             };
 
             $scope.showUserStory = function($event){
@@ -74,6 +76,7 @@ angular.module('Tasks',[])
                 });
                 function DialogController($scope, $mdDialog, items) {
                     $scope.items = items;
+                    $scope.create = true;
                     $scope.closeDialog = function() {
                         $mdDialog.hide();
                         TasksServices.setRelatedUserstories(related_userstories);
@@ -104,13 +107,14 @@ angular.module('Tasks',[])
                         }
                     }
                 }
+                TasksServices.setRelatedUserstories(related_userstories);
             };
 
             $scope.taskIsChecked = function(id){
                 var match = false;
-
+                console.log(list_dependencies);
                 for(var i=0 ; i < list_dependencies.length; i++) {
-                    if(list_dependencies[i]._id == id){
+                    if(list_dependencies[i] == id){
                         match = true;
                     }
                 }

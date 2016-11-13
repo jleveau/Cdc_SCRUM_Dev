@@ -19,14 +19,13 @@ div(ng-if='isProjectMember()')
             span(ng-show='(!task.estimated_cost) && form.cost.$touched') You have to define a cost
 
         .form-group
-            md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)')
+            md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)',aria-label='List dialog')
                 | Bind UserStories
 
-            md-button#bind_task_dependencies_btn.md-primary.md-raised(ng-click='showDependencies($event)')
+            md-button#bind_task_dependencies_btn.md-primary.md-raised(ng-click='showDependencies($event)',aria-label='List dialog')
                 | Add Dependencies
 
         .form-group
-            input#taskCreate_submit.btn.btn-default(ng-if="create", type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createTask()', value='Create')
-            input#taskUpdate_submit.btn.btn-default(ng-if="!create",type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='editTask()', value='Update')
-            input#cancel_edit_task_button.btn.btn-default(type="button",ng-if="!create",ng-click='cancel()', value='Cancel')
-
+            input#taskCreate_submit.btn.btn-default(ng-if="create()", type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createTask()', value='Create')
+            input#taskUpdate_submit.btn.btn-default(ng-if="!create()",type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='editTask()', value='Update')
+            input#cancel_edit_task_button.btn.btn-default(ng-if="!create()",type="button", ng-click='cancel()', value='Cancel')
