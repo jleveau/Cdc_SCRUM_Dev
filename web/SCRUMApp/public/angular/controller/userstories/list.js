@@ -2,6 +2,7 @@ angular.module('UserStories')
     .controller('UserStoriesListController', ['$scope', '$location', 'UserStoriesServices',
         function ($scope, $location, UserStoriesServices) {
 
+            $scope.user_story = {};
             $scope.view_us = function(us_num){
                 alert("us number is "+us_num);
             };
@@ -10,9 +11,19 @@ angular.module('UserStories')
                 alert("sprint_num is "+sprint_num);
             };
 
-            $scope.delete_us = function (us_num) {
+            $scope.updatePriorityUs = function (user_story) {
 
-                UserStoriesServices.delete($scope.params.project_id, us_num).then(function(response){
+            }
+
+            $scope.updateCostUs = function (user_story) {
+
+            }
+
+            $scope.delete_us = function (us) {
+                var _id = us._id;
+                var index = $scope.listUserStories.indexOf(us);
+                UserStoriesServices.delete($scope.params.project_id, _id).then(function(response){
+                    $scope.listUserStories.splice(index,1);
                     $location.path( "/project/" + $scope.params.project_id + "/backlog");
                 });
             };

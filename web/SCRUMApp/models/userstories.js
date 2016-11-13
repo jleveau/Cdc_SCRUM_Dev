@@ -40,27 +40,6 @@ module.exports.findUserstoryTasks = function(req, res){
 //GET - Return a userstory with specified project_ID
 module.exports.findByIdProject = function (req, res) {
     console.log('Ctrl GET/' + req.params.id);
-
-    var data = [
-        {
-            '_id': 1,
-            'number_us': 1,
-            'description': 'IEEE Computer Society',
-            'priority': 4,
-            'estimated_cost': 2,
-            'sprint': 1,
-            'state': 'Valid'
-        }, {
-            '_id': 2,
-            'number_us': 2,
-            'description': 'National Academy of Engineering',
-            'priority': 1,
-            'estimated_cost': 5,
-            'sprint': 2,
-            'state': 'Not Valid'
-        }
-    ];
-
     Userstory.find({
             'id_project': req.params.id
         }, function (err, userstories) {
@@ -120,13 +99,14 @@ module.exports.updateUserstory = function (req, res) {
 
 //DELETE - Delete a userstory with specified ID
 module.exports.deleteUserstory = function (req, res) {
+    console.log('DELETE US ');
     Userstory.findOne({
         'id_project': req.params.id,
         '_id': req.params.id_us
     }, function (err, userstory) {
         userstory.remove(function (err) {
             if (err) return res.send(500, err.message);
-            res.send(200);
+            res.sendStatus(200);
         })
     });
 };

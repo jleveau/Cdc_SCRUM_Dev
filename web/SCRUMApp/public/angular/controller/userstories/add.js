@@ -7,8 +7,9 @@ angular.module('UserStories', [])
 
             $scope.createUserStory = function () {
                 UserStoriesServices.create($scope.userstory,$scope.idProject)
-                .then(function (response) {
+                .then(function (userstory) {
                     $scope.userstory = {};
+                    UserStoriesServices.addUsToList(userstory);
                 });
             };
         }]);
