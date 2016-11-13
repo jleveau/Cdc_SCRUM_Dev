@@ -13,7 +13,7 @@ angular.module('Tasks')
             Projects.get(project_id).then(function(response){
                 $scope.project = response.data;
                 $scope.tasks = $scope.project.tasks;
-                console.log($scope.tasks);
+                TasksServices.setListTasks ($scope.project.tasks);
             });
 
             $scope.editTask = function(task){
@@ -22,7 +22,13 @@ angular.module('Tasks')
             };
 
             $scope.deleteTask = function(task){
-                //TODO
+                var _id = task._id;
+                var index = $scope.tasks.indexOf(task);
+
+                TasksServices.deleteTask($scope.project._id, _id).then(function(response){
+                    $scope.tasks.splice(index,1);
+                    $location.path( "/project/" + $scope.project._id + "/tasks");
+                });
             };
 
     }]);
