@@ -2,7 +2,7 @@ div(ng-if='isProjectMember()')
     h3 Add a Task
     .alert.alert-success(ng-show='successMessage') {{successMessage}}
 
-    form.css-form(name = "form", novalidate)
+    form.css-form(name = "form.task_form", novalidate)
         .form-group(ng-class="{'has-warning':form.description.$invalid && form.description.$touched}")
             label(for='description') Description * :
             textarea#description.form-control(type='description',name = "description",rows="3", ng-model='task.description', required="")

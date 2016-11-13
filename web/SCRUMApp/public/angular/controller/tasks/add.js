@@ -13,6 +13,8 @@ angular.module('Tasks',[])
             var related_userstories =  TasksServices.getRelatedUserstories();
             var list_dependencies = TasksServices.getListDependencies();
             $scope.project = null;
+            $scope.form = {};
+
 
             Projects.get(project_id).then(function(response){
                 $scope.project = response.data;
@@ -31,7 +33,7 @@ angular.module('Tasks',[])
                     Projects.addTask($scope.task).then(function(response){
                         $scope.successMessage = 'New task added to the project';
                         $scope.task = {list_tasks_depend: []};
-                        $scope.form.$setUntouched();
+                        $scope.form.task_form.$setUntouched();
                         $timeout(function () { $scope.successMessage = ''; }, 3000);
                     });
                 });
