@@ -43,20 +43,19 @@ module.exports.findByIdProject = function (req, res) {
 
             return res.status(200).jsonp(userstories);
         }
-    )
+    );
 };
 
 
 //POST - Insert a new userstory in the DB
 module.exports.addUserstory = function (req, res) {
-    console.log('POST');
     Userstory.find({
             'id_project': req.body.idProject
         }, function (err, userstories) {
             if (err) return res.send(500, err.message);
 
         var taille = userstories.length;
-        var USnumber=0;
+        var USnumber = 0;
 
         if(taille == 0){
             USnumber = 1;
@@ -102,6 +101,6 @@ module.exports.deleteUserstory = function (req, res) {
         userstory.remove(function (err) {
             if (err) return res.send(500, err.message);
             res.send(200);
-        })
+        });
     });
 };

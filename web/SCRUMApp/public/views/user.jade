@@ -11,7 +11,7 @@ block content
         .col-md-4
             form.form-inline
                 .form-group
-                    input#search-input.form-control(type='text', placeholder='Search public project', ng-model = "searchProject.name" )
+                    input#search-input.form-control(type='text', placeholder='Search public project', ng-model = "searchProject.name" autocomplete="off" )
                     button#search-button.btn.btn-info(type='submit', ng-click='go_to_project()')
                         span.glyphicon.glyphicon-search
                         |  Search

@@ -25,8 +25,8 @@ test.describe('testing tasks', function() {
             driver.wait(selenium.until.elementLocated(selenium.By.id("home-signup"), timeOut)).then(function(){
                 driver.findElement(selenium.By.id('home-signup')).click();
                 driver.wait(selenium.until.elementLocated(selenium.By.name('username'), timeOut)).then(function(){
-                    driver.findElement(selenium.By.name('username')).sendKeys("tata").then(function(){
-                        driver.findElement(selenium.By.name('password')).sendKeys("tata").then(function(){
+                    driver.findElement(selenium.By.name('username')).sendKeys("io").then(function(){
+                        driver.findElement(selenium.By.name('password')).sendKeys("tinoudi01").then(function(){
                             driver.findElement(selenium.By.name('login')).click();
 
                             describe('going on task page', function(){

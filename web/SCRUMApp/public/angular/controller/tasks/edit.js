@@ -5,6 +5,4 @@ angular.module('Tasks')
     .controller('TasksEditController', ['$scope', '$location', 'TasksServices',
         function ($scope, $location, TasksServices) {
 
-
-
     }]);

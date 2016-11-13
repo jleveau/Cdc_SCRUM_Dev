@@ -32,12 +32,12 @@ test.describe('Testing modification members projet', function() {
 			            assert.equal(size, 2);
 						driver.findElement(selenium.By.id('product-owner-select')).selectByVisibleText("lili");
 						driver.wait(function() {
-		                    return driver.getElementsByTagName('h4')[0].innerHTML.then(function(text) {
-								assert.equal(text, 'lili');
-								//return text === 'lili';
-								done();
-							});
-		                }, 1000);
+                        return driver.getElementsByTagName('h4')[0].innerHTML.then(function(text) {
+                            assert.equal(text, 'lili');
+                            //return text === 'lili';
+                            done();
+                        });
+                    }, 1000);
             			
         });
 

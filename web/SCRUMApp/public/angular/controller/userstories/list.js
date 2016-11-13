@@ -17,7 +17,6 @@ angular.module('UserStories')
                 });
             };
 
-
             if ($scope.params.project_id){
                 UserStoriesServices.get($scope.params.project_id).then(function(response){
                     $scope.listUserStories = response.data;

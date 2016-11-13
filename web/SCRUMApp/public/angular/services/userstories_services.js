@@ -19,6 +19,7 @@ angular.module('UserStories')
                             return response.data;
                         });
                     },
+
                     updatePriorityUs: function () {
                         return $http.put('/api/project/product_owner/' + project._id, project).then(function (response) {
                             return response.data;

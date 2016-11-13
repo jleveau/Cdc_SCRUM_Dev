@@ -27,7 +27,8 @@
             tr(ng-repeat="user_story in listUserStories")
                 td.filterable-cell
                     a.pointer(ng-click='view_us(user_story.number_us)') US{{user_story.number_us}}
-                td.filterable-cell {{user_story.description}}
+                td.filterable-cell
+                    small {{user_story.description}}
                 td.filterable-cell
                     input(type='number' , ng-show='isProductOwner()', name='form_priority',
                         value='{{user_story.priority}}')

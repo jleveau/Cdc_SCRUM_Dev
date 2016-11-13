@@ -5,9 +5,13 @@ angular.module('UserStories', [])
             $scope.idProject = $scope.params.project_id;
             $scope.params = $routeParams;
 
+
+
+
             $scope.createUserStory = function () {
                 UserStoriesServices.create($scope.userstory,$scope.idProject)
                 .then(function (response) {
+
                     $scope.userstory = {};
                 });
             };
