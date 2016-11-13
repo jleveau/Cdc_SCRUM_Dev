@@ -68,6 +68,7 @@ module.exports.updateTask = function(req, res) {
 
         task.save(function(err) {
         if(err) return res.send(500, err.message);
+
             res.status(200).jsonp(task);
         });
     });

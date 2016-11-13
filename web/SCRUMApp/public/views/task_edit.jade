@@ -1,3 +1,4 @@
 extends layout
 block content
-    include task_form
+    .container#add-task-container(ng-controller='TasksEditController')
+        include task_form

@@ -8,6 +8,7 @@ angular.module('Tasks',[])
 
             $scope.task = {list_tasks_depend: []};
             $scope.successMessage = '';
+            $scope.create=true;
             var project_id = $routeParams.project_id;
             $scope.userstories = [];
             var related_userstories =  TasksServices.getRelatedUserstories();
