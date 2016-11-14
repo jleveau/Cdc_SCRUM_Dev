@@ -48,7 +48,7 @@ var userstories = new mongoose.Schema({
     id_project: { type : ObjectId, ref: 'projects' },
     description: String,
     state: {type: String, enum: ['Valid', 'Not Valid'], default: 'Not Valid'},
-    duration: Number, //c'est quoi ca?
+    cost: Number,
     testValidation: String,
     //commit_validation: String,
     //date_validation: Date,

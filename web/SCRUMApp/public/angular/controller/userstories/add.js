@@ -8,6 +8,7 @@ angular.module('UserStories', [])
             $scope.createUserStory = function () {
                 UserStoriesServices.create($scope.userstory,$scope.idProject)
                 .then(function (userstory) {
+                    $scope.successMessage = "User story added to the project";
                     $scope.userstory = {};
                     UserStoriesServices.addUsToList(userstory);
                 });

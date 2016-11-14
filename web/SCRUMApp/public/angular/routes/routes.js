@@ -91,6 +91,11 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
                         templateUrl: "/partials/user.jade",
                         controller: "UserController",
                         access: {restricted: true}
+                    }).when("/api/userstory/:id/edit",{
+                        title: "Edit User Story",
+                        templateUrl: "/partials/edit_userstory.jade",
+                        controller: "ProjectController",
+                        access: {restricted: true}
                     })
 
                     .otherwise({redirectTo: "/"});

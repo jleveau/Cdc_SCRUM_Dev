@@ -13,6 +13,19 @@ angular.module('UserStories')
                     listUser.push(_userstory);
                 };
 
+                function getUsByID(idUS) {
+                    return $http.get('api/userstory/edit/'+idUS).then(function (response) {
+                        return response.data;
+                    });
+                };
+
+                function updateUS(userstory_data,idUs) {
+                    var req_body = {userstory : userstory_data , idUS : idUs};
+                    return $http.put('/api/userstory/update',req_body).then(function (response) {
+                        return response.data;
+                    });
+                };
+                
                 return {
                     get: function (id) {
                         return $http.get('/api/project/backlog/' + id);
@@ -38,6 +51,8 @@ angular.module('UserStories')
                         });
                     },
 
+                    updateUS : updateUS,
+                    getUsByID : getUsByID,
                     setListUS: setListUS,
                     addUsToList:addUsToList
                 };

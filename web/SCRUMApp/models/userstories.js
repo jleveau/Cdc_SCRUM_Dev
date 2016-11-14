@@ -14,16 +14,28 @@ module.exports.findAllUserstories = function (req, res) {
     });
 };
 
+/**
+ * return user story by his ID
+ * @param req
+ * @param res
+ */
+module.exports.findUsById = function (req, res) {
+    Userstory.findById(req.params.id, function (err, usersotory) {
+        if (err) res.status(500).send(err.message);
+        res.status(200).jsonp(usersotory);
+    });
+};
+
 //GET - Return all tasks for a userstory
-module.exports.findUserstoryTasks = function(req, res){
+module.exports.findUserstoryTasks = function (req, res) {
     var userstory_id = req.params.id;
     Userstory.findById(req.params.id, function (err, userstory) {
         if (err) res.send(500, err.message);
         if (!userstory) res.send(400, "no userstory for id " + userstory_id);
-        UserstoriesTasks.find({'_idUserstory' : userstory_id},function(err, userstory_tasks){
+        UserstoriesTasks.find({'_idUserstory': userstory_id}, function (err, userstory_tasks) {
             var tasks = [];
-            for (userstory_task of userstory_tasks){
-                Tasks.findById(userstory_task._idTasks, function(err, task){
+            for (userstory_task of userstory_tasks) {
+                Tasks.findById(userstory_task._idTasks, function (err, task) {
                     if (err) res.send(500, err.message);
                     if (err) console.log(err.errors);
 
@@ -58,41 +70,49 @@ module.exports.addUserstory = function (req, res) {
         }, function (err, userstories) {
             if (err) return res.send(500, err.message);
 
-        var taille = userstories.length;
-        var USnumber = 0;
+            var taille = userstories.length;
+            var USnumber = 0;
 
-        if(taille == 0){
-            USnumber = 1;
-        }else {
-            USnumber = userstories[taille - 1]['number_us'] +1;
-        }
-        var userstory = new Userstory({
-            number_us : USnumber,
-            id_project : req.body.idProject,
-            description: req.body.userstory.description,
-            duration: req.body.userstory.duration,
-            priority: req.body.userstory.priority,
-            testValidation: req.body.userstory.testValidation
-        });
+            if (taille == 0) {
+                USnumber = 1;
+            } else {
+                USnumber = userstories[taille - 1]['number_us'] + 1;
+            }
 
-        userstory.save(function (err, userstory) {
-            if (err) return res.status(500).send(err.message);
+            console.log(req.body.userstory.sprint);
 
-            return res.status(200).jsonp(userstory);
-        });
+            var userstory = new Userstory({
+                number_us: USnumber,
+                id_project: req.body.idProject,
+                description: req.body.userstory.description,
+                cost: req.body.userstory.cost,
+                priority: req.body.userstory.priority,
+                sprint : req.body.userstory.sprint,
+                testValidation: req.body.userstory.testValidation
+            });
+
+            userstory.save(function (err, userstory) {
+                if (err) return res.status(500).send(err.message);
+
+                return res.status(200).jsonp(userstory);
+            });
         }
     );
 };
 
 //PUT - Update a register already exists
 module.exports.updateUserstory = function (req, res) {
-    Userstory.findById(req.params.id, function (err, userstory) {
-        //TODO
-
-        userstory.save(function (err) {
-            if (err) return res.send(500, err.message);
-            res.status(200).jsonp(userstory);
-        });
+    Userstory.findById(req.body.idUS, function (err, userstory) {
+        if (err) return res.status(500).send(err.message);
+        userstory.description = req.body.userstory.description;
+        userstory.cost = req.body.userstory.cost;
+        userstory.priority = req.body.userstory.priority;
+        userstory.sprint = req.body.userstory.sprint;
+        userstory.date_updated = new Date();
+         userstory.save(function (err) {
+         if (err) return res.send(500, err.message);
+         res.status(200).jsonp(userstory);
+         });
     });
 };
 
