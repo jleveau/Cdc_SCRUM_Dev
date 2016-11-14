@@ -38,7 +38,6 @@ module.exports.addTask = function(req, res) {
     }, function (err, tasks) {
 
         var num_task = 1;
-        console.log(tasks);
         if (tasks.length != 0){
             for (task of tasks){
                 if (task.number_task > num_task){
