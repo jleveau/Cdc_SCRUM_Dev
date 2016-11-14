@@ -5,14 +5,16 @@ table.table.table-striped
             th Num
             th Cost man/days
             th State
-            th(ng-if='isProjectMember()') Action
+            th(ng-if='isProjectMember()') Actions
     tbody
         tr(ng-repeat = "task in tasks")
-            td.filterable-cell {{ task.number_task }}
+            td.popover-cell.filterable-cell {{ task.number_task }}
             td.filterable-cell {{ task.estimated_cost }}
             td.filterable-cell {{ task.state }}
             td.filterable-cell(ng-if='isProjectMember()')
                 .btn-group
+                    button.btn.btn-default(type='button', aria-label='trash', ng-click='showDescription($event,task)')
+                        span.glyphicon.glyphicon-eye-open(aria-hidden='true')
                     button.btn.btn-default(type='button', aria-label='pencil', ng-click='editTask(task)')
                         span.glyphicon.glyphicon-pencil(aria-hidden='true')
                     button.btn.btn-danger(type='button', aria-label='trash',ng-click='deleteTask(task)')

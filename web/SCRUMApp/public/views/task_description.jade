@@ -1,0 +1,9 @@
+md-dialog
+    md-dialog-content
+        .container-fluid
+            h3 Task# {{task.number_task}}
+            p {{task.description}}
+
+    md-dialog-actions
+        md-button.md-primary(ng-click='closeDialog()')
+            | Ok
