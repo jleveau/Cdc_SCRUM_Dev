@@ -15,11 +15,6 @@ angular.module('Tasks',[])
             $scope.project = null;
             $scope.form = {};
 
-
-            Projects.get(project_id).then(function(response){
-                $scope.project = response.data;
-            });
-
             Projects.getProjectUserstories(project_id).then(function(response){
                 $scope.userstories = response;
             });
@@ -30,6 +25,7 @@ angular.module('Tasks',[])
                 $scope.task.id_project = $scope.project._id;
                 TasksServices.create($scope.task).then(function(response){
                     $scope.task=response;
+                    TasksServices.setListTask(response);
                     Projects.addTask($scope.task).then(function(response){
                         $scope.successMessage = 'New task added to the project';
                         $scope.task = {list_tasks_depend: []};

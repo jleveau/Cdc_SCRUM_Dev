@@ -85,12 +85,14 @@ module.exports.updateTask = function(req, res) {
 
 //DELETE - Delete a task with specified ID
 module.exports.deleteTask = function(req, res) {
-	Task.findById(req.params.id, function(err, task) {
-	    task.remove(function(err) {
-            if(err) return res.send(500, err.message);
-            US_Task.remove({_idTasks : task._id}, function(err){
-                res.send(200);
-            });
-	    })
-	});
+    US_Task.remove({_idTasks : req.params.id_task}, function(err){
+        if (err) return res.send(500, err.message);
+
+        Task.findById(req.params.id_task, function(err, task) {
+            task.remove(function(err) {
+                if(err) return res.send(500, err.message);
+                res.sendStatus(200);
+            })
+        });
+    });
 };

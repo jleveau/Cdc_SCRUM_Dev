@@ -8,10 +8,20 @@ angular.module('Tasks')
                 var related_userstories = [];
                 var list_dependencies = [];
 
+                var list_tasks = null;
+
 
                 function setRelatedUserstories(usertories){
                     related_userstories = usertories;
                 }
+
+                var setListTasks = function(tasks){
+                    list_tasks = tasks;
+                }
+
+                var addTaskToListTasks = function (task){
+                    list_tasks.push(task);
+                };
 
                 function getRelatedUserstories(){
                     return related_userstories;
@@ -58,17 +68,24 @@ angular.module('Tasks')
                     });
                 }
 
+                function deleteTask(id, task_id){
+                    return $http.delete('/api/project/' + id + '/tasks/' + task_id).then(function(response){
+                        return response.data;
+                    });
+                }
+
                 return ({
                     getTask : getTask,
                     setListDependencies : setListDependencies,
                     getListDependencies : getListDependencies,
+                    setListTasks : setListTasks,
+                    addTaskToListTasks,
                     setRelatedUserstories,
                     getRelatedUserstories,
                     getList: getList,
                     create: create,
                     deleteTask: deleteTask,
-                    update : update,
-
+                    update : update
                 });
 
             }]);
