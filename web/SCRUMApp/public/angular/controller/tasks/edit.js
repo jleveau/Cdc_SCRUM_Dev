@@ -12,7 +12,6 @@ angular.module('Tasks')
                 $scope.task = response;
                 TasksServices.setRelatedUserstories($scope.task.list_us);
                 TasksServices.setListDependencies($scope.task.list_tasks_depend);
-                console.log($scope.task);
             });
 
             $scope.create= function(){
@@ -24,7 +23,6 @@ angular.module('Tasks')
                      $scope.task.responsable = $scope.task.responsable._id;
                 $scope.task.list_tasks_depend = TasksServices.getListDependencies();
                 $scope.task.list_us = TasksServices.getRelatedUserstories();
-                console.log($scope.task);
                 TasksServices.update($scope.task).then(function(response){
                    $location.path( "/project/" +  $scope.project._id + "/tasks/");
                 });

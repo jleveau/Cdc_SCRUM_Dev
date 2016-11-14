@@ -19,7 +19,6 @@ angular.module('Project', [])
         if ($scope.params.project_id){
             Projects.get($scope.params.project_id).then(function(response){
                 $scope.project = response.data;
-
                 $scope.project.date_start = new Date($scope.project.date_start);
                 Projects.setProject($scope.project);
             });
