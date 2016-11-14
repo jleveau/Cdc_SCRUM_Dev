@@ -2,8 +2,8 @@
  * Created by julien on 07/11/16.
  */
 angular.module('Tasks')
-    .controller('TasksListController', ['$scope', '$routeParams', '$location', 'TasksServices', 'Projects',
-        function ($scope, $routeParams, $location, TasksServices, Projects) {
+    .controller('TasksListController', ['$scope', '$mdDialog',  '$routeParams', '$location', 'TasksServices', 'Projects',
+        function ($scope, $mdDialog,  $routeParams, $location, TasksServices, Projects) {
 
             $scope.project = null;
             $scope.tasks = null;
@@ -29,6 +29,26 @@ angular.module('Tasks')
                     $scope.tasks.splice(index,1);
                     $location.path( "/project/" + $scope.project._id + "/tasks");
                 });
+            };
+
+            $scope.showDescription = function($event,task){
+                var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    targetEvent: $event,
+                    templateUrl: '/partials/task_description.jade',
+                    locals: {
+                        task: task
+                    },
+                    controller: DialogController
+                });
+                function DialogController($scope, $mdDialog, task) {
+                    console.log(task);
+                    $scope.task = task;
+                    $scope.closeDialog = function() {
+                        $mdDialog.hide();
+                    }
+                }
             };
 
     }]);

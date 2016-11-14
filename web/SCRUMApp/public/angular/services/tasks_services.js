@@ -17,7 +17,7 @@ angular.module('Tasks')
 
                 var setListTasks = function(tasks){
                     list_tasks = tasks;
-                }
+                };
 
                 var addTaskToListTasks = function (task){
                     list_tasks.push(task);

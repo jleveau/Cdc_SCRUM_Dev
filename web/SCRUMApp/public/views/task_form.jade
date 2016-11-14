@@ -3,20 +3,20 @@ div(ng-if='isProjectMember()')
     .alert.alert-success(ng-show='successMessage') {{successMessage}}
 
     form.css-form(name = "form.task_form", novalidate)
-        .form-group(ng-class="{'has-warning':form.description.$invalid && form.description.$touched}")
+        .form-group(ng-class="{'has-warning':form.task_form.description.$invalid && form.task_form.description.$touched}")
             label(for='description') Description * :
             textarea#description.form-control(type='description',name = "description",rows="3", ng-model='task.description', required="")
-            span(ng-show='(!task.description) && form.description.$touched') You have to describe your new task
+            span(ng-show='(!task.description) && form.task_form.description.$touched') You have to describe your new task
 
         .form-group
             label(for='in_charge') Dev in charge :
             select#in_charge.form-control(name="in_charge", ng-model='task.responsable'
             ng-options= "member as member.username for member in project.member_list track by member._id")
 
-        .form-group(ng-class="{'has-warning':form.cost.$invalid && form.cost.$touched}")
+        .form-group(ng-class="{'has-warning':form.task_form.cost.$invalid && form.task_form.cost.$touched}")
             label(for='cost') Estimated cost (man/days) *:
             input#cost(name="cost",type='number', min="0", step="1", ng-model='task.estimated_cost', required="").form-control
-            span(ng-show='(!task.estimated_cost) && form.cost.$touched') You have to define a cost
+            span(ng-show='(!task.estimated_cost) && form.task_form.cost.$touched') You have to define a cost
 
         .form-group
             md-button#bind_userstory_btn.md-primary.md-raised(ng-click='showUserStory($event)',aria-label='List dialog')
@@ -26,6 +26,6 @@ div(ng-if='isProjectMember()')
                 | Add Dependencies
 
         .form-group
-            input#taskCreate_submit.btn.btn-default(ng-if="create()", type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='createTask()', value='Create')
-            input#taskUpdate_submit.btn.btn-default(ng-if="!create()",type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid', ng-click='editTask()', value='Update')
+            input#taskCreate_submit.btn.btn-default(ng-if="create()", type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='createTask()', value='Create')
+            input#taskUpdate_submit.btn.btn-default(ng-if="!create()",type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='editTask()', value='Update')
             input#cancel_edit_task_button.btn.btn-default(ng-if="!create()",type="button", ng-click='cancel()', value='Cancel')

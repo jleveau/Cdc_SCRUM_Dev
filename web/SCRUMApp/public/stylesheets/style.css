@@ -79,3 +79,20 @@ a {
   letter-spacing: 0;
   text-transform: none;
 }
+
+.popover-cell{
+  position: relative;
+}
+
+div .popover-floating-animation-right{
+  animation: none;
+  -webkit-animation: none;
+}
+
+.angular-popover{
+  z-index: 2;
+  width: 300px;
+  position: absolute;
+  max-height: 300px;
+  overflow: scroll;
+}

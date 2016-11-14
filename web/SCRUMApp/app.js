@@ -64,8 +64,12 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); /
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/js', express.static(__dirname + '/node_modules/angular-material')); // redirect JS jQuery
 app.use('/js', express.static(__dirname + '/node_modules/angular-animate')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/ng-popover/dist')); // redirect CSS bootstrap
+
 app.use('/css', express.static(__dirname + '/node_modules/angular-material')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use('/css', express.static(__dirname + '/node_modules/ng-popover/dist')); // redirect CSS bootstrap
+
 app.use('/fonts/', express.static(path.join(__dirname, '/node_modules/bootstrap/fonts')));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/partials',express.static(path.join(__dirname, '/public/views')));

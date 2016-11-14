@@ -10,10 +10,14 @@ angular.module('Tasks',[])
             $scope.successMessage = '';
             var project_id = $routeParams.project_id;
             $scope.userstories = [];
+            $scope.project = null;
             var related_userstories =  TasksServices.getRelatedUserstories();
             var list_dependencies = TasksServices.getListDependencies();
-            $scope.project = null;
             $scope.form = {};
+
+            Projects.get(project_id).then(function(response){
+                $scope.project = response.data;
+            });
 
             Projects.getProjectUserstories(project_id).then(function(response){
                 $scope.userstories = response;
@@ -25,10 +29,12 @@ angular.module('Tasks',[])
                 $scope.task.id_project = $scope.project._id;
                 TasksServices.create($scope.task).then(function(response){
                     $scope.task=response;
-                    TasksServices.setListTask(response);
                     Projects.addTask($scope.task).then(function(response){
                         $scope.successMessage = 'New task added to the project';
                         $scope.task = {list_tasks_depend: []};
+                        TasksServices.setListTasks(response);
+                        TasksServices.setListDependencies([]);
+                        TasksServices.setRelatedUserstories([]);
                         $scope.form.task_form.$setUntouched();
                         $timeout(function () { $scope.successMessage = ''; }, 3000);
                     });
@@ -110,9 +116,8 @@ angular.module('Tasks',[])
 
             $scope.taskIsChecked = function(id){
                 var match = false;
-                console.log(list_dependencies);
                 for(var i=0 ; i < list_dependencies.length; i++) {
-                    if(list_dependencies[i] == id){
+                    if(list_dependencies[i]._id == id){
                         match = true;
                     }
                 }
@@ -132,6 +137,7 @@ angular.module('Tasks',[])
                         }
                     }
                 }
+                TasksServices.setListDependencies(list_dependencies);
             };
 
 

@@ -33,20 +33,35 @@ module.exports.findById = function(req, res) {
 
 //POST - Insert a new task in the DB
 module.exports.addTask = function(req, res) {
-    var my_task = new Task(req.body);
-    my_task.save(function(err, task) {
-        if (err) console.log(err.errors);
-        if(err) return res.send(500, err.message);
-        for (us of task.list_us){
-            var us_task = new US_Task({
-                _idTasks : task._id,
-                _idUserstory : us
-            });
-            us_task.save(function(err, us_task){
-                if (err) console.log(err.errors);
-            });
+    Task.find({
+        'id_project': req.body.id_project
+    }, function (err, tasks) {
+
+        var num_task = 1;
+        if (tasks.length != 0){
+            for (task of tasks){
+                if (task.number_task > num_task){
+                    num_task = task.number_task;
+                }
+            }
+            num_task = num_task +1;
         }
-       res.status(200).jsonp(task);
+        req.body.number_task = num_task;
+        var my_task = new Task(req.body);
+        my_task.save(function (err, task) {
+            if (err) console.log(err.errors);
+            if (err) return res.send(500, err.message);
+            for (us of task.list_us) {
+                var us_task = new US_Task({
+                    _idTasks: task._id,
+                    _idUserstory: us
+                });
+                us_task.save(function (err, us_task) {
+                    if (err) console.log(err.errors);
+                });
+            }
+            res.status(200).jsonp(task);
+        });
     });
 };
 
