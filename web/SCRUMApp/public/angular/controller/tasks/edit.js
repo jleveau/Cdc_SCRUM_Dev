@@ -53,7 +53,6 @@ angular.module('Tasks')
                         $mdDialog.hide();
                     }
                 }
-
             };
 
             $scope.showUserStory = function($event){

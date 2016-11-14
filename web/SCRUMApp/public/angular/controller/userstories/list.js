@@ -8,11 +8,7 @@ angular.module('UserStories')
             };
             
             $scope.update_us = function (us) {
-                $location.path();
-
-     // TODO créer une nouvelle view avec un formulaire comme pour ajout US. passer le ID user afficher US et ajouter update.
-
-
+               $location.path('/api/userstory/'+us._id+'/edit');
             };
 
             $scope.view_sprint = function (sprint_num) {
@@ -21,11 +17,11 @@ angular.module('UserStories')
 
             $scope.updatePriorityUs = function (user_story) {
 
-            }
+            };
 
             $scope.updateCostUs = function (user_story) {
 
-            }
+            };
 
             $scope.delete_us = function (us) {
                 var _id = us._id;
