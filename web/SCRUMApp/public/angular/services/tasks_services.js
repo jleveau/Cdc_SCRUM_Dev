@@ -5,7 +5,9 @@ angular.module('Tasks')
 
             function ($q, $timeout, $http) {
 
-                related_userstories = [];
+                var related_userstories = [];
+                var list_dependencies = [];
+
 
                 function setRelatedUserstories(usertories){
                     related_userstories = usertories;
@@ -15,8 +17,18 @@ angular.module('Tasks')
                     return related_userstories;
                 }
 
-                function getTask(){
-                    return $http.get('/api/tasks/info/:id').then(function(response){
+
+                function setListDependencies(dependencies){
+                    list_dependencies = dependencies;
+                }
+
+                function getListDependencies(){
+
+                    return list_dependencies;
+                }
+
+                function getTask(task_id){
+                    return $http.get('/api/tasks/info/' + task_id).then(function(response){
                         return response.data;
                     });
                 }
@@ -41,19 +53,22 @@ angular.module('Tasks')
                 }
 
                 function update(task){
-                    return $http.put('/api/tasks/:id',task).then(function(response){
+                    return $http.put('/api/tasks/' + task._id,task).then(function(response){
                         return response.data;
                     });
                 }
 
                 return ({
-                    getTask,getTask,
+                    getTask : getTask,
+                    setListDependencies : setListDependencies,
+                    getListDependencies : getListDependencies,
+                    setRelatedUserstories,
+                    getRelatedUserstories,
                     getList: getList,
                     create: create,
                     deleteTask: deleteTask,
                     update : update,
-                    setRelatedUserstories,
-                    getRelatedUserstories
+
                 });
 
             }]);

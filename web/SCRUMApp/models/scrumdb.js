@@ -81,7 +81,7 @@ var tasks = new mongoose.Schema({
     responsable: {type: ObjectId, ref: 'users'},
     state: {type: String, enum: ['TODO', 'DOING', 'DONE'], default: 'TODO'},
     list_us: [{type: ObjectId, ref: 'userstories'}],
-    list_tasks_depend: [{type: Number, ref: 'tasks'}],
+    list_tasks_depend: [{type: ObjectId, ref: 'tasks'}],
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });

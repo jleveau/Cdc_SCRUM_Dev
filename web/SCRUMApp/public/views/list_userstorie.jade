@@ -30,15 +30,18 @@
                 td.filterable-cell
                     small {{user_story.description}}
                 td.filterable-cell
-                    input(type='number' , ng-show='isProductOwner()', name='form_priority',
-                        value='{{user_story.priority}}')
+                    input(type='number', ng-show='isProductOwner()', name='form_priority',
+                        value='{{user_story.priority}}', ng-model='user_story.priority', ng-change='updatePriorityUs(user_story)')
                     span(ng-hide='isProductOwner()') {{user_story.priority}}
                 td.filterable-cell
-                    input(type='number' , ng-show='isProjectMember()', value='{{user_story.estimated_cost}}')
+                    input(type='number' , ng-show='isProjectMember()', name='form_cost',
+                        value='{{user_story.estimated_cost}}', ng-model='user_story.estimated_cost', ng-change='updateCostUs(user_story)')
                     span(ng-hide='isProjectMember()') {{user_story.estimated_cost}}
                 td.filterable-cell
                     a.pointer(ng-click="view_sprint(user_story.sprint)") Sprint {{user_story.sprint}}
                 td.filterable-cell {{user_story.state}}
                 td.filterable-cell
-                    a.pointer(ng-click="delete_us(user_story._id)") Delete
+                    a.pointer(ng-click="delete_us(user_story)") Delete /
+                    a.pointer(ng-click="update_us(user_story)") update
+
 br

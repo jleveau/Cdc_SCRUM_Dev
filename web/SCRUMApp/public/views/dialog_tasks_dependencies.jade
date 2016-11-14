@@ -1,26 +1,15 @@
-md-dialog(aria-label='List dialog')
+md-dialog(aria-label='List dialog', ng-controller='TasksAddController')
     md-dialog-content
       .container-fluid
-         h3 Task Dependencies
+        h3 Task Dependencies
+        form(ng-repeat="task in project.tasks")
 
-
-            form
-                .form-group
-                    .checkbox
-                        label
-                            input(type='checkbox',name="Task#1")
-                            | Creating a page to register laboratories
-                .form-group
-                    .checkbox
-                        label
-                            input(type='checkbox',name="Task#2")
-                            | Creating a page to register laboratories
-                .form-group
-                    .checkbox
-                        label
-                            input(type='checkbox',name="Task#3")
-                            | Creating a page to register laboratories
+            .form-group
+                .checkbox
+                    label
+                        input(type='checkbox', ng-model="bool", ng-click="taskSync(bool, task)", ng-checked="taskIsChecked(task._id)" )
+                        | {{task.description}}
     md-dialog-actions
         md-button.md-primary(ng-click='closeDialog()')
-            | Close
-| '
+            | Ok
+

@@ -9,6 +9,10 @@ angular.module('UserStories')
                     listUser = _listUserStories;
                 };
 
+                var addUsToList = function (_userstory){
+                    listUser.push(_userstory);
+                };
+
                 return {
                     get: function (id) {
                         return $http.get('/api/project/backlog/' + id);
@@ -21,9 +25,11 @@ angular.module('UserStories')
                     },
 
                     updatePriorityUs: function () {
+                        /*
                         return $http.put('/api/project/product_owner/' + project._id, project).then(function (response) {
                             return response.data;
                         });
+                        */
                     },
 
                     delete: function (project_id, us_id) {
@@ -32,7 +38,8 @@ angular.module('UserStories')
                         });
                     },
 
-                    setListUS: setListUS
+                    setListUS: setListUS,
+                    addUsToList:addUsToList
                 };
 
             }]);

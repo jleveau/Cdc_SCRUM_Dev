@@ -37,12 +37,10 @@ module.exports.addTask = function(req, res) {
     my_task.save(function(err, task) {
         if (err) console.log(err.errors);
         if(err) return res.send(500, err.message);
-
-        var related_usertories = task.list_us;
-        for (us of related_usertories){
+        for (us of task.list_us){
             var us_task = new US_Task({
                 _idTasks : task._id,
-                _idUserstory : ObjectId(us._id)
+                _idUserstory : us
             });
             us_task.save(function(err, us_task){
                 if (err) console.log(err.errors);
@@ -65,10 +63,21 @@ module.exports.updateTask = function(req, res) {
         task.responsable = req.body.responsable;
         task.state = req.body.state;
         task.list_us = req.body.list_us;
+        task.list_tasks_depend = req.body.list_tasks_depend;
         task.updated = Date.now;
-
-        task.save(function(err) {
+        task.save(function(err, task) {
         if(err) return res.send(500, err.message);
+            US_Task.remove({_idTasks : task._id}, function(err){
+                for (us of task.list_us){
+                    var us_task = new US_Task({
+                        _idTasks : task._id,
+                        _idUserstory : us
+                    });
+                    us_task.save(function(err, us_task){
+                        if (err) console.log(err.errors);
+                    });
+                }
+            });
             res.status(200).jsonp(task);
         });
     });
@@ -78,8 +87,10 @@ module.exports.updateTask = function(req, res) {
 module.exports.deleteTask = function(req, res) {
 	Task.findById(req.params.id, function(err, task) {
 	    task.remove(function(err) {
-                if(err) return res.send(500, err.message);
+            if(err) return res.send(500, err.message);
+            US_Task.remove({_idTasks : task._id}, function(err){
                 res.send(200);
+            });
 	    })
 	});
 };

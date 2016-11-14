@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var schema = require("./scrumdb");
 var Userstory = mongoose.model('userstories');
+var UserstoriesTasks = mongoose.model('userstories_tasks');
+var Tasks = mongoose.model('tasks');
 var ObjectId = mongoose.Types.ObjectId;
 
 //GET - Return all userstories in the DB
@@ -12,30 +14,32 @@ module.exports.findAllUserstories = function (req, res) {
     });
 };
 
+//GET - Return all tasks for a userstory
+module.exports.findUserstoryTasks = function(req, res){
+    var userstory_id = req.params.id;
+    Userstory.findById(req.params.id, function (err, userstory) {
+        if (err) res.send(500, err.message);
+        if (!userstory) res.send(400, "no userstory for id " + userstory_id);
+        UserstoriesTasks.find({'_idUserstory' : userstory_id},function(err, userstory_tasks){
+            var tasks = [];
+            for (userstory_task of userstory_tasks){
+                Tasks.findById(userstory_task._idTasks, function(err, task){
+                    if (err) res.send(500, err.message);
+                    if (err) console.log(err.errors);
+
+                    tasks.push(task);
+                    if (userstory_tasks.length == tasks.length) {
+                        res.send(200, tasks);
+                    }
+                });
+            }
+        });
+    });
+};
+
 //GET - Return a userstory with specified project_ID
 module.exports.findByIdProject = function (req, res) {
     console.log('Ctrl GET/' + req.params.id);
-
-    var data = [
-        {
-            '_id': 1,
-            'number_us': 1,
-            'description': 'IEEE Computer Society',
-            'priority': 4,
-            'estimated_cost': 2,
-            'sprint': 1,
-            'state': 'Valid'
-        }, {
-            '_id': 2,
-            'number_us': 2,
-            'description': 'National Academy of Engineering',
-            'priority': 1,
-            'estimated_cost': 5,
-            'sprint': 2,
-            'state': 'Not Valid'
-        }
-    ];
-
     Userstory.find({
             'id_project': req.params.id
         }, function (err, userstories) {
@@ -94,13 +98,14 @@ module.exports.updateUserstory = function (req, res) {
 
 //DELETE - Delete a userstory with specified ID
 module.exports.deleteUserstory = function (req, res) {
+    console.log('DELETE US ');
     Userstory.findOne({
         'id_project': req.params.id,
         '_id': req.params.id_us
     }, function (err, userstory) {
         userstory.remove(function (err) {
             if (err) return res.send(500, err.message);
-            res.send(200);
-        });
+            res.sendStatus(200);
+        })
     });
 };
