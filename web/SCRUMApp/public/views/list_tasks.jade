@@ -2,13 +2,13 @@ h2 Tasks
 table.table.table-striped
     thead
         tr
-            th Description
+            th Num
             th Cost man/days
             th State
             th(ng-if='isProjectMember()') Action
     tbody
         tr(ng-repeat = "task in tasks")
-            td.filterable-cell {{ task.description }}
+            td.filterable-cell {{ task.number_task }}
             td.filterable-cell {{ task.estimated_cost }}
             td.filterable-cell {{ task.state }}
             td.filterable-cell(ng-if='isProjectMember()')

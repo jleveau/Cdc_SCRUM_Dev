@@ -58,14 +58,13 @@ module.exports.addUserstory = function (req, res) {
             'id_project': req.body.idProject
         }, function (err, userstories) {
             if (err) return res.send(500, err.message);
-
-        var taille = userstories.length;
-        var USnumber=0;
-
-        if(taille == 0){
-            USnumber = 1;
-        }else {
-            USnumber = userstories[taille - 1]['number_us'] +1;
+        var USnumber=1;
+        if (! userstories.length == 0){
+            for (us of userstories){
+                if (us.number_us && us.number_us > USnumber)
+                    USnumber = us.number_us;
+            }
+            USnumber = USnumber + 1;
         }
         var userstory = new Userstory({
             number_us : USnumber,
