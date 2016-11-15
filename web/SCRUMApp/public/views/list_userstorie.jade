@@ -1,6 +1,6 @@
 .container-fluid(ng-controller='UserStoriesListController')
     h2 User story details
-    table.table.table-striped
+    table.table.table-striped(ng-init="items.total = 0")
         thead.listBackLog
             tr
                 th ID
@@ -11,38 +11,34 @@
                 th State
                 th Action
         tbody.listBackLog
-            tr
-                td.filterable-cell US1
-                td.filterable-cell En tant que
+            tr(ng-repeat="user_story in listUserStories | filter:{ $: ''} ")
+                td.filterable-cell US{{user_story.number_us}}
                 td.filterable-cell
-                    input(type='number' , value='3')
-                td.filterable-cell
-                    input(type='number' , value='3')
-                td.filterable-cell
-                    a.pointer Sprint#1
-                td.filterable-cell Valide
-                td.filterable-cell
-                    a.pointer Delete
-
-            tr(ng-repeat="user_story in listUserStories")
-                td.filterable-cell
-                    a.pointer(ng-click='view_us(user_story.number_us)') US{{user_story.number_us}}
-                td.filterable-cell
-                    small {{user_story.description}}
+                    span.truncate(ng-mouseover="tooltip=true" ng-mouseleave="tooltip=false") {{user_story.description}}
+                    div.tooltipTruncate(ng-show="tooltip") {{user_story.description}}
                 td.filterable-cell
                     input(type='number', ng-show='isProductOwner()', name='form_priority',
                         value='{{user_story.priority}}', ng-model='user_story.priority', ng-change='updatePriorityUs(user_story)')
                     span(ng-hide='isProductOwner()') {{user_story.priority}}
-                td.filterable-cell
+                td.filterable-cell(ng-init="items.total=items.total+user_story.cost")
                     input(type='number' , ng-show='isProjectMember()', name='form_cost',
                         value='{{user_story.cost}}', ng-model='user_story.cost', ng-change='updateCostUs(user_story)')
                     span(ng-hide='isProjectMember()') {{user_story.cost}}
                 td.filterable-cell
-                    a.pointer(ng-click="view_sprint(user_story.sprint)") Sprint {{user_story.sprint}}
+                    a.pointer(ng-click="view_sprint(user_story.sprint)") Sprint{{user_story.sprint}}
                 td.filterable-cell {{user_story.state}}
-                td.filterable-cell
-                    a.pointer(ng-click="delete_us(user_story)") Delete
-                    small  -
-                    a.pointer(ng-click="update_us(user_story)") update
-
+                td.filterable-cell(ng-if='isProjectMember()')
+                    .btn-group
+                        button.btn.btn-default(type='button', aria-label='pencil', ng-click='update_us(user_story)')
+                            span.glyphicon.glyphicon-pencil(aria-hidden='true')
+                        button.btn.btn-danger(type='button', aria-label='trash',ng-click='delete_us(user_story)')
+                            span.glyphicon.glyphicon-trash(aria-hidden='true')
+             tr
+                td
+                td
+                td TOTAL
+                td {{items.total}}
+                td
+                td
+                td
 br

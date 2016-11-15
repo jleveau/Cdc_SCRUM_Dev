@@ -3,16 +3,13 @@ angular.module('UserStories')
         function ($scope, $location, UserStoriesServices) {
 
             $scope.user_story = {};
+            $scope.tooltip = false;
             $scope.view_us = function(us_num){
                 alert("us number is "+us_num);
             };
             
             $scope.update_us = function (us) {
                $location.path('/api/userstory/'+us._id+'/edit');
-            };
-
-            $scope.view_sprint = function (sprint_num) {
-                alert("sprint_num is "+sprint_num);
             };
 
             $scope.updatePriorityUs = function (user_story) {
