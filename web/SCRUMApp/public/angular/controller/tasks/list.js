@@ -25,7 +25,7 @@ angular.module('Tasks')
                 var _id = task._id;
                 var index = $scope.tasks.indexOf(task);
 
-                TasksServices.deleteTask($scope.project._id, _id).then(function(response){
+                TasksServices.deleteTask(_id).then(function(response){
                     $scope.tasks.splice(index,1);
                     $location.path( "/project/" + $scope.project._id + "/tasks");
                 });

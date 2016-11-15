@@ -14,6 +14,10 @@ module.exports = function(app, ctrl) {
 	
 	app.put('/api/userstory/update', ctrl.updateUserstory);
 
-	app.delete('/api/project/:id/backlog/userstory/:id_us', ctrl.deleteUserstory);
+	app.put('/api/userstory/:id/cost/:cost', ctrl.updateCostUS);
+
+	app.put('/api/userstory/:id/priority/:priority', ctrl.updatePriorityUS);
+
+	app.delete('/api/userstory/:id_us', ctrl.deleteUserstory);
 
 };

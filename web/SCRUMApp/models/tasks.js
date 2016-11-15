@@ -100,6 +100,7 @@ module.exports.updateTask = function(req, res) {
 
 //DELETE - Delete a task with specified ID
 module.exports.deleteTask = function(req, res) {
+    console.log(req.params.id_task)
     US_Task.remove({_idTasks : req.params.id_task}, function(err){
         if (err) return res.send(500, err.message);
 

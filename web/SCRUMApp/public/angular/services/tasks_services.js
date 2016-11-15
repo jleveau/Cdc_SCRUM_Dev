@@ -57,19 +57,13 @@ angular.module('Tasks')
                 }
 
                 function deleteTask(task_id){
-                    return $http.delete('/api/tasks/' + task_id).then(function(response){
+                    return $http.delete('/api/task/' + task_id).then(function(response){
                         return response.data;
                     });
                 }
 
                 function update(task){
                     return $http.put('/api/tasks/' + task._id,task).then(function(response){
-                        return response.data;
-                    });
-                }
-
-                function deleteTask(id, task_id){
-                    return $http.delete('/api/project/' + id + '/tasks/' + task_id).then(function(response){
                         return response.data;
                     });
                 }

@@ -114,13 +114,39 @@ module.exports.updateUserstory = function (req, res) {
     });
 };
 
+//PUT - Update the Cost of US
+module.exports.updateCostUS = function (req, res) {
+    console.log('updateCostUS: '+req.params.cost);
+    Userstory.findById(req.params.id, function (err, userstory) {
+        if (err) return res.status(500).send(err.message);
+        userstory.cost = req.params.cost;
+        userstory.date_updated = new Date();
+        userstory.save(function (err) {
+            if (err) return res.send(500, err.message);
+            res.status(200).jsonp(userstory);
+        });
+    });
+};
+
+//PUT - Update the Priority of US
+module.exports.updatePriorityUS = function (req, res) {
+    console.log('-updatePriorityUS '+req.params.priority);
+    Userstory.findById(req.params.id, function (err, userstory) {
+        if (err) return res.status(500).send(err.message);
+        userstory.priority = req.params.priority;
+        userstory.date_updated = new Date();
+        userstory.save(function (err) {
+            if (err) return res.send(500, err.message);
+            res.status(200).jsonp(userstory);
+        });
+    });
+};
+
+
 //DELETE - Delete a userstory with specified ID
 module.exports.deleteUserstory = function (req, res) {
     console.log('DELETE US ');
-    Userstory.findOne({
-        'id_project': req.params.id,
-        '_id': req.params.id_us
-    }, function (err, userstory) {
+    Userstory.findById(req.params.id_us, function (err, userstory) {
         userstory.remove(function (err) {
             if (err) return res.send(500, err.message);
             res.sendStatus(200);

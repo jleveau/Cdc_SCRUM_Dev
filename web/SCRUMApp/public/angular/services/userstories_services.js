@@ -37,16 +37,20 @@ angular.module('UserStories')
                         });
                     },
 
-                    updatePriorityUs: function () {
-                        /*
-                        return $http.put('/api/project/product_owner/' + project._id, project).then(function (response) {
+                    updatePriority: function (user_story) {
+                        return $http.put('/api/userstory/'+user_story._id+'/priority/'+user_story.priority).then(function (response) {
                             return response.data;
                         });
-                        */
                     },
 
-                    delete: function (project_id, us_id) {
-                        return $http.delete('/api/project/' + project_id + '/backlog/userstory/' + us_id).then(function (response) {
+                    updateCost: function (user_story) {
+                        return $http.put('/api/userstory/'+user_story._id+'/cost/'+user_story.cost).then(function (response) {
+                            return response.data;
+                        });
+                    },
+
+                    delete: function (us_id) {
+                        return $http.delete('/api/userstory/' + us_id).then(function (response) {
                             return response.data;
                         });
                     },

@@ -4,28 +4,35 @@ angular.module('UserStories')
 
             $scope.user_story = {};
             $scope.tooltip = false;
-            $scope.view_us = function(us_num){
-                alert("us number is "+us_num);
+            $scope.invoiceTotal = 0;
+
+            $scope.setTotals = function(item){
+                if (item){
+                    $scope.invoiceTotal += item.cost;
+                }
             };
             
             $scope.update_us = function (us) {
                $location.path('/api/userstory/'+us._id+'/edit');
             };
 
-            $scope.updatePriorityUs = function (user_story) {
+            $scope.updatePriority = function (user_story) {
+                UserStoriesServices.updatePriority(user_story).then(function(response){
 
+                });
             };
 
             $scope.updateCostUs = function (user_story) {
+                UserStoriesServices.updateCost(user_story).then(function(response){
 
+                });
             };
 
             $scope.delete_us = function (us) {
                 var _id = us._id;
                 var index = $scope.listUserStories.indexOf(us);
-                UserStoriesServices.delete($scope.params.project_id, _id).then(function(response){
+                UserStoriesServices.delete(_id).then(function(response){
                     $scope.listUserStories.splice(index,1);
-                    $location.path( "/project/" + $scope.params.project_id + "/backlog");
                 });
             };
 

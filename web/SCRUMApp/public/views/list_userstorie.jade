@@ -1,6 +1,6 @@
 .container-fluid(ng-controller='UserStoriesListController')
     h2 User story details
-    table.table.table-striped(ng-init="items.total = 0")
+    table.table.table-striped
         thead.listBackLog
             tr
                 th ID
@@ -11,16 +11,16 @@
                 th State
                 th Action
         tbody.listBackLog
-            tr(ng-repeat="user_story in listUserStories | filter:{ $: ''} ")
+            tr(ng-repeat="user_story in listUserStories | filter:{ $: ''}" ng-init="setTotals(user_story)")
                 td.filterable-cell US{{user_story.number_us}}
                 td.filterable-cell
                     span.truncate(ng-mouseover="tooltip=true" ng-mouseleave="tooltip=false") {{user_story.description}}
                     div.tooltipTruncate(ng-show="tooltip") {{user_story.description}}
                 td.filterable-cell
                     input(type='number', ng-show='isProductOwner()', name='form_priority',
-                        value='{{user_story.priority}}', ng-model='user_story.priority', ng-change='updatePriorityUs(user_story)')
+                        value='{{user_story.priority}}', ng-model='user_story.priority', ng-change='updatePriority(user_story)')
                     span(ng-hide='isProductOwner()') {{user_story.priority}}
-                td.filterable-cell(ng-init="items.total=items.total+user_story.cost")
+                td.filterable-cell
                     input(type='number' , ng-show='isProjectMember()', name='form_cost',
                         value='{{user_story.cost}}', ng-model='user_story.cost', ng-change='updateCostUs(user_story)')
                     span(ng-hide='isProjectMember()') {{user_story.cost}}
@@ -37,7 +37,7 @@
                 td
                 td
                 td TOTAL
-                td {{items.total}}
+                td {{invoiceTotal}}
                 td
                 td
                 td
