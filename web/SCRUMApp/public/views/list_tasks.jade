@@ -4,12 +4,14 @@ table.table.table-striped
         tr
             th Num
             th Cost man/days
+            th Sprint
             th State
             th(ng-if='isProjectMember()') Actions
     tbody
         tr(ng-repeat = "task in tasks")
             td.popover-cell.filterable-cell {{ task.number_task }}
             td.filterable-cell {{ task.estimated_cost }}
+            td.filterable-cell Sprint# {{ task.sprint.number_sprint }}
             td.filterable-cell {{ task.state }}
             td.filterable-cell(ng-if='isProjectMember()')
                 .btn-group

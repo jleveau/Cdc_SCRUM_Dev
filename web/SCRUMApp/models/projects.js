@@ -3,6 +3,7 @@ var schema = require("./scrumdb");
 var Project  = mongoose.model('projects');
 var UserProject = mongoose.model('user_project');
 var User = mongoose.model('users');
+var Sprint = mongoose.model('sprints');
 var ObjectId = mongoose.Types.ObjectId;
 
 //GET - Return all projects in the DB
@@ -19,7 +20,8 @@ module.exports.findById = function(req, res) {
     Project.findById(req.params.id)
         .populate('member_list')
         .populate('product_owner')
-        .populate('tasks')
+        .populate({path: 'tasks',
+                   populate: {path: 'sprint'}})
         .exec(function(err, project) {
          if(err) return res.send(500, err.message);
 
@@ -38,10 +40,21 @@ module.exports.addproject = function(req, res) {
         var user_project = new UserProject({_idUser : req.body.user,
                                             _idProject : project._id});
         user_project.save(function(err,user_project){
+            for (var i=0; i <  project.nb_sprint; i++){
+                var sprint = new Sprint(
+                    {
+                        number_sprint : i+1,
+                        duration : project.sprint_duration,
+                        project : project
+                    }
+                );
+                sprint.save(function(err,sprint){
+                    if(err) return res.send(500, err.message);
+                });
+            }
             return res.status(200).jsonp(project);
         });
     });
-
 };
 
 //PUT - Update a register already exists
