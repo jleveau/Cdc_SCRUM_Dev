@@ -20,7 +20,10 @@ module.exports.findById = function (req, res) {
     Project.findById(req.params.id)
         .populate('member_list')
         .populate('product_owner')
-        .populate('tasks')
+        .populate({
+            path : 'tasks',
+            populate: {path: 'sprint'}
+        })
         .exec(function (err, project) {
             if (err) return res.send(500, err.message);
 
@@ -41,6 +44,7 @@ module.exports.addproject = function (req, res) {
         });
         user_project.save(function (err, user_project) {
             if (err) return res.status(500).send(err.message);
+
             var projectBeginningDate = new Date(req.body.project.date_start);
             var sprintDate = new Date(req.body.project.date_start);
             for (var i = 1; i <= req.body.project.nb_sprint; i++) {

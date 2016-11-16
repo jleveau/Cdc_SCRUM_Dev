@@ -13,7 +13,6 @@ angular.module('UserStories')
             if (idUserStory) {
                 UserStoriesServices.getUsByID(idUserStory).then(function (response) {
                     $scope.userstory = response;
-                    console.log(response);
                 });
             };
 

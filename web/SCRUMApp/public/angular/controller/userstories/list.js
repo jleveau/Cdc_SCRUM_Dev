@@ -41,7 +41,6 @@ angular.module('UserStories')
 
             if ($scope.params.project_id){
                 UserStoriesServices.get($scope.params.project_id).then(function(response){
-                    console.log(response.data);
                     $scope.listUserStories = response.data;
                     UserStoriesServices.setListUS($scope.listUserStories);
                 });

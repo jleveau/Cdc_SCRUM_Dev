@@ -34,11 +34,12 @@ module.exports.findUserstoryTasks = function (req, res) {
         if (!userstory) res.send(400, "no userstory for id " + userstory_id);
         UserstoriesTasks.find({'_idUserstory': userstory_id}, function (err, userstory_tasks) {
             var tasks = [];
+            if (userstory_tasks.length == 0)
+                res.send(200, []);
             for (userstory_task of userstory_tasks) {
                 Tasks.findById(userstory_task._idTasks, function (err, task) {
                     if (err) res.send(500, err.message);
                     if (err) console.log(err.errors);
-
                     tasks.push(task);
                     if (userstory_tasks.length == tasks.length) {
                         res.send(200, tasks);

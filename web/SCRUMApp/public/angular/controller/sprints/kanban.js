@@ -5,27 +5,50 @@ angular.module('Sprints',[])
             $scope.current_sprint = null;
             $scope.list_sprints = null;
             $scope.listUserStories = [];
+            $scope.all_tasks = [];
 
             var project_id = $routeParams.project_id;
+
+            function changeCurrentSprint(sprint){
+                $scope.current_sprint = sprint;
+                SprintServices.setCurrentSprint(sprint);
+                SprintServices.getSprintUserstories(sprint._id).then(function(userstories){
+                    $scope.listUserStories = userstories;
+                    TasksServices.getTaskForSprint(sprint._id).then(function(response){
+                        var tasks = response;
+                        $scope.all_tasks = [];
+
+                        //TODO change  this
+                        //Build list of tasks of each userstory of the sprint
+                        //It's really dirty
+                        for (task of response){
+                            if (task.list_us.length == 0)
+                                $scope.all_tasks.push(task)
+                            else{
+                                task.list_us.forEach(function(task_us){
+                                    for (userstory of $scope.listUserStories){
+                                        userstory.tasks = [];
+                                        if (userstory._id == task_us._id){
+                                            userstory.tasks.push(task);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+            }
 
             SprintServices.getProjectSprints(project_id).then(function(response){
                 $scope.list_sprints = response;
                 SprintServices.setSprintsForProject(response);
 
                 //TODO change for the first sprint not validated
-                SprintServices.setCurrentSprint(response[0]);
-
-                $scope.current_sprint = response[0];
-                SprintServices.getSprintUserstories($scope.current_sprint._id).then(function(userstories){
-                    $scope.listUserStories = userstories;
-                });
+                changeCurrentSprint(response[0]);
             });
 
             $scope.changeCurrentSprint = function (){
-                SprintServices.setCurrentSprint($scope.current_sprint);
-                SprintServices.getSprintUserstories($scope.current_sprint._id).then(function(userstories){
-                    $scope.listUserStories = userstories;
-                });
+                changeCurrentSprint($scope.current_sprint);
             };
 
             $scope.addTask = function(us){
