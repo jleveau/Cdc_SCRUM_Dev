@@ -1,17 +1,58 @@
 angular.module('UserStories')
-    .controller('UserStoriesListController', ['$scope', '$location', 'UserStoriesServices',
-        function ($scope, $location, UserStoriesServices) {
+    .controller('UserStoriesListController', ['$scope', '$location', 'UserStoriesServices','SprintServices',
+        function ($scope, $location, UserStoriesServices, SprintServices) {
 
             $scope.user_story = {};
+            //show the userstory description
             $scope.tooltip = false;
-            $scope.invoiceTotal = 0;
 
+            //total cost of us
+            $scope.totalCostUs = 0;
+            $scope.invoiceTotal = 0;
+            //setTotals(user_story)
             $scope.setTotals = function(item){
-                if (item){
+                 if (item){
                     $scope.invoiceTotal += item.cost;
                 }
+
+                $scope.$watch('selectSprintValue', function(newValue, oldValue){
+                    if(newValue.value == 'Sprint'){
+                        $scope.invoiceTotal = $scope.totalCostUs;
+                    }
+                });
             };
-            
+
+            //filter for column Sprint
+            $scope.myFilter = "Sprint";
+
+            SprintServices.getProjectSprints($scope.idProject).then(function(response){
+                $scope.selectSprint = [];
+                var ele_initial = {"label":"All Sprints",
+                                   "value":"Sprint"};
+                $scope.selectSprint.push(ele_initial);
+                for (sprint of response){
+
+                    var ele_sprint = {"label":"Sprint"+sprint.number_sprint,
+                        "value":"Sprint"+sprint.number_sprint};
+                    $scope.selectSprint.push(ele_sprint);
+                }
+            });
+            $scope.selectSprintValue = "";
+            $scope.applyFilter = function(valueSelected){
+                $scope.myFilter = "";
+                $scope.myFilter = valueSelected.value;
+                $scope.invoiceTotal = 0;
+
+                $scope.$watch('selectSprintValue', function(newValue, oldValue){
+                    if(oldValue.value == 'Sprint'){
+                        $scope.invoiceTotal = 0;
+                        for(us of  $scope.listUserStories){
+                            //todo
+                        }
+                    }
+                });
+            };
+
             $scope.update_us = function (us) {
                $location.path('/api/userstory/'+us._id+'/edit');
             };
@@ -39,6 +80,10 @@ angular.module('UserStories')
             if ($scope.params.project_id){
                 UserStoriesServices.get($scope.params.project_id).then(function(response){
                     $scope.listUserStories = response.data;
+                    for (us of $scope.listUserStories){
+                       us["num_sprint"] = 'Sprint'+us.sprint.number_sprint;
+                        $scope.totalCostUs = $scope.totalCostUs + us.cost;
+                    }
                     UserStoriesServices.setListUS($scope.listUserStories);
                 });
             };

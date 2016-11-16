@@ -20,6 +20,7 @@ angular.module('Tasks')
                 };
 
                 var addTaskToListTasks = function (task){
+                    console.log(task)
                     list_tasks.push(task);
                 };
 
@@ -73,7 +74,7 @@ angular.module('Tasks')
                     setListDependencies : setListDependencies,
                     getListDependencies : getListDependencies,
                     setListTasks : setListTasks,
-                    addTaskToListTasks,
+                    addTaskToListTasks : addTaskToListTasks,
                     setRelatedUserstories,
                     getRelatedUserstories,
                     getList: getList,
