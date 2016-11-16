@@ -34,8 +34,7 @@ module.exports.addproject = function (req, res) {
     console.log('POST');
     var project = new Project(req.body.project);
     project.save(function (err, project) {
-        console.log(err.errors);
-        if (err) return res.send(500, err.message);
+        if (err) return res.status(500).send(err.message);
         var user_project = new UserProject({
             _idUser: req.body.user,
             _idProject: project._id
@@ -45,7 +44,7 @@ module.exports.addproject = function (req, res) {
 
             var projectBeginningDate = new Date(req.body.project.date_start);
             var sprintDate = new Date(req.body.project.date_start);
-            for (var i = 1; i <= req.body.project.numberOfSprints; i++) {
+            for (var i = 1; i <= req.body.project.nb_sprint; i++) {
                 if (i != 1)
                     sprintDate = projectBeginningDate.setDate(projectBeginningDate.getDate() + req.body.project.sprint_duration);
                 var sprint = new Sprint({

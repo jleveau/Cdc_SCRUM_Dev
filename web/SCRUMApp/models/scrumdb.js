@@ -19,13 +19,12 @@ var projects = new mongoose.Schema({
     specification: Buffer,
     product_owner: {type: ObjectId, ref: 'users'},
     github: String,
-    nb_sprint: Number,
     status: {type: String, enum: ['public', 'private'], default: 'public'},
     tasks: [{type: ObjectId, ref: 'tasks'}],
     date_start: {type: Date, required: true},
     description: String,
     sprint_duration: {type: Number, required: true},
-    numberOfSprints : {type : Number , required : true},
+    nb_sprint : {type : Number , required : true},
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });
