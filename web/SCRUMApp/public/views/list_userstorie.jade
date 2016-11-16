@@ -13,20 +13,26 @@
         tbody.listBackLog
             tr(ng-repeat="user_story in listUserStories | filter:{ $: ''}" ng-init="setTotals(user_story)")
                 td.filterable-cell US{{user_story.number_us}}
+
                 td.filterable-cell
                     span.truncate(ng-mouseover="tooltip=true" ng-mouseleave="tooltip=false") {{user_story.description}}
                     div.tooltipTruncate(ng-show="tooltip") {{user_story.description}}
+
                 td.filterable-cell
                     input(type='number', ng-show='isProductOwner()', name='form_priority',
                         value='{{user_story.priority}}', ng-model='user_story.priority', ng-change='updatePriority(user_story)')
                     span(ng-hide='isProductOwner()') {{user_story.priority}}
+
                 td.filterable-cell
                     input(type='number' , ng-show='isProjectMember()', name='form_cost',
                         value='{{user_story.cost}}', ng-model='user_story.cost', ng-change='updateCostUs(user_story)')
                     span(ng-hide='isProjectMember()') {{user_story.cost}}
+
                 td.filterable-cell
-                    a.pointer(ng-click="view_sprint(user_story.sprint)") Sprint{{user_story.sprint}}
+                    a.pointer(ng-click="view_sprint(user_story.sprint)") Sprint# {{user_story.sprint.number_sprint}}
+
                 td.filterable-cell {{user_story.state}}
+
                 td.filterable-cell(ng-if='isProjectMember()')
                     .btn-group
                         button.btn.btn-default(type='button', aria-label='pencil', ng-click='update_us(user_story)')

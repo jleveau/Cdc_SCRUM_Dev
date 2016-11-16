@@ -1,6 +1,9 @@
 angular.module('UserStories')
-    .controller('UserStoriesListController', ['$scope', '$location', 'UserStoriesServices',
-        function ($scope, $location, UserStoriesServices) {
+    .controller('UserStoriesListController', ['$scope', '$routeParams', '$location', 'UserStoriesServices',
+        function ($scope, $routeParams, $location, UserStoriesServices) {
+
+            var project_id = $routeParams.project_id;
+            var us_id = $routeParams.project_id;
 
             $scope.user_story = {};
             $scope.tooltip = false;
@@ -13,7 +16,7 @@ angular.module('UserStories')
             };
             
             $scope.update_us = function (us) {
-               $location.path('/api/userstory/'+us._id+'/edit');
+               $location.path('/project/'+ project_id + '/userstory/'+ us._id +'/edit');
             };
 
             $scope.updatePriority = function (user_story) {
@@ -38,8 +41,9 @@ angular.module('UserStories')
 
             if ($scope.params.project_id){
                 UserStoriesServices.get($scope.params.project_id).then(function(response){
+                    console.log(response.data);
                     $scope.listUserStories = response.data;
                     UserStoriesServices.setListUS($scope.listUserStories);
                 });
-            };
+            }
     }]);

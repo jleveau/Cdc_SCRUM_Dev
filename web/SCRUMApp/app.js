@@ -44,6 +44,8 @@ var models = require('./models/scrumdb')(app, mongoose);
 var ProjectsCtrl = require('./models/projects');
 var UserStoriesCtrl = require('./models/userstories');
 var TasksCtrl = require('./models/tasks');
+var SprintCtrl = require('./models/sprints');
+
 
 
 // api routes
@@ -52,6 +54,8 @@ app.use('/users', users);
 require('./server/routes/projects')(app, ProjectsCtrl);
 require('./server/routes/userstories')(app, UserStoriesCtrl);
 require('./server/routes/tasks')(app, TasksCtrl);
+require('./server/routes/sprint')(app, SprintCtrl);
+
 
 
 // Ressources route

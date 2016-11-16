@@ -1,12 +1,16 @@
 angular.module('UserStories')
-    .controller('UserStoriesEditController', ['$scope', '$routeParams', '$location', 'UserStoriesServices',
-        function ($scope, $location, $routeParams, UserStoriesServices) {
+    .controller('UserStoriesEditController', ['$scope', '$location', '$routeParams', 'UserStoriesServices', 'SprintServices',
+        function ($scope, $location, $routeParams, UserStoriesServices, SprintServices) {
 
-            var idUserStory = $scope.params.id;
-            var idProject = $scope.params.project_id;
+            var idProject= $routeParams.project_id;
+            var idUserStory = $routeParams.us_id;
             $scope.userstory = null;
 
-            if ($scope.params.id) {
+            SprintServices.getProjectSprints($scope.idProject).then(function(response){
+                $scope.sprints = response;
+            });
+
+            if (idUserStory) {
                 UserStoriesServices.getUsByID(idUserStory).then(function (response) {
                     $scope.userstory = response;
                     console.log(response);
@@ -18,5 +22,9 @@ angular.module('UserStories')
                    // $location.path('/project/'+idProject+'/backlog');
                 });
             };
+
+            $scope.cancel = function(){
+                $location.path('/project/'+ idProject +'/backlog');
+            }
             
         }]);

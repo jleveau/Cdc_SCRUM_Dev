@@ -13,6 +13,11 @@ div(ng-if='isProjectMember()')
             select#in_charge.form-control(name="in_charge", ng-model='task.responsable'
             ng-options= "member as member.username for member in project.member_list track by member._id")
 
+        .form-group
+            label(for='sprint') Sprint :
+            select#sprint.form-control(name="sprint", ng-model='task.sprint'
+            ng-options= "sprint as 'Sprint#' + sprint.number_sprint for sprint in sprints track by sprint._id")
+
         .form-group(ng-class="{'has-warning':form.task_form.cost.$invalid && form.task_form.cost.$touched}")
             label(for='cost') Estimated cost (man/days) *:
             input#cost(name="cost",type='number', min="0", step="1", ng-model='task.estimated_cost', required="").form-control

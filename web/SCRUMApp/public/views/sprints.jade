@@ -1,20 +1,24 @@
 extends layout
 block content
     include project_toolbar
-    .container-fluid(ng-controller='UserStoriesListController')
-        p kanban
-             table.table
-                thead
-                    tr.info
-                        th User Stories
-                        th TO DO
-                        th Doing
-                        th Done
-                tbody
-                    tr(ng-repeat="user_story in listUserStories")
-                        td
-                            a.pointer(ng-click='view_us(user_story.number_us)') US{{user_story.number_us}} :
-                            small  {{user_story.description}}
-                        td
-                        td
-                        td
+    .container-fluid(ng-controller='KanbanController')
+        h3 Kanban Sprint# {{current_sprint.number_sprint}}
+        select(ng-model='current_sprint',
+                ng-options='selected_sprint as "Sprint#"+selected_sprint.number_sprint for selected_sprint in list_sprints',
+                ng-change='changeCurrentSprint()')
+        table.table
+            thead
+                tr.info
+                    th User Stories
+                    th TO DO
+                    th Doing
+                    th Done
+            tbody
+                tr(ng-repeat="user_story in listUserStories")
+                    td
+                        a.pointer(ng-click='view_us(user_story.number_us)') US# {{user_story.number_us}}
+                        span(ng-click='addTask(user_story)')
+                            span.glyphicon.glyphicon-plus(aria-hidden='true')
+                    td
+                    td
+                    td

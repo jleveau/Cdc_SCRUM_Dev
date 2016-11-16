@@ -27,12 +27,8 @@
                     option 6
             .form-group
                 label(for='sprint') Sprint :
-                select#sprint.form-control(name="sprint" ng-model='userstory.sprint')
-                    option 1
-                    option 2
-                    option 3
-                    option 4
-                    option 5
+                select#sprint.form-control(name="sprint", ng-model='userstory.sprint'
+                ng-options= "sprint as 'Sprint#' + sprint.number_sprint for sprint in sprints track by sprint._id")
             .form-group
                 label(for='validation')
                     input#validation(type='checkbox', value='checkbox-true' ng-model='userstory.testValidation')

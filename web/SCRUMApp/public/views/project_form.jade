@@ -16,6 +16,11 @@ block content
             md-datepicker#date_start(ng-model='project.date_start',name = "date_start", md-placeholder='', required="", ng-min='min_date')
             div(ng-show='(!project.date_start) && form.date_start.$touched') You have to define a starting date.
 
+        .form-group(ng-class="{'has-warning':form.nb_sprint.$invalid && form.sprint_duration.$touched}")
+            label(for='nb_sprint') number of sprint *
+            input#nb_sprint.form-control(type='number',name = "nb_sprint", ng-min="1", ng-max="99", ng-model='project.nb_sprint', required="")
+            div(ng-show='(!project.nb_sprint) && form.nb_sprint.$touched') You have to define the number of sprint
+
         .form-group(ng-class="{'has-warning':form.sprint_duration.$invalid && form.sprint_duration.$touched}")
             label(for='sprint_duration') Sprint Duration (Day) *
             input#sprint_duration.form-control(type='number',name = "sprint_duration", min="0" max="99", ng-model='project.sprint_duration', required="")

@@ -2,8 +2,8 @@
  * Created by julien on 07/11/16.
  */
 angular.module('Tasks',[])
-    .controller('TasksAddController', ['$scope', '$timeout', '$location', '$routeParams', '$mdDialog', 'TasksServices', 'Projects','UserStoriesServices',
-        function ($scope,  $timeout,  $location, $routeParams, $mdDialog, TasksServices, Projects, UserStoriesServices) {
+    .controller('TasksAddController', ['$scope', '$timeout', '$location', '$routeParams', '$mdDialog', 'TasksServices', 'Projects','UserStoriesServices', 'SprintServices',
+        function ($scope,  $timeout,  $location, $routeParams, $mdDialog, TasksServices, Projects, UserStoriesServices, SprintServices) {
 
 
             $scope.task = {list_tasks_depend: []};
@@ -14,6 +14,12 @@ angular.module('Tasks',[])
             var related_userstories =  TasksServices.getRelatedUserstories();
             var list_dependencies = TasksServices.getListDependencies();
             $scope.form = {};
+
+            $scope.sprints = [];
+
+            SprintServices.getProjectSprints(project_id).then(function(response){
+                $scope.sprints = response;
+            });
 
             Projects.get(project_id).then(function(response){
                 $scope.project = response.data;

@@ -2,11 +2,19 @@
  * Created by julien on 07/11/16.
  */
 angular.module('Tasks')
-    .controller('TasksEditController', ['$scope','$mdDialog', '$location','$routeParams','TasksServices',
-        function ($scope, $mdDialog, $location, $routeParams, TasksServices) {
+    .controller('TasksEditController', ['$scope','$mdDialog', '$location','$routeParams','TasksServices','SprintServices',
+        function ($scope, $mdDialog, $location, $routeParams, TasksServices, SprintServices) {
 
             var task_id = $routeParams.task_id;
+            var project_id = $routeParams.project_id;
+
             $scope.task = null;
+
+            $scope.sprints = [];
+
+            SprintServices.getProjectSprints(project_id).then(function(response){
+                $scope.sprints = response;
+            });
 
             TasksServices.getTask(task_id).then(function(response){
                 $scope.task = response;

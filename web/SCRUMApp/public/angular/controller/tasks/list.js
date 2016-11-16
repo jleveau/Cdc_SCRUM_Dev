@@ -14,6 +14,7 @@ angular.module('Tasks')
                 $scope.project = response.data;
                 $scope.tasks = $scope.project.tasks;
                 TasksServices.setListTasks ($scope.project.tasks);
+                console.log($scope.tasks);
             });
 
             $scope.editTask = function(task){
