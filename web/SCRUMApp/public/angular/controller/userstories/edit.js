@@ -15,7 +15,7 @@ angular.module('UserStories')
 
             $scope.updateUserStory = function () {
                 UserStoriesServices.updateUS($scope.userstory,idUserStory).then(function (response) {
-                    $location.path('/api/userstory/'+idProject+'/backlog');
+                   // $location.path('/project/'+idProject+'/backlog');
                 });
             };
             

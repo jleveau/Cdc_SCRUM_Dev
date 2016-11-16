@@ -24,6 +24,7 @@ var projects = new mongoose.Schema({
     date_start: {type: Date, required: true},
     description: String,
     sprint_duration: {type: Number, required: true},
+    numberOfSprints : {type : Number , required : true},
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });
@@ -37,7 +38,7 @@ var sprints = new mongoose.Schema({
     date_start: Date,
     date_end: Date,
     number_sprint: Number,
-    sprint_duration: Number,
+    sprint_duration: Number, // On la dans le projet, faut il la remettre dans le sprint ??
     project: {type: ObjectId, ref: 'projects'},
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
