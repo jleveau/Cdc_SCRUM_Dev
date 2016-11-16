@@ -23,10 +23,15 @@ angular.module('Sprints',[])
                         //It's really dirty
                         for (task of response){
                             if (task.list_us.length == 0)
-                                all_tasks.push(task)
+                                $scope.all_tasks.push(task)
                             else{
-                                task.list_us.forEach(function(us){
-                                    
+                                task.list_us.forEach(function(task_us){
+                                    for (userstory of $scope.listUserStories){
+                                        userstory.tasks = [];
+                                        if (userstory._id == task_us._id){
+                                            userstory.tasks.push(task);
+                                        }
+                                    }
                                 });
                             }
                         }

@@ -17,6 +17,8 @@ block content
                 tr
                     td ALL
                     td
+                        ul(ng-repeat='task in all_tasks')
+                            li {{task.description}}
                     td
                     td
 
