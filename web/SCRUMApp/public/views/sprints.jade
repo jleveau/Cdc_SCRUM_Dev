@@ -1,20 +1,20 @@
 extends layout
 block content
     include project_toolbar
-    .container-fluid(ng-controller='UserStoriesListController')
-        p kanban
-             table.table
-                thead
-                    tr.info
-                        th User Stories
-                        th TO DO
-                        th Doing
-                        th Done
-                tbody
-                    tr(ng-repeat="user_story in listUserStories")
-                        td
-                            a.pointer(ng-click='view_us(user_story.number_us)') US{{user_story.number_us}} :
-                            small  {{user_story.description}}
-                        td
-                        td
-                        td
+    .container-fluid(ng-controller='KanbanController')
+        h3 Kanban Sprint# {{current_sprint.number_sprint}}
+        table.table
+            thead
+                tr.info
+                    th User Stories
+                    th TO DO
+                    th Doing
+                    th Done
+            tbody
+                tr(ng-repeat="user_story in listUserStories")
+                    td
+                        a.pointer(ng-click='view_us(user_story.number_us)') US{{user_story.number_us}} :
+                        small  {{user_story.description}}
+                    td
+                    td
+                    td

@@ -18,7 +18,7 @@ block content
 
         .form-group(ng-class="{'has-warning':form.nb_sprint.$invalid && form.sprint_duration.$touched}")
             label(for='nb_sprint') number of sprint *
-            input#nb_sprint.form-control(type='number',name = "nb_sprint", min="0" max="99", ng-model='project.nb_sprint', required="")
+            input#nb_sprint.form-control(type='number',name = "nb_sprint", ng-min="1", ng-max="99", ng-model='project.nb_sprint', required="")
             div(ng-show='(!project.nb_sprint) && form.nb_sprint.$touched') You have to define the number of sprint
 
         .form-group(ng-class="{'has-warning':form.sprint_duration.$invalid && form.sprint_duration.$touched}")

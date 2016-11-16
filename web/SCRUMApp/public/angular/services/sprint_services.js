@@ -1,5 +1,5 @@
 
-angular.module('Sprints', [])
+angular.module('Sprints')
     .factory('SprintServices',
         ['$q', '$timeout', '$http',
 
