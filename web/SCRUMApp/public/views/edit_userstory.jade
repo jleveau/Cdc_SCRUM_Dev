@@ -15,10 +15,9 @@
                 input#priority.form-control(name="in_charge" ng-model='userstory.priority')
             .form-group
                 label(for='sprint') Sprint :
-                input#sprint.form-control(name="sprint" ng-model='userstory.sprint')
-            .form-group
-                label(for='validation')
-                    input#validation(type='checkbox', value='checkbox-true' ng-model='')
-                    |  Validation test
+                select#sprint.form-control(name="sprint", ng-model='userstory.sprint',
+                ng-options= "selected_sprint as 'Sprint#' + selected_sprint.number_sprint for selected_sprint in sprints")
+                
             .form-group
                 button#userstory_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid',ng-click='updateUserStory()') Update User Story
+                input#cancel_edit_us_button.btn.btn-default(type="button", ng-click='cancel()', value='Cancel')

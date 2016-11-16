@@ -17,6 +17,8 @@ block content
                 tr(ng-repeat="user_story in listUserStories")
                     td
                         a.pointer(ng-click='view_us(user_story.number_us)') US# {{user_story.number_us}}
+                        span(ng-click='addTask(user_story)')
+                            span.glyphicon.glyphicon-plus(aria-hidden='true')
                     td
                     td
                     td

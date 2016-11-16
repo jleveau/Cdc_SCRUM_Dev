@@ -28,5 +28,9 @@ angular.module('Sprints',[])
                 });
             };
 
+            $scope.addTask = function(us){
+
+            }
+
 
         }]);

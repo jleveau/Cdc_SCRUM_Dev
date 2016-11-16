@@ -2,7 +2,7 @@ angular.module('UserStories', [])
     .controller('UserStoriesAddController', ['$scope', '$routeParams', '$location', 'UserStoriesServices','SprintServices',
         function ($scope, $location, $routeParams, UserStoriesServices, SprintServices) {
 
-            $scope.idProject = $scope.params.project_id;
+            $scope.idProject = $routeParams.project_id;
             $scope.params = $routeParams;
             $scope.sprints = [];
 
