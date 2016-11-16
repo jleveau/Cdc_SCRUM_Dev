@@ -2,6 +2,11 @@ md-dialog
     md-dialog-content
         .container-fluid
             h3 Task# {{task.number_task}}
+            label responsable
+            p {{task.responsable.username}}
+            label estimated cost (man/days)
+            p {{task.estimated_cost}}
+            label description
             p {{task.description}}
 
     md-dialog-actions
