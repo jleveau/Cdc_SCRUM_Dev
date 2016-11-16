@@ -4,8 +4,8 @@ angular.module('Sprints',[])
 
             $scope.current_sprint = null;
             $scope.list_sprints = null;
+            $scope.listUserStories = [];
 
-            $scope.user_story = {};
             var project_id = $routeParams.project_id;
 
             SprintServices.getProjectSprints(project_id).then(function(response){
@@ -14,18 +14,19 @@ angular.module('Sprints',[])
 
                 //TODO change for the first sprint not validated
                 SprintServices.setCurrentSprint(response[0]);
+
                 $scope.current_sprint = response[0];
+                SprintServices.getSprintUserstories($scope.current_sprint._id).then(function(userstories){
+                    $scope.listUserStories = userstories;
+                });
             });
 
             $scope.changeCurrentSprint = function (){
-                //TODO update userstories
+                SprintServices.setCurrentSprint($scope.current_sprint);
+                SprintServices.getSprintUserstories($scope.current_sprint._id).then(function(userstories){
+                    $scope.listUserStories = userstories;
+                });
             };
 
-            if ($scope.params.project_id){
-                UserStoriesServices.get($scope.params.project_id).then(function(response){
-                    $scope.listUserStories = response.data;
-                    UserStoriesServices.setListUS($scope.listUserStories);
-                });
-            }
 
         }]);

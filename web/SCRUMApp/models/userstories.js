@@ -54,12 +54,12 @@ module.exports.findByIdProject = function (req, res) {
     console.log('Ctrl GET/' + req.params.id);
     Userstory.find({
             'id_project': req.params.id
-        }, function (err, userstories) {
+        }).populate('sprint')
+        .exec(function (err, userstories) {
             if (err) return res.send(500, err.message);
 
             return res.status(200).jsonp(userstories);
-        }
-    );
+        });
 };
 
 

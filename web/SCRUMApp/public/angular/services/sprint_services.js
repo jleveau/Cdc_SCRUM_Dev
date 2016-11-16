@@ -30,12 +30,19 @@ angular.module('Sprints')
                     });
                 }
 
+                function getSprintUserstories(sprint_id){
+                    return $http.get('/api/sprint/' + sprint_id + '/userstories').then(function(response){
+                        return response.data;
+                    });
+                }
+
                 return ({
                     setCurrentSprint : setCurrentSprint,
                     getCurrentSprint : getCurrentSprint,
                     setSprintsForProject : setSprintsForProject,
                     getSprintsForProject : getSprintsForProject,
-                    getProjectSprints : getProjectSprints
+                    getProjectSprints : getProjectSprints,
+                    getSprintUserstories : getSprintUserstories
                 });
 
             }]);
