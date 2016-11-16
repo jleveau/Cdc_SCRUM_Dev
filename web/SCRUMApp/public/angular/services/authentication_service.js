@@ -62,8 +62,6 @@ angular.module('AuthenticationService',[])
                     })
                     // handle error
                     .error(function (data) {
-                        console.log(data);
-
                         user = false;
                         deferred.reject();
                     });

@@ -68,6 +68,12 @@ angular.module('Tasks')
                     });
                 }
 
+                function getTaskForSprint(sprint_id){
+                    return $http.get('/api/tasks/sprint/' + sprint_id).then(function(response){
+                        return response.data;
+                    });
+                }
+
                 return ({
                     getTask : getTask,
                     setListDependencies : setListDependencies,
@@ -79,7 +85,8 @@ angular.module('Tasks')
                     getList: getList,
                     create: create,
                     deleteTask: deleteTask,
-                    update : update
+                    update : update,
+                    getTaskForSprint:getTaskForSprint
                 });
 
             }]);

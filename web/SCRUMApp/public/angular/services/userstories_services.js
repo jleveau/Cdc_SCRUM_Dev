@@ -25,6 +25,12 @@ angular.module('UserStories')
                         return response.data;
                     });
                 };
+
+                function getUserstoryTasks(userstory_id){
+                    return $http.get('/api/userstory/' + userstory_id + '/tasks').then(function (response) {
+                        return response.data;
+                    });
+                }
                 
                 return {
                     get: function (id) {
@@ -58,7 +64,8 @@ angular.module('UserStories')
                     updateUS : updateUS,
                     getUsByID : getUsByID,
                     setListUS: setListUS,
-                    addUsToList:addUsToList
+                    addUsToList:addUsToList,
+                    getUserstoryTasks : getUserstoryTasks
                 };
 
             }]);
