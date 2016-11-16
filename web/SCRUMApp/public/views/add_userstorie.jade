@@ -9,7 +9,7 @@
                 span.help-block(ng-show='(!userstory.description) && form.description.$touched') You must describe the user story.
             .form-group
                 label(for='duration') Cost :
-                select#duration.form-control(name="in_charge" ng-model='userstory.cost')
+                select#duration.form-control(name="in_charge",ng-show='isProductOwner()', ng-model='userstory.cost')
                     option 1
                     option 2
                     option 3
