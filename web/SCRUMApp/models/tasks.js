@@ -52,6 +52,7 @@ module.exports.addTask = function(req, res) {
         var my_task = new Task(req.body);
         my_task.save(function (err, task) {
             if (err) return res.send(500, err.message);
+
             for (us of task.list_us) {
                 var us_task = new US_Task({
                     _idTasks: task._id,

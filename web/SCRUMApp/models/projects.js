@@ -20,7 +20,10 @@ module.exports.findById = function (req, res) {
     Project.findById(req.params.id)
         .populate('member_list')
         .populate('product_owner')
-        .populate('tasks')
+        .populate({
+            path : 'tasks',
+            populate: {path: 'sprint'}
+        })
         .exec(function (err, project) {
             if (err) return res.send(500, err.message);
 
