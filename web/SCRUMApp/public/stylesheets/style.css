@@ -116,3 +116,8 @@ div .popover-floating-animation-right{
   height: auto;
   color: white;
 }
+
+.task_li{
+  list-style-type: none;
+  cursor: pointer;
+}

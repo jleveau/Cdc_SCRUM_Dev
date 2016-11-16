@@ -34,11 +34,12 @@ module.exports.findUserstoryTasks = function (req, res) {
         if (!userstory) res.send(400, "no userstory for id " + userstory_id);
         UserstoriesTasks.find({'_idUserstory': userstory_id}, function (err, userstory_tasks) {
             var tasks = [];
+            if (userstory_tasks.length == 0)
+                res.send(200, []);
             for (userstory_task of userstory_tasks) {
                 Tasks.findById(userstory_task._idTasks, function (err, task) {
                     if (err) res.send(500, err.message);
                     if (err) console.log(err.errors);
-
                     tasks.push(task);
                     if (userstory_tasks.length == tasks.length) {
                         res.send(200, tasks);
@@ -52,14 +53,20 @@ module.exports.findUserstoryTasks = function (req, res) {
 
 //GET - Return a userstory with specified project_ID
 module.exports.findByIdProject = function (req, res) {
+<<<<<<< HEAD
     Userstory.find({'id_project': req.params.id})
         .populate('sprint')
+=======
+    console.log('Ctrl GET/' + req.params.id);
+    Userstory.find({
+            'id_project': req.params.id
+        }).populate('sprint')
+>>>>>>> e3e6f3d0c7d1e8bbc8e47463520c5ec2a2862c00
         .exec(function (err, userstories) {
             if (err) return res.send(500, err.message);
 
             return res.status(200).jsonp(userstories);
-        }
-    );
+        });
 };
 
 

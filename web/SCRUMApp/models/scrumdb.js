@@ -19,12 +19,12 @@ var projects = new mongoose.Schema({
     specification: Buffer,
     product_owner: {type: ObjectId, ref: 'users'},
     github: String,
-    nb_sprint: Number,
     status: {type: String, enum: ['public', 'private'], default: 'public'},
     tasks: [{type: ObjectId, ref: 'tasks'}],
     date_start: {type: Date, required: true},
     description: String,
     sprint_duration: {type: Number, required: true},
+    nb_sprint : {type : Number , required : true},
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });
@@ -38,7 +38,7 @@ var sprints = new mongoose.Schema({
     date_start: Date,
     date_end: Date,
     number_sprint: Number,
-    sprint_duration: Number,
+    sprint_duration: Number, // On la dans le projet, faut il la remettre dans le sprint ??
     project: {type: ObjectId, ref: 'projects'},
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
@@ -56,6 +56,10 @@ var userstories = new mongoose.Schema({
     priority: Number,
     estimated_cost: Number,
     sprint: { type : ObjectId, ref: 'sprints' },
+<<<<<<< HEAD
+=======
+    //sprint: { type : Number, ref: 'sprint' },
+>>>>>>> e3e6f3d0c7d1e8bbc8e47463520c5ec2a2862c00
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });

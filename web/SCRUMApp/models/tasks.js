@@ -51,15 +51,14 @@ module.exports.addTask = function(req, res) {
         req.body.number_task = num_task;
         var my_task = new Task(req.body);
         my_task.save(function (err, task) {
-            if (err) console.log(err.errors);
             if (err) return res.send(500, err.message);
+
             for (us of task.list_us) {
                 var us_task = new US_Task({
                     _idTasks: task._id,
                     _idUserstory: us
                 });
                 us_task.save(function (err, us_task) {
-                    if (err) console.log(err.errors);
                 });
             }
             res.status(200).jsonp(task);
@@ -113,4 +112,14 @@ module.exports.deleteTask = function(req, res) {
             })
         });
     });
+};
+
+module.exports.getTaskForSprint = function(req,res){
+    Task.find({ 'sprint': req.params.sprint_id})
+        .populate('list_us')
+        .populate('responsable')
+        .exec(function(err, tasks) {
+            if(err) res.send(500, err.message);
+            res.send(200, tasks);
+        });
 };

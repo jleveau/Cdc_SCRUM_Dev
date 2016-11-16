@@ -33,6 +33,8 @@ angular.module('Tasks',[])
                 $scope.task.list_us = TasksServices.getRelatedUserstories();
                 $scope.task.list_tasks_depend = TasksServices.getListDependencies();
                 $scope.task.id_project = $scope.project._id;
+                console.log($scope.task);
+
                 TasksServices.create($scope.task).then(function(response){
                     $scope.task=response;
                     TasksServices.addTaskToListTasks(response);
