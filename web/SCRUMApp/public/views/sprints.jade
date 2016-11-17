@@ -42,7 +42,7 @@ block content
         .col-md-3
             .container-fluid(ng-show='selected_task')
                 h3 {{ selected_task.title }}
-                td.filterable-cell(ng-if='isProjectMember()')
+                div(ng-if='isProjectMember()')
                     .btn-group
                         button.btn.btn-default(type='button', aria-label='pencil', ng-click='showEditForm($event,selected_task)')
                             span.glyphicon.glyphicon-pencil(aria-hidden='true')
