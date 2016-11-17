@@ -4,8 +4,6 @@ angular.module('UserStories')
 
             var project_id = $routeParams.project_id;
 
-            //var us_id = $routeParams.project_id;
-
             $scope.user_story = {};
             //show the userstory description
             $scope.tooltip = false;
@@ -57,11 +55,21 @@ angular.module('UserStories')
                 }
             };
 
-
+            $scope.$watch('listUserStories.length',
+                function(newValue, oldValue){
+                    if(newValue !== oldValue && newValue > oldValue){
+                        $scope.totalCostUs = 0;
+                        for (user_story of $scope.listUserStories){
+                            $scope.totalCostUs =  $scope.totalCostUs + user_story.cost;
+                        }
+                    }
+                }, true
+            );
 
             $scope.update_us = function (us) {
                $location.path('/project/'+ project_id + '/userstory/'+ us._id +'/edit');
             };
+
 
             $scope.updatePriority = function (user_story) {
                 UserStoriesServices.updatePriority(user_story).then(function(response){
@@ -71,15 +79,22 @@ angular.module('UserStories')
 
             $scope.updateCostUs = function (user_story) {
                 UserStoriesServices.updateCost(user_story).then(function(response){
-
+                    $scope.totalCostUs = 0;
+                    for (user_story of $scope.listUserStories){
+                        $scope.totalCostUs =  $scope.totalCostUs + user_story.cost;
+                    }
+                    $scope.invoiceTotal =  $scope.totalCostUs;
                 });
             };
 
             $scope.delete_us = function (us) {
                 var _id = us._id;
+                var cost_us = us.cost;
                 var index = $scope.listUserStories.indexOf(us);
                 UserStoriesServices.delete(_id).then(function(response){
                     $scope.listUserStories.splice(index,1);
+                    $scope.totalCostUs =  $scope.totalCostUs - cost_us;
+                    $scope.invoiceTotal =  $scope.totalCostUs;
                 });
             };
 
@@ -92,10 +107,11 @@ angular.module('UserStories')
                         }else{
                             us["num_sprint"] = 'Sprint_';
                         }
-
                         $scope.totalCostUs = $scope.totalCostUs + us.cost;
+                        //$scope.invoiceTotal =  $scope.totalCostUs;
                     }
                     UserStoriesServices.setListUS($scope.listUserStories);
                 });
             }
+
     }]);
