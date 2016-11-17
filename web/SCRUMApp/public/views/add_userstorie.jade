@@ -1,6 +1,6 @@
 .container-fluid(ng-controller='UserStoriesAddController')
     block content
-        h2 Add a User Story
+        h3 Add a User Story
             .alert.alert-success(ng-show='successMessage') {{successMessage}}
         form.css-form(name ="form", novalidate)
             .form-group(ng-class="{'has-warning' : form.description.$invalid && form.description.$touched}")

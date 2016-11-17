@@ -6,7 +6,7 @@ angular.module('UserStories')
             var idUserStory = $routeParams.us_id;
             $scope.userstory = null;
 
-            SprintServices.getProjectSprints($scope.idProject).then(function(response){
+            SprintServices.getProjectSprints(idProject).then(function(response){
                 $scope.sprints = response;
             });
 
