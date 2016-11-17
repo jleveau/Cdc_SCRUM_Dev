@@ -3,6 +3,7 @@ angular.module('UserStories')
         function ($scope, $routeParams, $location, UserStoriesServices, SprintServices) {
 
             var project_id = $routeParams.project_id;
+
             //var us_id = $routeParams.project_id;
 
             $scope.user_story = {};
@@ -28,7 +29,7 @@ angular.module('UserStories')
             //filter for column Sprint
             $scope.myFilter = "Sprint";
 
-            SprintServices.getProjectSprints($scope.idProject).then(function(response){
+            SprintServices.getProjectSprints(project_id).then(function(response){
                 $scope.selectSprint = [];
                 var ele_initial = {"label":"All Sprints",
                                    "value":"Sprint"};
@@ -40,6 +41,7 @@ angular.module('UserStories')
                     $scope.selectSprint.push(ele_sprint);
                 }
             });
+
             $scope.selectSprintValue = "";
             $scope.applyFilter = function(valueSelected){
                 $scope.myFilter = "";

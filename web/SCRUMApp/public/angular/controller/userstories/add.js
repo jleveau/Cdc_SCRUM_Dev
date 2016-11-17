@@ -1,6 +1,6 @@
 angular.module('UserStories', [])
     .controller('UserStoriesAddController', ['$scope', '$routeParams', '$location', 'UserStoriesServices','SprintServices',
-        function ($scope, $location, $routeParams, UserStoriesServices, SprintServices) {
+        function ($scope, $routeParams, $location, UserStoriesServices, SprintServices) {
 
             $scope.idProject = $routeParams.project_id;
             $scope.params = $routeParams;

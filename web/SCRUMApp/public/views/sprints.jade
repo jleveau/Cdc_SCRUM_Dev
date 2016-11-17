@@ -20,17 +20,17 @@ block content
                             span.glyphicon.glyphicon-plus(aria-hidden='true')
                     td
                         ul(ng-repeat='task in all_tasks')
-                            li.task_li(ng-click='showDescription($event,task)') Task# {{task.number_task}}
+                            li.task_li(ng-click='showTaskDescription($event,task)') Task# {{task.number_task}}
                     td
                     td
 
                 tr(ng-repeat="user_story in listUserStories")
                     td
-                        a.pointer(ng-click='view_us(user_story.number_us)') US# {{user_story.number_us}}
+                        a.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
                         span(ng-click='addTask(user_story)')
                             span.glyphicon.glyphicon-plus(aria-hidden='true')
                     td
                         ul(ng-repeat='task in user_story.tasks')
-                            li.task_li(ng-click='showDescription($event,task)') Task# {{task.number_task}}
+                            li.task_li(ng-click='showTaskDescription($event,task)') Task# {{task.number_task}}
                     td
                     td

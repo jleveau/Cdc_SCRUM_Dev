@@ -1,0 +1,14 @@
+md-dialog
+    md-dialog-content
+        .container-fluid
+            h3 UserStory# {{userstory.number_us}}
+            label cost (man/days)
+            p {{userstory.cost}}
+            label priority
+            p {{userstory.priority}}
+            label description
+            p {{userstory.description}}
+
+    md-dialog-actions
+        md-button.md-primary(ng-click='closeDialog()')
+            | Ok
