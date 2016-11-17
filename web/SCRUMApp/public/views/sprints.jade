@@ -17,9 +17,10 @@ block content
                             th Done
                     tbody.kanban_body
                         tr
-                            td ALL
-                                span(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
-                                    span.glyphicon.glyphicon-plus(aria-hidden='true')
+                            td
+                                label ALL
+                                    span.add_task_kanban(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
+                                        span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
                                 ul(ng-repeat='task in all_tasks')
                                     li.task_li
@@ -29,8 +30,8 @@ block content
 
                         tr(ng-repeat="user_story in listUserStories")
                             td
-                                a.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
-                                span(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
+                                label.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
+                                span.add_task_kanban(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
                                     span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
                                 ul(ng-repeat='task in user_story.tasks')
@@ -41,7 +42,7 @@ block content
         .col-md-3
             .container-fluid(ng-show='selected_task')
                 h3 {{ selected_task.title }}
-                td.filterable-cell(ng-if='isProjectMember()')
+                div(ng-if='isProjectMember()')
                     .btn-group
                         button.btn.btn-default(type='button', aria-label='pencil', ng-click='showEditForm($event,selected_task)')
                             span.glyphicon.glyphicon-pencil(aria-hidden='true')

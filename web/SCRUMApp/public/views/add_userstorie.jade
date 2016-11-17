@@ -1,38 +1,38 @@
-.container-fluid(ng-controller='UserStoriesAddController')
-    block content
-        h3 Add a User Story
-            .alert.alert-success(ng-show='successMessage') {{successMessage}}
-        form.css-form(name ="form", novalidate)
-            .form-group(ng-class="{'has-warning' : form.description.$invalid && form.description.$touched}")
-                label(for='description') Description :
-                textarea#description.form-control(type='description',name = "description",ng-model='userstory.description',rows="3" placeholder="En tant que ..., je souhaite..., afin de ...")
-                span.help-block(ng-show='(!userstory.description) && form.description.$touched') You must describe the user story.
-            .form-group
-                div(ng-show='isProductOwner()')
+div(ng-if='isProjectMember()')
+    .container-fluid(ng-controller='UserStoriesAddController')
+        block content
+            h3 Add a User Story
+                .alert.alert-success(ng-show='successMessage') {{successMessage}}
+            form.css-form(name ="form", novalidate)
+                .form-group(ng-class="{'has-warning' : form.description.$invalid && form.description.$touched}")
+                    label(for='description') Description :
+                    textarea#description.form-control(type='description',name = "description",ng-model='userstory.description',rows="3" placeholder="En tant que ..., je souhaite..., afin de ...")
+                    span.help-block(ng-show='(!userstory.description) && form.description.$touched') You must describe the user story.
+                .form-group
                     label(for='duration') Cost :
-                    select#duration.form-control(name="in_charge", ng-model='userstory.cost')
+                    select#duration.form-control(name="in_charge",ng-show='isProductOwner()', ng-model='userstory.cost')
                         option 1
                         option 2
                         option 3
                         option 4
                         option 5
                         option 6
-            .form-group
-                label(for='priority') Priority :
-                select#priority.form-control(name="in_charge" ng-model='userstory.priority')
-                    option 1
-                    option 2
-                    option 3
-                    option 4
-                    option 5
-                    option 6
-            .form-group
-                label(for='sprint') Sprint :
-                select#sprint.form-control(name="sprint", ng-model='userstory.sprint',
-                ng-options= "selected_sprint as 'Sprint#' + selected_sprint.number_sprint for selected_sprint in sprints")
-            .form-group
-                label(for='validation')
-                    input#validation(type='checkbox', value='checkbox-true' ng-model='userstory.testValidation')
-                    |  Validation test
-            .form-group
-                button#userstory_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid',ng-click='createUserStory()') Create user Story
+                .form-group
+                    label(for='priority') Priority :
+                    select#priority.form-control(name="in_charge" ng-model='userstory.priority')
+                        option 1
+                        option 2
+                        option 3
+                        option 4
+                        option 5
+                        option 6
+                .form-group
+                    label(for='sprint') Sprint :
+                    select#sprint.form-control(name="sprint", ng-model='userstory.sprint'
+                    ng-options= "sprint as 'Sprint#' + sprint.number_sprint for sprint in sprints track by sprint._id")
+                .form-group
+                    label(for='validation')
+                        input#validation(type='checkbox', value='checkbox-true' ng-model='userstory.testValidation')
+                        |  Validation test
+                .form-group
+                    button#userstory_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.$valid}",ng-disabled='form.$invalid',ng-click='createUserStory()') Create user Story

@@ -132,3 +132,8 @@ div .popover-floating-animation-right{
 md-dialog.md-transition-in{
   max-height: 100%;
 }
+
+.add_task_kanban{
+  text-align: right;
+  width: 100%;
+}

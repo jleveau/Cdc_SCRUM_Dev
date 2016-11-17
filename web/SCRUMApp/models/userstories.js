@@ -93,7 +93,7 @@ module.exports.addUserstory = function (req, res) {
                 if (err) return res.status(500).send(err.message);
 
                 var generateTasksTitle = ['Code Tests', 'Execute Tests'];
-                var generateTasksDesc = ['This task is auto-genate for coding Tests', 'This task is auto-genate for execute Tests'];
+                var generateTasksDesc = ['This task is auto-genated for coding Tests', 'This task is auto-genated for execute Tests'];
 
                 if (userstory.testValidation) {
                     for (var i = 0; i < 2; i++) {
