@@ -71,27 +71,45 @@ module.exports.addUserstory = function (req, res) {
         }, function (err, userstories) {
             if (err) return res.send(500, err.message);
 
-        var USnumber=1;
-        if (! userstories.length == 0){
-            for (us of userstories){
-                if (us.number_us && us.number_us > USnumber)
-                    USnumber = us.number_us;
+            var USnumber = 1;
+            if (!userstories.length == 0) {
+                for (us of userstories) {
+                    if (us.number_us && us.number_us > USnumber)
+                        USnumber = us.number_us;
+                }
+                USnumber = USnumber + 1;
             }
-            USnumber = USnumber + 1;
-        }
             var userstory = new Userstory({
                 number_us: USnumber,
                 id_project: req.body.idProject,
                 description: req.body.userstory.description,
                 cost: req.body.userstory.cost,
                 priority: req.body.userstory.priority,
-                sprint : req.body.userstory.sprint,
+                sprint: req.body.userstory.sprint,
                 testValidation: req.body.userstory.testValidation
             });
 
             userstory.save(function (err, userstory) {
                 if (err) return res.status(500).send(err.message);
 
+                var generateTasksTitle = ['Code Tests', 'Execute Tests'];
+                var generateTasksDesc = ['This task is auto-genate for coding Tests', 'This task is auto-genate for execute Tests'];
+
+                if (userstory.testValidation) {
+                    for (var i = 0; i < 2; i++) {
+                        var task = new Tasks({
+                            id_project: req.body.idProject,
+                            title: generateTasksTitle[i],
+                            description: generateTasksDesc[i],
+                            sprint: req.body.userstory.sprint,
+                            list_us: [userstory._id],
+                            number_task: i + 1
+                        });
+                        task.save(function (err, task) {
+                            if (err) return res.status(500).send(err.message);
+                        });
+                    }
+                }
                 return res.status(200).jsonp(userstory);
             });
         }
@@ -107,16 +125,16 @@ module.exports.updateUserstory = function (req, res) {
         userstory.priority = req.body.userstory.priority;
         userstory.sprint = req.body.userstory.sprint;
         userstory.date_updated = new Date();
-         userstory.save(function (err) {
-         if (err) return res.send(500, err.message);
-         res.status(200).jsonp(userstory);
-         });
+        userstory.save(function (err) {
+            if (err) return res.send(500, err.message);
+            res.status(200).jsonp(userstory);
+        });
     });
 };
 
 //PUT - Update the Cost of US
 module.exports.updateCostUS = function (req, res) {
-    console.log('updateCostUS: '+req.params.cost);
+    console.log('updateCostUS: ' + req.params.cost);
     Userstory.findById(req.params.id, function (err, userstory) {
         if (err) return res.status(500).send(err.message);
         userstory.cost = req.params.cost;
@@ -130,7 +148,7 @@ module.exports.updateCostUS = function (req, res) {
 
 //PUT - Update the Priority of US
 module.exports.updatePriorityUS = function (req, res) {
-    console.log('-updatePriorityUS '+req.params.priority);
+    console.log('-updatePriorityUS ' + req.params.priority);
     Userstory.findById(req.params.id, function (err, userstory) {
         if (err) return res.status(500).send(err.message);
         userstory.priority = req.params.priority;
