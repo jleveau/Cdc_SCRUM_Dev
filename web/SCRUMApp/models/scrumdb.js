@@ -56,10 +56,6 @@ var userstories = new mongoose.Schema({
     priority: Number,
     estimated_cost: Number,
     sprint: { type : ObjectId, ref: 'sprints' },
-<<<<<<< HEAD
-=======
-    //sprint: { type : Number, ref: 'sprint' },
->>>>>>> e3e6f3d0c7d1e8bbc8e47463520c5ec2a2862c00
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });

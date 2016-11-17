@@ -13,12 +13,7 @@ angular.module('Tasks')
             Projects.get(project_id).then(function(response){
                 $scope.project = response.data;
                 $scope.tasks = $scope.project.tasks;
-<<<<<<< HEAD
                 TasksServices.setListTasks ($scope.tasks);
-                console.log($scope.tasks);
-=======
-                TasksServices.setListTasks ($scope.project.tasks);
->>>>>>> e3e6f3d0c7d1e8bbc8e47463520c5ec2a2862c00
             });
 
             $scope.editTask = function(task){

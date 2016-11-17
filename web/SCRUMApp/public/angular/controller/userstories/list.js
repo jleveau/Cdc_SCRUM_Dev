@@ -1,14 +1,9 @@
 angular.module('UserStories')
-<<<<<<< HEAD
-    .controller('UserStoriesListController', ['$scope', '$location', 'UserStoriesServices','SprintServices',
-        function ($scope, $location, UserStoriesServices, SprintServices) {
-=======
-    .controller('UserStoriesListController', ['$scope', '$routeParams', '$location', 'UserStoriesServices',
-        function ($scope, $routeParams, $location, UserStoriesServices) {
+    .controller('UserStoriesListController', ['$scope', '$routeParams', '$location', 'UserStoriesServices','SprintServices',
+        function ($scope, $routeParams, $location, UserStoriesServices, SprintServices) {
 
             var project_id = $routeParams.project_id;
-            var us_id = $routeParams.project_id;
->>>>>>> e3e6f3d0c7d1e8bbc8e47463520c5ec2a2862c00
+            //var us_id = $routeParams.project_id;
 
             $scope.user_story = {};
             //show the userstory description

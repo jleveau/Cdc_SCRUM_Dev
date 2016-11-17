@@ -33,12 +33,7 @@
                     span(ng-hide='isProjectMember()') {{user_story.cost}}
 
                 td.filterable-cell
-<<<<<<< HEAD
                     a.pointer(ng-click="view_sprint(user_story.sprint)") {{user_story.num_sprint}}
-=======
-                    a.pointer(ng-click="view_sprint(user_story.sprint)") Sprint# {{user_story.sprint.number_sprint}}
-
->>>>>>> e3e6f3d0c7d1e8bbc8e47463520c5ec2a2862c00
                 td.filterable-cell {{user_story.state}}
 
                 td.filterable-cell(ng-if='isProjectMember()')
