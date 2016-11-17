@@ -9,14 +9,15 @@ div(ng-if='isProjectMember()')
                     textarea#description.form-control(type='description',name = "description",ng-model='userstory.description',rows="3" placeholder="En tant que ..., je souhaite..., afin de ...")
                     span.help-block(ng-show='(!userstory.description) && form.description.$touched') You must describe the user story.
                 .form-group
-                    label(for='duration') Cost :
-                    select#duration.form-control(name="in_charge",ng-show='isProductOwner()', ng-model='userstory.cost')
-                        option 1
-                        option 2
-                        option 3
-                        option 4
-                        option 5
-                        option 6
+                    div(ng-show='isProductOwner()')
+                        label(for='duration') Cost :
+                        select#duration.form-control(name="in_charge", ng-model='userstory.cost')
+                            option 1
+                            option 2
+                            option 3
+                            option 4
+                            option 5
+                            option 6
                 .form-group
                     label(for='priority') Priority :
                     select#priority.form-control(name="in_charge" ng-model='userstory.priority')

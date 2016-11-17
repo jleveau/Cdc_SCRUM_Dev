@@ -8,8 +8,9 @@
                 textarea#description.form-control(type='description',name = "description",ng-model='userstory.description',rows="3")
                 span.help-block(ng-show='(!userstory.description) && form.description.$touched') You must describe the user story.
             .form-group
-                label(for='duration') Cost :
-                input#duration.form-control(name="in_charge" ,ng-show='isProductOwner()', ng-model='userstory.cost')
+                div(ng-show='isProductOwner()')
+                    label(for='duration') Cost :
+                    input#duration.form-control(name="in_charge" , ng-model='userstory.cost')
             .form-group
                 label(for='priority') Priority :
                 input#priority.form-control(name="in_charge" ng-model='userstory.priority')
