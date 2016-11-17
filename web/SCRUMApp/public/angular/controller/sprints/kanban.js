@@ -55,7 +55,7 @@ angular.module('Sprints',[])
 
             };
 
-            $scope.showDescription = function($event,task){
+            $scope.showTaskDescription = function($event,task){
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
                     parent: parentEl,
@@ -68,6 +68,25 @@ angular.module('Sprints',[])
                 });
                 function DialogController($scope, $mdDialog, task) {
                     $scope.task = task;
+                    $scope.closeDialog = function() {
+                        $mdDialog.hide();
+                    }
+                }
+            }
+
+            $scope.showUserStoryDescription = function($event,userstory){
+                var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    targetEvent: $event,
+                    templateUrl: '/partials/userstory_description.jade',
+                    locals: {
+                        userstory: userstory
+                    },
+                    controller: DialogController
+                });
+                function DialogController($scope, $mdDialog, userstory) {
+                    $scope.userstory = userstory;
                     $scope.closeDialog = function() {
                         $mdDialog.hide();
                     }
