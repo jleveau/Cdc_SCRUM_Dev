@@ -72,6 +72,7 @@ var userstories_tasks = new mongoose.Schema({
 
 
 var tasks = new mongoose.Schema({
+    title: String,
     description: String,
     number_task: {type : Number , default : 0},
     id_project: { type : ObjectId, ref: 'projects' },

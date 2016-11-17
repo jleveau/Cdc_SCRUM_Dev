@@ -1,36 +1,67 @@
 extends layout
 block content
     include project_toolbar
-    .container-fluid(ng-controller='KanbanController')
-        h3 Kanban Sprint# {{current_sprint.number_sprint}}
-        select(ng-model='current_sprint',
-                ng-options='selected_sprint as "Sprint#"+selected_sprint.number_sprint for selected_sprint in list_sprints',
-                ng-change='changeCurrentSprint()')
-        table.table
-            thead
-                tr.info
-                    th User Stories
-                    th TO DO
-                    th Doing
-                    th Done
-            tbody
-                tr
-                    td ALL
-                        span(ng-click='addTask(user_story)')
-                            span.glyphicon.glyphicon-plus(aria-hidden='true')
-                    td
-                        ul(ng-repeat='task in all_tasks')
-                            li.task_li(ng-click='showTaskDescription($event,task)') Task# {{task.number_task}}
-                    td
-                    td
+    .row(ng-controller='KanbanController')
+        .col-md-9
+            .container-fluid
+                h3 Kanban Sprint# {{current_sprint.number_sprint}}
+                select(ng-model='current_sprint',
+                        ng-options='selected_sprint as "Sprint#"+selected_sprint.number_sprint for selected_sprint in list_sprints',
+                        ng-change='changeCurrentSprint()')
+                table.table
+                    thead
+                        tr.info
+                            th User Stories
+                            th TO DO
+                            th Doing
+                            th Done
+                    tbody.kanban_body
+                        tr
+                            td ALL
+                                span(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
+                                    span.glyphicon.glyphicon-plus(aria-hidden='true')
+                            td
+                                ul(ng-repeat='task in all_tasks')
+                                    li.task_li
+                                        label(ng-click='selectTask(task)') {{task.title}}
+                            td
+                            td
 
-                tr(ng-repeat="user_story in listUserStories")
-                    td
-                        a.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
-                        span(ng-click='addTask(user_story)')
-                            span.glyphicon.glyphicon-plus(aria-hidden='true')
-                    td
-                        ul(ng-repeat='task in user_story.tasks')
-                            li.task_li(ng-click='showTaskDescription($event,task)') Task# {{task.number_task}}
-                    td
-                    td
+                        tr(ng-repeat="user_story in listUserStories")
+                            td
+                                a.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
+                                span(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
+                                    span.glyphicon.glyphicon-plus(aria-hidden='true')
+                            td
+                                ul(ng-repeat='task in user_story.tasks')
+                                    li.task_li
+                                        label(ng-click='selectTask(task)') {{task.title}}
+                            td
+                            td
+        .col-md-3
+            .container-fluid(ng-show='selected_task')
+                h3 {{ selected_task.title }}
+                td.filterable-cell(ng-if='isProjectMember()')
+                    .btn-group
+                        button.btn.btn-default(type='button', aria-label='pencil', ng-click='showEditForm($event,selected_task)')
+                            span.glyphicon.glyphicon-pencil(aria-hidden='true')
+                        button.btn.btn-danger(type='button', aria-label='trash',ng-click='deleteTask(selected_task)')
+                            span.glyphicon.glyphicon-trash(aria-hidden='true')
+
+                div
+                    label cost (Men/Days) :&nbsp
+                    span {{selected_task.estimated_cost}}
+                div
+                    label responsable :&nbsp
+                    span {{selected_task.responsable.username}}
+                div
+                    label description :&nbsp
+                    span {{selected_task.description}}
+                div
+                    label Created at :&nbsp
+                    span {{selected_task.date_created | date:'medium'}}
+                div
+                    label Last Update :&nbsp
+                    span {{selected_task.date_updated | date:'medium'}}
+            .container-fluid(ng-hide='selected_task')
+                p Click on a task to display details

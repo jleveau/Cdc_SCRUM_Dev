@@ -70,6 +70,7 @@ module.exports.addTask = function(req, res) {
 //PUT - Update a register already exists
 module.exports.updateTask = function(req, res) {
     Task.findById(req.params.id, function(err, task) {
+        task.title = req.body.title;
 	    task.description = req.body.description;
         task.id_project = req.body.id_project;
         task.date_start = req.body.date_start;
@@ -81,7 +82,7 @@ module.exports.updateTask = function(req, res) {
         task.list_us = req.body.list_us;
         task.list_tasks_depend = req.body.list_tasks_depend;
         task.updated = Date.now;
-        task.sprint = req.body.id_sprint;
+        task.sprint = req.body.sprint;
         task.save(function(err, task) {
         if(err) return res.send(500, err.message);
             US_Task.remove({_idTasks : task._id}, function(err){
@@ -118,6 +119,7 @@ module.exports.getTaskForSprint = function(req,res){
     Task.find({ 'sprint': req.params.sprint_id})
         .populate('list_us')
         .populate('responsable')
+        .populate('sprint')
         .exec(function(err, tasks) {
             if(err) res.send(500, err.message);
             res.send(200, tasks);

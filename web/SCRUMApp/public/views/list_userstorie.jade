@@ -9,8 +9,9 @@
                 th Cost
                 th
                     select(name='select_sprint',ng-model='selectSprintValue',
-                    ng-change = 'applyFilter(selectSprintValue)',
-                    ng-options= " elem.label for elem in selectSprint track by elem.value ")
+                    ng-change = 'applyFilter(selectSprintValue, oldvalue)',
+                    ng-options= " elem.label for elem in selectSprint track by elem.value ",
+                    ng-click = "oldvalue = selectSprintValue")
                 th State
                 th Action
         tbody.listBackLog
