@@ -119,6 +119,7 @@ module.exports.getTaskForSprint = function(req,res){
     Task.find({ 'sprint': req.params.sprint_id})
         .populate('list_us')
         .populate('responsable')
+        .populate('sprint')
         .exec(function(err, tasks) {
             if(err) res.send(500, err.message);
             res.send(200, tasks);

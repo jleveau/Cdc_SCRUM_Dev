@@ -28,5 +28,6 @@
             span(ng-show='(!task.estimated_cost) && form.task_form.cost.$touched') You have to define a cost
 
         .form-group
-            input#taskCreate_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='create()', value='Create')
+            input#taskCreate_submit.btn.btn-default(ng-if='create', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='create()', value='Create')
+            input#taskEdit_submit.btn.btn-default(ng-if='!create', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='update()', value='Create')
             input#cancel_edit_task_button.btn.btn-default(type="button", ng-click='close()', value='Cancel')
