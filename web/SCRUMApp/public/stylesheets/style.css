@@ -121,3 +121,10 @@ div .popover-floating-animation-right{
   list-style-type: none;
   cursor: pointer;
 }
+.kanban_body {
+  height: auto;
+}
+
+.kanban-task-show{
+  padding-right: 10px;
+}

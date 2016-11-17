@@ -70,6 +70,7 @@ module.exports.addTask = function(req, res) {
 //PUT - Update a register already exists
 module.exports.updateTask = function(req, res) {
     Task.findById(req.params.id, function(err, task) {
+        task.title = req.body.title;
 	    task.description = req.body.description;
         task.id_project = req.body.id_project;
         task.date_start = req.body.date_start;
