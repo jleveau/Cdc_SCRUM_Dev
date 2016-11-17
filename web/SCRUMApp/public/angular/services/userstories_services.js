@@ -5,6 +5,8 @@ angular.module('UserStories')
 
                 var listUser = null;
 
+                var newUs = false;
+
                 var setListUS = function (_listUserStories){
                     listUser = _listUserStories;
                 };
