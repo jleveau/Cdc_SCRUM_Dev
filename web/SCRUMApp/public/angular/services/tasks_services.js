@@ -20,7 +20,6 @@ angular.module('Tasks')
                 };
 
                 var addTaskToListTasks = function (task){
-                    console.log(task)
                     list_tasks.push(task);
                 };
 

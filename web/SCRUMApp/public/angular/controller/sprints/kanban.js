@@ -6,8 +6,14 @@ angular.module('Sprints',[])
             $scope.list_sprints = null;
             $scope.listUserStories = [];
             $scope.all_tasks = [];
+            $scope.project = null;
 
             var project_id = $routeParams.project_id;
+
+            Projects.get(project_id).then(function(response){
+                $scope.project = response.data;
+                console.log($scope.project);
+            });
 
             function changeCurrentSprint(sprint){
                 $scope.current_sprint = sprint;
@@ -15,19 +21,19 @@ angular.module('Sprints',[])
                 SprintServices.getSprintUserstories(sprint._id).then(function(userstories){
                     $scope.listUserStories = userstories;
                     TasksServices.getTaskForSprint(sprint._id).then(function(response){
-                        var tasks = response;
                         $scope.all_tasks = [];
-
                         //TODO change  this
                         //Build list of tasks of each userstory of the sprint
                         //It's really dirty
+                        for (userstory of $scope.listUserStories){
+                            userstory.tasks = [];
+                        }
                         for (task of response){
                             if (task.list_us.length == 0)
-                                $scope.all_tasks.push(task)
+                                $scope.all_tasks.push(task);
                             else{
                                 task.list_us.forEach(function(task_us){
                                     for (userstory of $scope.listUserStories){
-                                        userstory.tasks = [];
                                         if (userstory._id == task_us._id){
                                             userstory.tasks.push(task);
                                         }
@@ -51,8 +57,54 @@ angular.module('Sprints',[])
                 changeCurrentSprint($scope.current_sprint);
             };
 
-            $scope.addTask = function(us){
+            $scope.showAddTaskForm = function($event,userstory){
+                var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    targetEvent: $event,
+                    templateUrl: '/partials/sprint_add_task.jade',
+                    locals: {
+                        sprint: $scope.current_sprint,
+                        userstory: userstory,
+                        project: $scope.project
+                    },
+                    controller: DialogController
+                }).finally(function() {
+                    $scope.changeCurrentSprint($scope.current_sprint);
+                });
+                function DialogController($scope, $mdDialog, sprint, userstory, project) {
+                    $scope.sprint = sprint;
+                    $scope.userstory = userstory;
+                    $scope.project = project;
+                    $scope.form = {};
 
+                    $scope.userstory_title = null;
+                    if (userstory && userstory.number_us)
+                        $scope.userstory_title = "US#" + userstory.number_us;
+                    else
+                        $scope.userstory_title = "ALL";
+                    $scope.task = {
+                        id_project : project._id,
+                        sprint: sprint,
+                        list_us : []
+                    };
+                    if (userstory){
+                        $scope.task.list_us.push(userstory);
+                    }
+
+                    $scope.create = function() {
+                        TasksServices.create($scope.task).then(function(new_task){
+                            if (userstory)
+                              userstory.tasks.push(new_task);
+                            Projects.addTask(new_task).then(function(project){
+                                $mdDialog.hide();
+                            });
+                        });
+                    };
+                    $scope.close = function(){
+                        $mdDialog.hide();
+                    }
+                }
             };
 
             $scope.showTaskDescription = function($event,task){
@@ -60,7 +112,7 @@ angular.module('Sprints',[])
                 $mdDialog.show({
                     parent: parentEl,
                     targetEvent: $event,
-                    templateUrl: '/partials/task_description.jade',
+                    templateUrl: '/partials/sprint_task_description.jade',
                     locals: {
                         task: task
                     },
@@ -72,7 +124,7 @@ angular.module('Sprints',[])
                         $mdDialog.hide();
                     }
                 }
-            }
+            };
 
             $scope.showUserStoryDescription = function($event,userstory){
                 var parentEl = angular.element(document.body);

@@ -13,24 +13,28 @@ block content
                     th TO DO
                     th Doing
                     th Done
-            tbody
+            tbody.kanban_body
                 tr
                     td ALL
-                        span(ng-click='addTask(user_story)')
+                        span(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
                             span.glyphicon.glyphicon-plus(aria-hidden='true')
                     td
                         ul(ng-repeat='task in all_tasks')
-                            li.task_li(ng-click='showTaskDescription($event,task)') Task# {{task.number_task}}
+                            li.task_li
+                                span.glyphicon.glyphicon-eye-open.kanban-task-show(aria-hidden='true', ng-click='showTaskDescription($event,task)')
+                                label() {{task.title}}
                     td
                     td
 
                 tr(ng-repeat="user_story in listUserStories")
                     td
                         a.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
-                        span(ng-click='addTask(user_story)')
+                        span(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
                             span.glyphicon.glyphicon-plus(aria-hidden='true')
                     td
                         ul(ng-repeat='task in user_story.tasks')
-                            li.task_li(ng-click='showTaskDescription($event,task)') Task# {{task.number_task}}
+                            li.task_li
+                                span.glyphicon.glyphicon-eye-open.kanban-task-show(aria-hidden='true', ng-click='showTaskDescription($event,task)')
+                                label {{task.title}}
                     td
                     td
