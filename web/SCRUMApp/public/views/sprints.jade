@@ -63,3 +63,5 @@ block content
                 div
                     label Last Update :&nbsp
                     span {{selected_task.date_updated | date:'medium'}}
+            .container-fluid(ng-hide='selected_task')
+                p Click on a task to display details
