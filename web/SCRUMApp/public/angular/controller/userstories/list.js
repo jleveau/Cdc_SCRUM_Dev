@@ -27,7 +27,7 @@ angular.module('UserStories')
             };
 
             //filter for column Sprint
-            $scope.myFilter = "Sprint";
+            $scope.myFilter = "";
 
             SprintServices.getProjectSprints(project_id).then(function(response){
                 $scope.selectSprint = [];
@@ -43,20 +43,21 @@ angular.module('UserStories')
             });
 
             $scope.selectSprintValue = "";
-            $scope.applyFilter = function(valueSelected){
+            $scope.applyFilter = function(valueSelected, oldValue){
                 $scope.myFilter = "";
                 $scope.myFilter = valueSelected.value;
                 $scope.invoiceTotal = 0;
 
-                $scope.$watch('selectSprintValue', function(newValue, oldValue){
-                    if(oldValue.value == 'Sprint'){
-                        $scope.invoiceTotal = 0;
-                        for(us of  $scope.listUserStories){
-                            //todo
+                if(!oldValue || 'Sprint' == oldValue.value){
+                    for (us of $scope.listUserStories){
+                        if(valueSelected.value === us.num_sprint) {
+                            $scope.invoiceTotal = $scope.invoiceTotal + us.cost;
                         }
                     }
-                });
+                }
             };
+
+
 
             $scope.update_us = function (us) {
                $location.path('/project/'+ project_id + '/userstory/'+ us._id +'/edit');
@@ -86,7 +87,12 @@ angular.module('UserStories')
                 UserStoriesServices.get($scope.params.project_id).then(function(response){
                     $scope.listUserStories = response.data;
                     for (us of $scope.listUserStories){
-                       us["num_sprint"] = 'Sprint'+us.sprint.number_sprint;
+                        if(us.sprint) {
+                            us["num_sprint"] = 'Sprint' + us.sprint.number_sprint;
+                        }else{
+                            us["num_sprint"] = 'Sprint_';
+                        }
+
                         $scope.totalCostUs = $scope.totalCostUs + us.cost;
                     }
                     UserStoriesServices.setListUS($scope.listUserStories);
