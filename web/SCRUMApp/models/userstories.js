@@ -79,7 +79,6 @@ module.exports.addUserstory = function (req, res) {
             }
             USnumber = USnumber + 1;
         }
-
             var userstory = new Userstory({
                 number_us: USnumber,
                 id_project: req.body.idProject,
