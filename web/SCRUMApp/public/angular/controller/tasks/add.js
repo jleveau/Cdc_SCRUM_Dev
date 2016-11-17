@@ -37,10 +37,10 @@ angular.module('Tasks',[])
 
                 TasksServices.create($scope.task).then(function(response){
                     $scope.task=response;
+                    TasksServices.addTaskToListTasks(response);
                     Projects.addTask($scope.task).then(function(response){
                         $scope.successMessage = 'New task added to the project';
                         $scope.task = {list_tasks_depend: []};
-                        TasksServices.setListTasks(response);
                         TasksServices.setListDependencies([]);
                         TasksServices.setRelatedUserstories([]);
                         $scope.form.task_form.$setUntouched();

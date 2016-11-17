@@ -15,6 +15,13 @@ angular.module('UserStories', [])
                 .then(function (userstory) {
                     $scope.successMessage = "User story added to the project";
                     $scope.userstory = {};
+                    for (sprint of $scope.sprints){
+                        if (sprint._id != userstory.sprint) {
+                        } else {
+                            userstory.sprint = sprint;
+                            userstory["num_sprint"] = 'Sprint' + sprint.number_sprint;
+                        }
+                    }
                     UserStoriesServices.addUsToList(userstory);
                 });
             };

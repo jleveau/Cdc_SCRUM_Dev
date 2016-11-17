@@ -1,6 +1,6 @@
 angular.module('Sprints',[])
-    .controller('KanbanController', ['$scope', '$timeout', '$location', '$routeParams', 'TasksServices', 'Projects','UserStoriesServices', 'SprintServices',
-        function ($scope,  $timeout,  $location, $routeParams, TasksServices, Projects, UserStoriesServices, SprintServices) {
+    .controller('KanbanController', ['$scope', '$mdDialog', '$timeout', '$location', '$routeParams', 'TasksServices', 'Projects','UserStoriesServices', 'SprintServices',
+        function ($scope, $mdDialog,  $timeout,  $location, $routeParams, TasksServices, Projects, UserStoriesServices, SprintServices) {
 
             $scope.current_sprint = null;
             $scope.list_sprints = null;
@@ -53,7 +53,24 @@ angular.module('Sprints',[])
 
             $scope.addTask = function(us){
 
+            };
+
+            $scope.showDescription = function($event,task){
+                var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    targetEvent: $event,
+                    templateUrl: '/partials/task_description.jade',
+                    locals: {
+                        task: task
+                    },
+                    controller: DialogController
+                });
+                function DialogController($scope, $mdDialog, task) {
+                    $scope.task = task;
+                    $scope.closeDialog = function() {
+                        $mdDialog.hide();
+                    }
+                }
             }
-
-
         }]);

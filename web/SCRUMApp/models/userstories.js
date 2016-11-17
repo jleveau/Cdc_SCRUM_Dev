@@ -50,12 +50,12 @@ module.exports.findUserstoryTasks = function (req, res) {
     });
 };
 
+
 //GET - Return a userstory with specified project_ID
 module.exports.findByIdProject = function (req, res) {
     console.log('Ctrl GET/' + req.params.id);
-    Userstory.find({
-            'id_project': req.params.id
-        }).populate('sprint')
+    Userstory.find({'id_project': req.params.id})
+        .populate('sprint')
         .exec(function (err, userstories) {
             if (err) return res.send(500, err.message);
 
