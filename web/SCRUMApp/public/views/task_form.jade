@@ -15,7 +15,7 @@ div(ng-if='isProjectMember()')
             span(ng-show='(!task.description) && form.task_form.description.$touched') You have to describe your new task
 
         .form-group
-            label(for='in_charge') Dev in charge :
+            label(for='in_charge') Developer in charge :
             select#in_charge.form-control(name="in_charge", ng-model='task.responsable'
             ng-options= "member as member.username for member in project.member_list track by member._id")
 

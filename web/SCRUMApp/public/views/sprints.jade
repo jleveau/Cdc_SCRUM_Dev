@@ -22,7 +22,7 @@ block content
                         ul(ng-repeat='task in all_tasks')
                             li.task_li
                                 span.glyphicon.glyphicon-eye-open.kanban-task-show(aria-hidden='true', ng-click='showTaskDescription($event,task)')
-                                label() Task# {{task.number_task}} : {{task.title}}
+                                label() {{task.title}}
                     td
                     td
 
@@ -35,6 +35,6 @@ block content
                         ul(ng-repeat='task in user_story.tasks')
                             li.task_li
                                 span.glyphicon.glyphicon-eye-open.kanban-task-show(aria-hidden='true', ng-click='showTaskDescription($event,task)')
-                                label Task# {{task.number_task}}
+                                label {{task.title}}
                     td
                     td

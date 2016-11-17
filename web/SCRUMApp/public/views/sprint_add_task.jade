@@ -1,31 +1,32 @@
-h3 Add a task to {{userstory_title}}
-.alert.alert-success(ng-show='successMessage') {{successMessage}}
+.container-fluid
+    h3 Add a task to {{userstory_title}}
+    .alert.alert-success(ng-show='successMessage') {{successMessage}}
 
-form.css-form(name = "form.task_form", novalidate)
+    form.css-form(name = "form.task_form", novalidate)
 
-    .form-group(ng-class="{'has-warning':form.task_form.title.$invalid && form.task_form.title.$touched}")
-        label(for='title') Title * :
-        input#title.form-control(type='text',name = "title",rows="1", ng-model='task.title', required="")
-        span(ng-show='(!task.title) && form.task_form.title.$touched') You have set a title for your task
+        .form-group(ng-class="{'has-warning':form.task_form.title.$invalid && form.task_form.title.$touched}")
+            label(for='title') Title * :
+            input#title.form-control(type='text',name = "title",rows="1", ng-model='task.title', required="")
+            span(ng-show='(!task.title) && form.task_form.title.$touched') You have set a title for your task
 
-    .form-group(ng-class="{'has-warning':form.task_form.description.$invalid && form.task_form.description.$touched}")
-        label(for='description') Description * :
-        textarea#description.form-control(type='description',name = "description",rows="3", ng-model='task.description', required="")
-        span(ng-show='(!task.description) && form.task_form.description.$touched') You have to describe your new task
+        .form-group(ng-class="{'has-warning':form.task_form.description.$invalid && form.task_form.description.$touched}")
+            label(for='description') Description * :
+            textarea#description.form-control(type='description',name = "description",rows="3", ng-model='task.description', required="")
+            span(ng-show='(!task.description) && form.task_form.description.$touched') You have to describe your new task
 
-    .form-group
-        label(for='in_charge') Dev in charge :
-        select#in_charge.form-control(name="in_charge", ng-model='task.responsable'
-        ng-options= "member as member.username for member in project.member_list track by member._id")
+        .form-group
+            label(for='in_charge') Developer in charge :
+            select#in_charge.form-control(name="in_charge", ng-model='task.responsable'
+            ng-options= "member as member.username for member in project.member_list track by member._id")
 
-    .form-group
-        label Sprint : {{sprint.number_sprint}}
+        .form-group
+            label Sprint : {{sprint.number_sprint}}
 
-    .form-group(ng-class="{'has-warning':form.task_form.cost.$invalid && form.task_form.cost.$touched}")
-        label(for='cost') Estimated cost (man/days) *:
-        input#cost(name="cost",type='number', min="0", step="1", ng-model='task.estimated_cost', required="").form-control
-        span(ng-show='(!task.estimated_cost) && form.task_form.cost.$touched') You have to define a cost
+        .form-group(ng-class="{'has-warning':form.task_form.cost.$invalid && form.task_form.cost.$touched}")
+            label(for='cost') Estimated cost (man/days) *:
+            input#cost(name="cost",type='number', min="0", step="1", ng-model='task.estimated_cost', required="").form-control
+            span(ng-show='(!task.estimated_cost) && form.task_form.cost.$touched') You have to define a cost
 
-    .form-group
-        input#taskCreate_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='create()', value='Create')
-        input#cancel_edit_task_button.btn.btn-default(type="button", ng-click='close()', value='Cancel')
+        .form-group
+            input#taskCreate_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='create()', value='Create')
+            input#cancel_edit_task_button.btn.btn-default(type="button", ng-click='close()', value='Cancel')

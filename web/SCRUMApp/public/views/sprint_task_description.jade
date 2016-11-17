@@ -1,12 +1,21 @@
 md-dialog
     md-dialog-content
         .container-fluid
-            h3 Task# {{task.number_task}}
+            h3 {{ task.title }}
+            label cost (Men/Days)
+            p {{task.estimated_cost}}
             label responsable
             p {{task.responsable.username}}
             label description
             p {{task.description}}
+            label Created :
+            p {{task.date_created | date:'medium'}}
+            label Last Update :
+            p {{task.date_updated | date:'medium'}}
+
+
 
     md-dialog-actions
         md-button.md-primary(ng-click='closeDialog()')
             | Ok
+

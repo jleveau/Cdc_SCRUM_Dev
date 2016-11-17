@@ -12,6 +12,7 @@ angular.module('Sprints',[])
 
             Projects.get(project_id).then(function(response){
                 $scope.project = response.data;
+                console.log($scope.project);
             });
 
             function changeCurrentSprint(sprint){
@@ -21,7 +22,6 @@ angular.module('Sprints',[])
                     $scope.listUserStories = userstories;
                     TasksServices.getTaskForSprint(sprint._id).then(function(response){
                         $scope.all_tasks = [];
-
                         //TODO change  this
                         //Build list of tasks of each userstory of the sprint
                         //It's really dirty
@@ -112,7 +112,7 @@ angular.module('Sprints',[])
                 $mdDialog.show({
                     parent: parentEl,
                     targetEvent: $event,
-                    templateUrl: '/partials/task_description.jade',
+                    templateUrl: '/partials/sprint_task_description.jade',
                     locals: {
                         task: task
                     },

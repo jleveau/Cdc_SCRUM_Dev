@@ -128,3 +128,7 @@ div .popover-floating-animation-right{
 .kanban-task-show{
   padding-right: 10px;
 }
+
+md-dialog.md-transition-in{
+  max-height: 100%;
+}
