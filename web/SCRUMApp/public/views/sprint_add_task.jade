@@ -29,5 +29,5 @@
 
         .form-group
             input#taskCreate_submit.btn.btn-default(ng-if='create', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='create()', value='Create')
-            input#taskEdit_submit.btn.btn-default(ng-if='!create', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='update()', value='Create')
+            input#taskEdit_submit.btn.btn-default(ng-if='!create', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='update()', value='Update')
             input#cancel_edit_task_button.btn.btn-default(type="button", ng-click='close()', value='Cancel')

@@ -75,16 +75,16 @@ module.exports.updateTask = function(req, res) {
         task.id_project = req.body.id_project;
         task.date_start = req.body.date_start;
         task.date_end = req.body.date_end;
-        task.estimated_code = req.body.estimated_code;
+        task.estimated_cost = req.body.estimated_cost;
         task.estimated_duration = req.body.estimated_duration;
         task.responsable = req.body.responsable;
         task.state = req.body.state;
         task.list_us = req.body.list_us;
         task.list_tasks_depend = req.body.list_tasks_depend;
-        task.updated = Date.now;
+        task.date_updated = Date.now();
         task.sprint = req.body.sprint;
         task.save(function(err, task) {
-        if(err) return res.send(500, err.message);
+        if(err) return res.send(500, err.errors);
             US_Task.remove({_idTasks : task._id}, function(err){
                 for (us of task.list_us){
                     var us_task = new US_Task({
