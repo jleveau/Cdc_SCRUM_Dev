@@ -22,21 +22,21 @@ block content
                                     span.add_task_kanban(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
                                         span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
-                                ul(ng-repeat='task in all_tasks')
+                                ul(ng-repeat='task in all_tasks track by task._id')
                                     li.task_li
-                                        label(ng-click='selectTask(task)') {{task.title}}
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
                             td
 
-                        tr(ng-repeat="user_story in listUserStories")
+                        tr(ng-repeat="user_story in listUserStories" )
                             td
                                 label.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
                                 span.add_task_kanban(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
                                     span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
-                                ul(ng-repeat='task in user_story.tasks')
+                                ul(ng-repeat='task in user_story.tasks track by task._id')
                                     li.task_li
-                                        label(ng-click='selectTask(task)') {{task.title}}
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
                             td
         .col-md-3

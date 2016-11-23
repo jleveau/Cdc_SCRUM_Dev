@@ -137,3 +137,7 @@ md-dialog.md-transition-in{
   text-align: right;
   width: 100%;
 }
+
+.user_task{
+  color : green;
+}

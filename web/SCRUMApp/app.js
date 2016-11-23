@@ -45,6 +45,7 @@ var ProjectsCtrl = require('./models/projects');
 var UserStoriesCtrl = require('./models/userstories');
 var TasksCtrl = require('./models/tasks');
 var SprintCtrl = require('./models/sprints');
+var NotificationCtrl = require('./models/notification');
 
 
 
@@ -55,6 +56,7 @@ require('./server/routes/projects')(app, ProjectsCtrl);
 require('./server/routes/userstories')(app, UserStoriesCtrl);
 require('./server/routes/tasks')(app, TasksCtrl);
 require('./server/routes/sprint')(app, SprintCtrl);
+require('./server/routes/notifications')(app, NotificationCtrl);
 
 
 

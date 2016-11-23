@@ -89,6 +89,13 @@ var tasks = new mongoose.Schema({
     date_updated: {type: Date, default: Date.now}
 });
 
+var notifications = new mongoose.Notification({
+    project: { type : ObjectId, ref: 'projects' },
+    body:  String,
+    date_created : {type: Date, default: Date.now},
+    date_updated: {type: Date, default: Date.now}
+});
+
 module.exports = mongoose.model('projects', projects);
 module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
@@ -96,6 +103,7 @@ module.exports = mongoose.model('tasks', tasks);
 module.exports = mongoose.model('user_project', user_project);
 module.exports = mongoose.model('userstories_projects', userstories_projects);
 module.exports = mongoose.model('userstories_tasks', userstories_tasks);
+module.exports = mongoose.model('notifications', notifications);
 
 
 

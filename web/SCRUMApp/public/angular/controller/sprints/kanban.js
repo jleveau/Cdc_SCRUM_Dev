@@ -1,6 +1,8 @@
 angular.module('Sprints',[])
-    .controller('KanbanController', ['$scope', '$mdDialog', '$timeout', '$location', '$routeParams', 'TasksServices', 'Projects','UserStoriesServices', 'SprintServices',
-        function ($scope, $mdDialog,  $timeout,  $location, $routeParams, TasksServices, Projects, UserStoriesServices, SprintServices) {
+    .controller('KanbanController', ['$scope', '$mdDialog', '$timeout', '$location', '$routeParams', 'TasksServices',
+                'Projects','UserStoriesServices', 'SprintServices', 'AuthService',
+        function ($scope, $mdDialog,  $timeout,  $location, $routeParams, TasksServices, Projects, UserStoriesServices,
+                  SprintServices, AuthService) {
 
             $scope.current_sprint = null;
             $scope.list_sprints = null;
@@ -8,8 +10,13 @@ angular.module('Sprints',[])
             $scope.all_tasks = [];
             $scope.project = null;
             $scope.selected_task = null;
+            $scope.current_user = null;
 
             var project_id = $routeParams.project_id;
+
+            AuthService.getCurrentUser().then(function(){
+                $scope.current_user = AuthService.getUserStatus();
+            });
 
             Projects.get(project_id).then(function(response){
                 $scope.project = response.data;
@@ -55,6 +62,10 @@ angular.module('Sprints',[])
 
             $scope.changeCurrentSprint = function (){
                 changeCurrentSprint($scope.current_sprint);
+            };
+
+            $scope.taskIsForCurrentUser = function(task){
+                return task.responsable._id == $scope.current_user._id;
             };
 
             $scope.showAddTaskForm = function($event,userstory){
