@@ -89,7 +89,7 @@ var tasks = new mongoose.Schema({
     date_updated: {type: Date, default: Date.now}
 });
 
-var notifications = new mongoose.Notification({
+var notifications = new mongoose.Schema({
     project: { type : ObjectId, ref: 'projects' },
     body:  String,
     date_created : {type: Date, default: Date.now},

@@ -2,7 +2,7 @@
 
 module.exports = function(app, ctrl) {
 
-    app.get('/api/project/:project_id/notifications', ctrl.findForProject());
+    app.get('/api/project/:project_id/notifications', ctrl.findForProject);
 
     app.get('/api/notifications/:id', ctrl.findOne);
 
