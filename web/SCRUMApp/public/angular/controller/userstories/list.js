@@ -65,6 +65,8 @@ angular.module('UserStories')
                     }
                 }, true
             );
+			
+			$scope.listCout = SprintServices.getListCout();
 
             $scope.update_us = function (us) {
                $location.path('/project/'+ project_id + '/userstory/'+ us._id +'/edit');

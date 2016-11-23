@@ -46,18 +46,20 @@ module.exports.addproject = function (req, res) {
             if (err) return res.status(500).send(err.message);
 
             var projectBeginningDate = new Date(req.body.project.date_start);
-            var sprintDate = new Date(req.body.project.date_start);
+			var sprintDate = new Date(req.body.project.date_start);
             for (var i = 1; i <= req.body.project.nb_sprint; i++) {
-                if (i != 1)
-                    sprintDate = projectBeginningDate.setDate(projectBeginningDate.getDate() + req.body.project.sprint_duration);
+				if (i != 1)
+					sprintDate = sprintDateFin;
+                sprintDateFin = projectBeginningDate.setDate(projectBeginningDate.getDate() + req.body.project.sprint_duration);
                 var sprint = new Sprint({
                     date_start: sprintDate,
+					date_end: sprintDateFin,
                     number_sprint: i,
                     project: project._id,
                 });
                 sprint.save(function (err, sprint) {
                     if (err) res.status(500).send(err.message);
-                })
+                })	
             }
             return res.status(200).jsonp(project);
         });

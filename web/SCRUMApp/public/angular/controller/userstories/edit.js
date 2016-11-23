@@ -9,7 +9,9 @@ angular.module('UserStories')
             SprintServices.getProjectSprints(idProject).then(function(response){
                 $scope.sprints = response;
             });
-
+			
+			$scope.listCout = SprintServices.getListCout();
+		
             if (idUserStory) {
                 UserStoriesServices.getUsByID(idUserStory).then(function (response) {
                     $scope.userstory = response;

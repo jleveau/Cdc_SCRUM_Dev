@@ -11,13 +11,9 @@ div(ng-if='isProjectMember()')
                 .form-group
 
                         label(for='duration') Cost :
-                        select#duration.form-control(name="in_charge", ng-model='userstory.cost')
-                            option 1
-                            option 2
-                            option 3
-                            option 4
-                            option 5
-                            option 6
+                        select#duration.form-control(name="in_charge", ng-model='userstory.cost'
+						ng-options = "item as item for item in listCout track by item")
+        
                 .form-group(ng-show='isProductOwner()')
                     label(for='priority') Priority :
                     select#priority.form-control(name="in_charge" ng-model='userstory.priority')

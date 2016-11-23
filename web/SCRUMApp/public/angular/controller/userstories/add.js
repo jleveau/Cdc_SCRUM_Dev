@@ -9,6 +9,8 @@ angular.module('UserStories', [])
             SprintServices.getProjectSprints($scope.idProject).then(function(response){
                 $scope.sprints = response;
             });
+			
+			$scope.listCout = SprintServices.getListCout();
 
             $scope.createUserStory = function () {
                 UserStoriesServices.create($scope.userstory,$scope.idProject)
