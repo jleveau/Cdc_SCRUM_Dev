@@ -125,3 +125,15 @@ module.exports.getTaskForSprint = function(req,res){
             res.send(200, tasks);
         });
 };
+
+//PUT - Update the state of register already exists
+module.exports.updateStateTask = function(req,res){
+    Task.findById(req.params.id, function(err, task) {
+        task.state = req.body.state;
+        task.date_updated = Date.now();
+        task.save(function(err, task) {
+            if(err) return res.send(500, err.errors);
+            res.status(200).jsonp(task);
+        });
+    });
+};

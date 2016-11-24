@@ -35,10 +35,16 @@ block content
                                     span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
                                 ul(ng-repeat='task in user_story.tasks track by task._id')
-                                    li.task_li
+                                    li.task_li(ng-if='task.state=="TODO"')
                                         label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
+                                ul(ng-repeat='task in user_story.tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DOING"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
+                                ul(ng-repeat='task in user_story.tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DONE"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
         .col-md-3
             .container-fluid(ng-show='selected_task')
                 h3 {{ selected_task.title }}
@@ -64,5 +70,15 @@ block content
                 div
                     label Last Update :&nbsp
                     span {{selected_task.date_updated | date:'medium'}}
+                    
+                div(ng-if='isProjectMember()')
+                    .btn-group
+                        button.btn.btn-default(type='button', ng-show='taskIsForCurrentUser(selected_task)', aria-label='back',
+                        ng-click='backTask(selected_task)')
+                            span.glyphicon.glyphicon-arrow-left(aria-hidden='true')
+                        button.btn.btn-default(type='button', ng-show='taskIsForCurrentUser(selected_task)', aria-label='ahead',
+                        ng-click='advanceTask(selected_task)')
+                            span.glyphicon.glyphicon-arrow-right(aria-hidden='true')
+                            
             .container-fluid(ng-hide='selected_task')
                 p Click on a task to display details

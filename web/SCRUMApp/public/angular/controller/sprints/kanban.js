@@ -65,7 +65,16 @@ angular.module('Sprints',[])
             };
 
             $scope.taskIsForCurrentUser = function(task){
-                return task.responsable._id == $scope.current_user._id;
+                if(task){
+                    if(task.responsable){
+                        return task.responsable._id == $scope.current_user._id;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+                
             };
 
             $scope.showAddTaskForm = function($event,userstory){
@@ -159,6 +168,28 @@ angular.module('Sprints',[])
                     $scope.changeCurrentSprint($scope.current_sprint);
                 });
             };
+            
+            $scope.advanceTask = function(task){
+                if(task.state == 'TODO'){
+                    task.state = 'DOING'; 
+                }else{ //DOING
+                    task.state = 'DONE';
+                }
+                TasksServices.changeStatus(task).then(function (reponse) {
+                    
+                });
+            }
+            
+            $scope.backTask = function(task){
+                if(task.state == 'DONE'){
+                    task.state = 'DOING'; 
+                }else{ //DOING
+                    task.state = 'TODO';
+                }
+                TasksServices.changeStatus(task).then(function (reponse) {
+                    
+                });
+            }
 
             $scope.showUserStoryDescription = function($event,userstory){
                 var parentEl = angular.element(document.body);

@@ -13,4 +13,6 @@ module.exports = function(app, ctrl) {
 	app.delete('/api/task/:id_task', ctrl.deleteTask);
 
 	app.get('/api/tasks/sprint/:sprint_id', ctrl.getTaskForSprint);
+   
+    app.put('/api/tasks/:id/UpdateState', ctrl.updateStateTask);
 };

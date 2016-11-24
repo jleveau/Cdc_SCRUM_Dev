@@ -18,7 +18,7 @@ thead th {
 }
 
 tbody {
-    height: 250px;
+    max-height: 250px;
     overflow-y: auto;
 }
 
@@ -39,6 +39,6 @@ tbody.listBackLog input {
 }
 
 tbody td, thead th {
-    width: 19.2%;
+    width: 25%;
     float: left;
 }

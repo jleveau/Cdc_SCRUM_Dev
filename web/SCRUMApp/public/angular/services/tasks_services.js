@@ -73,6 +73,12 @@ angular.module('Tasks')
                         return response.data;
                     });
                 }
+                
+                function changeStatus(task){
+                     return $http.put('/api/tasks/'+task._id+'/UpdateState',task).then(function(response){
+                        return response.data;
+                    });
+                }
 
                 return ({
                     getTask : getTask,
@@ -86,7 +92,8 @@ angular.module('Tasks')
                     create: create,
                     deleteTask: deleteTask,
                     update : update,
-                    getTaskForSprint:getTaskForSprint
+                    getTaskForSprint:getTaskForSprint,
+                    changeStatus: changeStatus
                 });
 
             }]);
