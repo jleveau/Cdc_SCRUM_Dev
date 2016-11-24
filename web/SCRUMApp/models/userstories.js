@@ -20,7 +20,9 @@ module.exports.findAllUserstories = function (req, res) {
  * @param res
  */
 module.exports.findUsById = function (req, res) {
-    Userstory.findById(req.params.id, function (err, usersotory) {
+    Userstory.findById(req.params.id)
+		.populate('sprint')
+        .exec (function (err, usersotory) {
         if (err) res.status(500).send(err.message);
         res.status(200).jsonp(usersotory);
     });

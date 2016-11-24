@@ -40,7 +40,7 @@ angular.module('UserStories')
                 }
             });
 
-            $scope.selectSprintValue = "";
+            $scope.selectSprintValue = {"label":"All Sprints", "value":"Sprint"};
             $scope.applyFilter = function(valueSelected, oldValue){
                 $scope.myFilter = "";
                 $scope.myFilter = valueSelected.value;

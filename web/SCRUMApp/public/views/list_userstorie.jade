@@ -29,8 +29,8 @@
                     span(ng-hide='isProductOwner()') {{user_story.priority}}
 
                 td.filterable-cell
-                    input(type='number' , ng-show='isProjectMember()', name='form_cost',
-                        value='{{user_story.cost}}', ng-model='user_story.cost', ng-change='updateCostUs(user_story)')
+                    select(ng-show='isProjectMember()', name='form_cost', ng-options="item as item for item in listCout track by item"
+                        ng-model='user_story.cost', ng-change='updateCostUs(user_story)')
                     span(ng-hide='isProjectMember()') {{user_story.cost}}
 
                 td.filterable-cell
