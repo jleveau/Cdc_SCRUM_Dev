@@ -1,1 +1,11 @@
-.container(ng-controller="NotificationController")
+div(ng-controller="NotificationController")
+
+    ul(ng-repeat="notification in notifications | orderBy: '-date_created' ")
+        .media.user-media
+            .media.user-media
+                .media-left
+                    a(ng-click='getUserPageURL(notification.author)')
+                        img.user-desc-image(ng-src="{{notification.responsable.image || '/public/images/default.png'}}", alt="user_image",height="60" width="60")
+                .media-body
+                    h4.media-heading {{notification.author.username}}
+                    p(ng-bind-html="notification.body")

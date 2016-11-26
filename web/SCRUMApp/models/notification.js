@@ -6,17 +6,20 @@ var ObjectId = mongoose.Types.ObjectId;
 
 
 module.exports.findOne = function (req, res) {
-    Notification.findById(req.body.notification._id, function(err,notification){
+    Notification.findById(req.body.notification._id)
+        .populate('author')
+        .exec(function(err,notification){
         if (err) return res.status(500).send(err.message);
         res.status(200).jsonp(notification);
     });
 };
 
-
 module.exports.findForProject = function (req, res) {
+    var project_id = req.params.project_id;
     Notification.find({
-        'id_project': req.body.project_id
-    },function(err, notifications) {
+        'project': project_id
+    }).populate('author')
+      .exec(function(err, notifications) {
         if (err) return res.send(500, err.message);
         res.status(200).jsonp(notifications);
     });

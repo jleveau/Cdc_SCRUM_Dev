@@ -1,8 +1,8 @@
 angular.module('Sprints',[])
     .controller('KanbanController', ['$scope', '$mdDialog', '$timeout', '$location', '$routeParams', 'TasksServices',
-                'Projects','UserStoriesServices', 'SprintServices', 'AuthService',
+                'Projects','UserStoriesServices', 'SprintServices', 'AuthService', 'NotificationService',
         function ($scope, $mdDialog,  $timeout,  $location, $routeParams, TasksServices, Projects, UserStoriesServices,
-                  SprintServices, AuthService) {
+                  SprintServices, AuthService, NotificationService) {
 
             $scope.current_sprint = null;
             $scope.list_sprints = null;
@@ -173,12 +173,15 @@ angular.module('Sprints',[])
                 if(task.state == 'TODO'){
                     task.state = 'DOING'; 
                 }else{ //DOING
-                    task.state = 'DONE';
+                    if (task.state != 'DONE'){
+                        task.state = 'DONE';
+                        NotificationService.createNewsTaskDone(task).then(function(response){
+                        })
+                    }
                 }
                 TasksServices.changeStatus(task).then(function (reponse) {
-                    
                 });
-            }
+            };
             
             $scope.backTask = function(task){
                 if(task.state == 'DONE'){
@@ -189,7 +192,7 @@ angular.module('Sprints',[])
                 TasksServices.changeStatus(task).then(function (reponse) {
                     
                 });
-            }
+            };
 
             $scope.showUserStoryDescription = function($event,userstory){
                 var parentEl = angular.element(document.body);

@@ -49,7 +49,7 @@ angular.module('ProjectServices', [])
             return $http.get('/api/project/backlog/' + project_id).then(function(response){
                 return response.data;
             });
-        }
+        };
 
         return {
             get : function(id) {

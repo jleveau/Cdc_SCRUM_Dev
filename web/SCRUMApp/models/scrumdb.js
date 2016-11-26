@@ -92,6 +92,7 @@ var tasks = new mongoose.Schema({
 var notifications = new mongoose.Schema({
     project: { type : ObjectId, ref: 'projects' },
     body:  String,
+    author: {type: ObjectId, ref: 'users'},
     date_created : {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });

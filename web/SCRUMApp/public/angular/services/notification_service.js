@@ -3,27 +3,43 @@ angular.module('Notification')
         ['$q', '$timeout', '$http',
             function($q,$timeout,$http) {
 
-                function getUserNews(user){
-                    $http.get('users/userprojects/' + user._id).then(function(response){
-                        projects = response.data;
-                        notifications = [];
+                var notifications = [];
+
+                function getNotifications(){
+                    return notifications;
+                }
+
+                function getProjectsNotifications(projects){
+                    return new Promise(function(resolve, reject){
                         i = 0;
                         for (project of projects){
-                            $http.get('/api/project/'+ project._id +'/notifications',task).then(function(response){
-                                notifications.push(response.data);
-                            });
-                            i++;
+                            $http.get('/api/project/'+ project._id +'/notifications').then(function(response){
+                                console.log(notifications.length);
+                                console.log(response.data.length);
+                                notifications = notifications.concat(response.data);
+                                console.log(notifications.length);
 
-                            if (i == projects.length){
-                                return notifications
-                            }
+                                i++;
+                                if (i >= projects.length){
+                                    resolve();
+                                }
+                            });
                         }
+                    });
+                }
+
+                function getUserNews(user){
+                    notifications = [];
+                    return $http.get('users/userprojects/' + user._id).then(function(response){
+                        projects = response.data;
+                        return getProjectsNotifications(projects);
                     });
                 }
 
                 function createNewsTaskOnGoing(task){
                     var notification = {
                         project : task.project_id._id,
+                        author : task.responsable,
                         body : "<p>"+task.responsable.username + " has put Task#" + task.number_task+
                         "of project " + task.project_id.name + " on state OnGoing</p>"
                     };
@@ -33,24 +49,34 @@ angular.module('Notification')
                 }
 
                 function createNewsTaskDone(task){
-                    var notification = {
-                        project : task.project_id._id,
-                        body : "<p>"+task.responsable.username + " has put Task#" + task.number_task +
-                        "of project " + task.project_id.name+ " on state Done</p>"
-                    };
-                    return $http.post('/api/notifications/new',notification).then(function(response){
-                        return response.data;
+                    var project;
+                    return $http.get('/api/project/' + task.id_project).then(function(response){
+                        project = response.data;
+
+                        var notification = {notification : {
+                            project : project._id,
+                            author : task.responsable,
+                            body : "<p>"+task.responsable.username + " has finished Task#" + task.number_task +
+                            " of project " + project.name+ "</p>"
+                            }
+                        };
+                        return $http.post('/api/notifications/new',notification).then(function(response){
+                            return response.data;
+                        });
                     });
                 }
 
                 function createNewsValidateUserStory(userstory, user){
-                    var notification = {
-                        project : task.project_id._id,
-                        body : "<p>"+user.username + " has validated US#" + userstory.number_us+
-                        "of project " + task.project_id.name + "</p>"
-                    };
-                    return $http.post('/api/notifications/new',notification).then(function(response){
-                        return response.data;
+                    $http.get('/api/project/' + task.id_project).then(function(response) {
+                        project = response.data;
+                        var notification = {
+                            project: project._id,
+                            body: "<p>" + user.username + " has validated US#" + userstory.number_us +
+                            "of project " + project.name + "</p>"
+                        };
+                        return $http.post('/api/notifications/new', notification).then(function (response) {
+                            return response.data;
+                        });
                     });
                 }
 
@@ -65,6 +91,7 @@ angular.module('Notification')
                 }
 
                 return ({
+                    getNotifications : getNotifications,
                     getUserNews : getUserNews,
                     createNewsTaskOnGoing : createNewsTaskOnGoing,
                     createNewsTaskDone : createNewsTaskDone,
