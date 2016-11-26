@@ -121,6 +121,13 @@ div .popover-floating-animation-right{
   list-style-type: none;
   cursor: pointer;
 }
+
+.task_ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .kanban_body {
   height: auto;
 }
@@ -136,6 +143,7 @@ md-dialog.md-transition-in{
 .add_task_kanban{
   text-align: right;
   width: 100%;
+  padding-left: 15px;
 }
 
 .user_task{

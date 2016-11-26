@@ -193,6 +193,71 @@ angular.module('Sprints',[])
                     
                 });
             };
+            
+            $scope.allTasksDone = function(tasks){
+                var allDone = true;
+                if(tasks && tasks.length > 0){
+                    for (task of tasks) {
+                        if (task.state != 'DONE')
+                            allDone = false;
+                    }
+                }else{
+                   allDone = false; 
+                }
+                return allDone;
+            }
+            
+            $scope.validerUsForm = function($event,userstory){
+                var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    targetEvent: $event,
+                    templateUrl: '/partials/userstoryValidation.jade',
+                    locals: {
+                        sprint: $scope.current_sprint,
+                        userstory: userstory,
+                        project: $scope.project
+                    },
+                    controller: DialogController
+                }).finally(function() {
+                    $scope.changeCurrentSprint($scope.current_sprint);
+                });
+                function DialogController($scope, $mdDialog, sprint, userstory, project) {
+                    $scope.sprint = sprint;
+                    $scope.userstory = userstory;
+                    $scope.project = project;
+                    $scope.form = {};
+                    $scope.userstory_title = "US#" + userstory.number_us;           
+                    
+                    $scope.updateUs = function() {
+                        UserStoriesServices.updateValidation($scope.userstory).then(function(reponse){
+                            $mdDialog.hide();
+                        });
+                    };
+                    $scope.close = function(){
+                        $mdDialog.hide();
+                    }
+                }
+            };
+            
+            $scope.showUsValidationForm = function($event,userstory){
+                var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    targetEvent: $event,
+                    templateUrl: '/partials/userstoryValidCommit.jade',
+                    locals: {
+                        userstory: userstory
+                    },
+                    controller: DialogController
+                });
+                function DialogController($scope, $mdDialog, userstory) {
+                    $scope.userstory = userstory;
+                    $scope.closeDialog = function() {
+                        $mdDialog.hide();
+                    }
+                }
+            };
 
             $scope.showUserStoryDescription = function($event,userstory){
                 var parentEl = angular.element(document.body);

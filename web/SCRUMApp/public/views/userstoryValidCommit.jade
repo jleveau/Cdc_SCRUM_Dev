@@ -2,12 +2,13 @@ md-dialog
     md-dialog-content
         .container-fluid
             h3 UserStory# {{userstory.number_us}}
-            label description
+            label Description
             p {{userstory.description}}
-            label cost
-            p {{userstory.cost}}
-            label priority
-            p {{userstory.priority}}  
+            label State
+            p {{userstory.state}}
+            label Commit
+            p {{userstory.commit_validation}}
+            
 
     md-dialog-actions
         md-button.md-primary(ng-click='closeDialog()')

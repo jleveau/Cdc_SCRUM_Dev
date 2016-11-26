@@ -38,8 +38,8 @@ var sprints = new mongoose.Schema({
     date_start: Date,
     date_end: Date,
     number_sprint: Number,
-    sprint_duration: Number, // On la dans le projet, faut il le remettre dans le sprint ??
     project: {type: ObjectId, ref: 'projects'},
+    date_validation: Date,
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });
@@ -51,8 +51,8 @@ var userstories = new mongoose.Schema({
     state: {type: String, enum: ['Valid', 'Not Valid'], default: 'Not Valid'},
     cost: Number,
     testValidation: String,
-    //commit_validation: String,
-    //date_validation: Date,
+    commit_validation: String,
+    date_validation: Date,
     priority: Number,
     estimated_cost: Number,
     sprint: { type : ObjectId, ref: 'sprints' },

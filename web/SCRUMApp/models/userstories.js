@@ -3,6 +3,7 @@ var schema = require("./scrumdb");
 var Userstory = mongoose.model('userstories');
 var UserstoriesTasks = mongoose.model('userstories_tasks');
 var Tasks = mongoose.model('tasks');
+var Sprints = mongoose.model('sprints');
 var ObjectId = mongoose.Types.ObjectId;
 
 //GET - Return all userstories in the DB
@@ -157,6 +158,41 @@ module.exports.updatePriorityUS = function (req, res) {
         userstory.date_updated = new Date();
         userstory.save(function (err) {
             if (err) return res.send(500, err.message);
+            res.status(200).jsonp(userstory);
+        });
+    });
+};
+
+//PUT - Update the commit validation of US
+module.exports.updateValidationUS = function (req, res) {
+    console.log('Commit ' + req.params.commit);
+    Userstory.findById(req.params.id, function (err, userstory) {
+        if (err) return res.status(500).send(err.message);
+        userstory.commit_validation = req.params.commit;
+        userstory.state = 'Valid';
+        userstory.date_updated = new Date();
+        userstory.date_validation = new Date();
+        userstory.save(function (err) {
+            if (err) return res.send(500, err.message);
+            
+            Userstory.find({
+                'sprint': userstory.sprint,
+                'state' : 'Not Valid'
+            }, function (err, userstory_nv) {
+                if (err) return res.send(500, err.message);
+                if(userstory_nv.length < 1 ){
+                    console.log("todas us valides");
+                    Sprints.findById(userstory.sprint, function(err, sprint){
+                        if (err) return res.status(500).send(err.message);
+                        sprint.date_validation = new Date();
+                        sprint.date_updated = new Date();
+                        sprint.save(function (err, sprint) {
+                            if (err) return res.send(500, err.message);
+                            console.log(sprint);
+                        });
+                    });         
+                }
+            });
             res.status(200).jsonp(userstory);
         });
     });

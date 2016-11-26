@@ -1,0 +1,15 @@
+.container-fluid
+    h3 Validation {{userstory_title}}
+    .alert.alert-success(ng-show='successMessage') {{successMessage}}
+
+    form.css-form(name = "form.us_validation_form", novalidate)
+
+        .form-group(ng-class="{'has-warning':form.us_validation_form.commit.$invalid && form.us_validation_form.title.$touched}")
+            label(for='Commit') Commit * :
+            input#commit.form-control(type='text',name = "commit", rows="1", ng-model='userstory.commit_validation', required="")
+            span(ng-show='(!userstory.commit_validation) && form.us_validation_form.commit.$touched') You have set a commit for your user story
+
+        .form-group
+            input#userstoryValidation_submit.btn.btn-default(type='submit',ng-class="{'btn-success':form.us_validation_form.$valid}",
+            ng-disabled='form.us_validation_form.$invalid', ng-click='updateUs()', value='Register')
+            input#cancel_validation_us_button.btn.btn-default(type="button", ng-click='close()', value='Cancel')

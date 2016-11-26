@@ -17,6 +17,8 @@ module.exports = function(app, ctrl) {
 	app.put('/api/userstory/:id/cost/:cost', ctrl.updateCostUS);
 
 	app.put('/api/userstory/:id/priority/:priority', ctrl.updatePriorityUS);
+    
+    app.put('/api/userstory/:id/commit_validation/:commit', ctrl.updateValidationUS);
 
 	app.delete('/api/userstory/:id_us', ctrl.deleteUserstory);
 

@@ -56,6 +56,13 @@ angular.module('UserStories')
                             return response.data;
                         });
                     },
+                    
+                    updateValidation: function (user_story) {
+                        return $http.put('/api/userstory/'+user_story._id+'/commit_validation/'+user_story.commit_validation).
+                        then(function (response) {
+                            return response.data;
+                        });
+                    },
 
                     delete: function (us_id) {
                         return $http.delete('/api/userstory/' + us_id).then(function (response) {

@@ -22,27 +22,40 @@ block content
                                     span.add_task_kanban(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
                                         span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
-                                ul(ng-repeat='task in all_tasks track by task._id')
-                                    li.task_li
+                                ul.task_ul(ng-repeat='task in all_tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="TODO"')
                                         label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
+                                ul.task_ul(ng-repeat='task in all_tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DOING"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
+                                ul.task_ul(ng-repeat='task in all_tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DONE"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
 
                         tr(ng-repeat="user_story in listUserStories" )
                             td
                                 label.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
                                 span.add_task_kanban(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
                                     span.glyphicon.glyphicon-plus(aria-hidden='true')
+                                br
+                                label.pointer(ng-if='!user_story.date_validation && allTasksDone(user_story.tasks)', 
+                                ng-click='validerUsForm($event,user_story)') Valider
+                                button.btn.btn-success.btn-xs(type='button', aria-label='valide',
+                                ng-click='showUsValidationForm($event,user_story)', ng-if='user_story.date_validation')
+                                    span.glyphicon.glyphicon-check(aria-hidden='true')
+                                
                             td
-                                ul(ng-repeat='task in user_story.tasks track by task._id')
+                                ul.task_ul(ng-repeat='task in user_story.tasks track by task._id')
                                     li.task_li(ng-if='task.state=="TODO"')
                                         label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
-                                ul(ng-repeat='task in user_story.tasks track by task._id')
+                                ul.task_ul(ng-repeat='task in user_story.tasks track by task._id')
                                     li.task_li(ng-if='task.state=="DOING"')
                                         label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
-                                ul(ng-repeat='task in user_story.tasks track by task._id')
+                                ul.task_ul(ng-repeat='task in user_story.tasks track by task._id')
                                     li.task_li(ng-if='task.state=="DONE"')
                                         label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
         .col-md-3
