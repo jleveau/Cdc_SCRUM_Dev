@@ -1,7 +1,7 @@
-angular.module('Sprints',[])
+angular.module('Sprints', [])
     .controller('KanbanController', ['$scope', '$mdDialog', '$timeout', '$location', '$routeParams', 'TasksServices',
-                'Projects','UserStoriesServices', 'SprintServices', 'AuthService', 'NotificationService',
-        function ($scope, $mdDialog,  $timeout,  $location, $routeParams, TasksServices, Projects, UserStoriesServices,
+        'Projects', 'UserStoriesServices', 'SprintServices', 'AuthService', 'NotificationService',
+        function ($scope, $mdDialog, $timeout, $location, $routeParams, TasksServices, Projects, UserStoriesServices,
                   SprintServices, AuthService, NotificationService) {
 
             $scope.current_sprint = null;
@@ -11,37 +11,42 @@ angular.module('Sprints',[])
             $scope.project = null;
             $scope.selected_task = null;
             $scope.current_user = null;
+            $scope.allUserStoriesInProject = [];
 
             var project_id = $routeParams.project_id;
 
-            AuthService.getCurrentUser().then(function(){
+            AuthService.getCurrentUser().then(function () {
                 $scope.current_user = AuthService.getUserStatus();
             });
 
-            Projects.get(project_id).then(function(response){
+            Projects.get(project_id).then(function (response) {
                 $scope.project = response.data;
             });
 
-            function changeCurrentSprint(sprint){
+            UserStoriesServices.getUserStoryByIdProject(project_id).then(function (response) {
+                $scope.allUserStoriesInProject = response;
+            });
+
+            function changeCurrentSprint(sprint) {
                 $scope.current_sprint = sprint;
                 SprintServices.setCurrentSprint(sprint);
-                SprintServices.getSprintUserstories(sprint._id).then(function(userstories){
+                SprintServices.getSprintUserstories(sprint._id).then(function (userstories) {
                     $scope.listUserStories = userstories;
-                    TasksServices.getTaskForSprint(sprint._id).then(function(response){
+                    TasksServices.getTaskForSprint(sprint._id).then(function (response) {
                         $scope.all_tasks = [];
                         //TODO change  this
                         //Build list of tasks of each userstory of the sprint
                         //It's really dirty
-                        for (userstory of $scope.listUserStories){
+                        for (userstory of $scope.listUserStories) {
                             userstory.tasks = [];
                         }
-                        for (task of response){
+                        for (task of response) {
                             if (task.list_us.length == 0)
                                 $scope.all_tasks.push(task);
-                            else{
-                                task.list_us.forEach(function(task_us){
-                                    for (userstory of $scope.listUserStories){
-                                        if (userstory._id == task_us._id){
+                            else {
+                                task.list_us.forEach(function (task_us) {
+                                    for (userstory of $scope.listUserStories) {
+                                        if (userstory._id == task_us._id) {
                                             userstory.tasks.push(task);
                                         }
                                     }
@@ -52,7 +57,7 @@ angular.module('Sprints',[])
                 });
             }
 
-            SprintServices.getProjectSprints(project_id).then(function(response){
+            SprintServices.getProjectSprints(project_id).then(function (response) {
                 $scope.list_sprints = response;
                 SprintServices.setSprintsForProject(response);
 
@@ -60,24 +65,24 @@ angular.module('Sprints',[])
                 changeCurrentSprint(response[0]);
             });
 
-            $scope.changeCurrentSprint = function (){
+            $scope.changeCurrentSprint = function () {
                 changeCurrentSprint($scope.current_sprint);
             };
 
-            $scope.taskIsForCurrentUser = function(task){
-                if(task){
-                    if(task.responsable){
+            $scope.taskIsForCurrentUser = function (task) {
+                if (task) {
+                    if (task.responsable) {
                         return task.responsable._id == $scope.current_user._id;
-                    }else{
+                    } else {
                         return false;
                     }
-                }else{
+                } else {
                     return false;
                 }
-                
+
             };
 
-            $scope.showAddTaskForm = function($event,userstory){
+            $scope.showAddTaskForm = function ($event, userstory) {
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
                     parent: parentEl,
@@ -89,7 +94,7 @@ angular.module('Sprints',[])
                         project: $scope.project
                     },
                     controller: DialogController
-                }).finally(function() {
+                }).finally(function () {
                     $scope.changeCurrentSprint($scope.current_sprint);
                 });
                 function DialogController($scope, $mdDialog, sprint, userstory, project) {
@@ -104,30 +109,30 @@ angular.module('Sprints',[])
                     else
                         $scope.userstory_title = "ALL";
                     $scope.task = {
-                        id_project : project._id,
+                        id_project: project._id,
                         sprint: sprint,
-                        list_us : []
+                        list_us: []
                     };
-                    if (userstory){
+                    if (userstory) {
                         $scope.task.list_us.push(userstory);
                     }
 
-                    $scope.create = function() {
-                        TasksServices.create($scope.task).then(function(new_task){
+                    $scope.create = function () {
+                        TasksServices.create($scope.task).then(function (new_task) {
                             if (userstory)
-                              userstory.tasks.push(new_task);
-                            Projects.addTask(new_task).then(function(project){
+                                userstory.tasks.push(new_task);
+                            Projects.addTask(new_task).then(function (project) {
                                 $mdDialog.hide();
                             });
                         });
                     };
-                    $scope.close = function(){
+                    $scope.close = function () {
                         $mdDialog.hide();
                     }
                 }
             };
 
-            $scope.showEditForm = function($event,task){
+            $scope.showEditForm = function ($event, task) {
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
                     parent: parentEl,
@@ -136,78 +141,78 @@ angular.module('Sprints',[])
                     locals: {
                         task: task,
                         project: $scope.project,
-                        sprint : $scope.selected_task.sprint
+                        sprint: $scope.selected_task.sprint
                     },
                     controller: DialogController
                 });
-                function DialogController($scope, $mdDialog, task, project,sprint) {
+                function DialogController($scope, $mdDialog, task, project, sprint) {
                     $scope.form = {};
                     $scope.task = task;
                     $scope.project = project;
                     $scope.sprint = sprint;
                     $scope.create = false;
 
-                    $scope.update = function() {
-                        TasksServices.update($scope.task).then(function(task){
+                    $scope.update = function () {
+                        TasksServices.update($scope.task).then(function (task) {
                             $mdDialog.hide();
                         });
                     };
-                    $scope.close = function(){
+                    $scope.close = function () {
                         $mdDialog.hide();
                     }
                 }
             };
 
-            $scope.selectTask = function(task){
+            $scope.selectTask = function (task) {
                 $scope.selected_task = task;
             };
 
-            $scope.deleteTask = function(task) {
+            $scope.deleteTask = function (task) {
                 TasksServices.deleteTask(task._id).then(function (response) {
                     $scope.selected_task = null;
                     $scope.changeCurrentSprint($scope.current_sprint);
                 });
             };
-            
-            $scope.advanceTask = function(task){
-                if(task.state == 'TODO'){
-                    task.state = 'DOING'; 
-                }else{ //DOING
-                    if (task.state != 'DONE'){
+
+            $scope.advanceTask = function (task) {
+                if (task.state == 'TODO') {
+                    task.state = 'DOING';
+                } else { //DOING
+                    if (task.state != 'DONE') {
                         task.state = 'DONE';
-                        NotificationService.createNewsTaskDone(task).then(function(response){
+                        NotificationService.createNewsTaskDone(task).then(function (response) {
                         })
                     }
                 }
                 TasksServices.changeStatus(task).then(function (reponse) {
                 });
             };
-            
-            $scope.backTask = function(task){
-                if(task.state == 'DONE'){
-                    task.state = 'DOING'; 
-                }else{ //DOING
+
+            $scope.backTask = function (task) {
+                if (task.state == 'DONE') {
+                    task.state = 'DOING';
+                } else { //DOING
                     task.state = 'TODO';
                 }
                 TasksServices.changeStatus(task).then(function (reponse) {
-                    
+
                 });
             };
-            
-            $scope.allTasksDone = function(tasks){
+
+            $scope.allTasksDone = function (tasks) {
                 var allDone = true;
-                if(tasks && tasks.length > 0){
+                if (tasks && tasks.length > 0) {
                     for (task of tasks) {
                         if (task.state != 'DONE')
                             allDone = false;
                     }
-                }else{
-                   allDone = false; 
+                } else {
+                    allDone = false;
                 }
                 return allDone;
             }
-            
-            $scope.validerUsForm = function($event,userstory){
+
+            $scope.validerUsForm = function ($event, userstory) {
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
                     parent: parentEl,
@@ -219,7 +224,7 @@ angular.module('Sprints',[])
                         project: $scope.project
                     },
                     controller: DialogController
-                }).finally(function() {
+                }).finally(function () {
                     $scope.changeCurrentSprint($scope.current_sprint);
                 });
                 function DialogController($scope, $mdDialog, sprint, userstory, project) {
@@ -227,20 +232,20 @@ angular.module('Sprints',[])
                     $scope.userstory = userstory;
                     $scope.project = project;
                     $scope.form = {};
-                    $scope.userstory_title = "US#" + userstory.number_us;           
-                    
-                    $scope.updateUs = function() {
-                        UserStoriesServices.updateValidation($scope.userstory).then(function(reponse){
+                    $scope.userstory_title = "US#" + userstory.number_us;
+
+                    $scope.updateUs = function () {
+                        UserStoriesServices.updateValidation($scope.userstory).then(function (reponse) {
                             $mdDialog.hide();
                         });
                     };
-                    $scope.close = function(){
+                    $scope.close = function () {
                         $mdDialog.hide();
                     }
                 }
             };
-            
-            $scope.showUsValidationForm = function($event,userstory){
+
+            $scope.showUsValidationForm = function ($event, userstory) {
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
                     parent: parentEl,
@@ -253,13 +258,13 @@ angular.module('Sprints',[])
                 });
                 function DialogController($scope, $mdDialog, userstory) {
                     $scope.userstory = userstory;
-                    $scope.closeDialog = function() {
+                    $scope.closeDialog = function () {
                         $mdDialog.hide();
                     }
                 }
             };
 
-            $scope.showUserStoryDescription = function($event,userstory){
+            $scope.showUserStoryDescription = function ($event, userstory) {
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
                     parent: parentEl,
@@ -272,7 +277,7 @@ angular.module('Sprints',[])
                 });
                 function DialogController($scope, $mdDialog, userstory) {
                     $scope.userstory = userstory;
-                    $scope.closeDialog = function() {
+                    $scope.closeDialog = function () {
                         $mdDialog.hide();
                     }
                 }

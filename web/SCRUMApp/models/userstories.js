@@ -61,7 +61,6 @@ module.exports.findByIdProject = function (req, res) {
         .populate('sprint')
         .exec(function (err, userstories) {
             if (err) return res.send(500, err.message);
-
             return res.status(200).jsonp(userstories);
         });
 };

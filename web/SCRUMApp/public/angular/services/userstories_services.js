@@ -32,7 +32,13 @@ angular.module('UserStories')
                     return $http.get('/api/userstory/' + userstory_id + '/tasks').then(function (response) {
                         return response.data;
                     });
-                }
+                };
+
+                function getUserStoryByIdProject(project_id) {
+                    return $http.get('/api/project/backlog/' + project_id).then(function (response) {
+                        return response.data;
+                    });
+                };
                 
                 return {
                     get: function (id) {
@@ -74,7 +80,8 @@ angular.module('UserStories')
                     getUsByID : getUsByID,
                     setListUS: setListUS,
                     addUsToList:addUsToList,
-                    getUserstoryTasks : getUserstoryTasks
+                    getUserstoryTasks : getUserstoryTasks,
+                    getUserStoryByIdProject : getUserStoryByIdProject
                 };
 
             }]);
