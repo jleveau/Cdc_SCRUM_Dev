@@ -242,7 +242,7 @@ angular.module('Sprints', [])
                             NotificationService.createNewsValidateUserStory(response, current_user, $scope.project).then(function(){});
                             SprintServices.getSprint($scope.userstory.sprint).then(function(sprint) {
                                 if (sprint.date_validation) {
-                                    NotificationService.createNewsEndOfSprint(sprint, current_user, $scope.project).then(function (response) {
+                                    NotificationService.createNewsEndOfSprint(sprint, response ,current_user, $scope.project).then(function (response) {
                                     });
                                 }
                             });

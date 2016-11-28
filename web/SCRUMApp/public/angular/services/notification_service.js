@@ -5,9 +5,19 @@ angular.module('Notification')
 
                 var notifications = [];
 
+
+
                 function getNotifications(){
                     return notifications;
                 }
+
+                makeGitHubLink = function(userstory, project){
+                    var github = project.github;
+                    var commit = userstory.commit_validation;
+                    if (commit)
+                        return  "<a href='"+ github + "/commit/" + commit + "'> see on github</a>";
+                    return "";
+                };
 
                 function getProjectsNotifications(projects){
                     return new Promise(function(resolve, reject){
@@ -69,7 +79,7 @@ angular.module('Notification')
                             project: project,
                             author: user,
                             body: "<p>" + user.username + " has valide US#" + userstory.number_us +
-                            " of project " + project.name + "</p>"
+                            " of project " + project.name + makeGitHubLink(userstory, project) + "</p>"
                         }};
                         return $http.post('/api/notifications/new', notification).then(function (response) {
                             return response.data;
@@ -77,19 +87,21 @@ angular.module('Notification')
                     });
                 }
 
-                function createNewsEndOfSprint(sprint, user, project){
+                function createNewsEndOfSprint(sprint, userstory, user, project){
                     console.log(sprint);
                     var notification =  {notification : {
                         project: project,
                         author: user,
                         body: "<p>" + user.username + " has validated the last userstory of sprint Sprint#" + sprint.number_sprint +
-                        " of project " + project.name + "</p>"
+                        " of project " + project.name + makeGitHubLink(userstory, project) +" </p>"
                     }
                     };
                     return $http.post('/api/notifications/new',notification).then(function(response){
                         return response.data;
                     });
                 }
+
+
 
                 return ({
                     getNotifications : getNotifications,
