@@ -60,7 +60,7 @@ block content
                                         label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
         .col-md-3
             .container-fluid(ng-show='selected_task')
-                h3 {{ selected_task.title }}
+                h3 Task# {{selected_task.number_task}} {{ selected_task.title }}
                 div(ng-if='isProjectMember()')
                     .btn-group
                         button.btn.btn-default(type='button', aria-label='pencil', ng-click='showEditForm($event,selected_task)')

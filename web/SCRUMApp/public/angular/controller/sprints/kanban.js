@@ -169,8 +169,10 @@ angular.module('Sprints', [])
 
             $scope.deleteTask = function (task) {
                 TasksServices.deleteTask(task._id).then(function (response) {
-                    $scope.selected_task = null;
-                    $scope.changeCurrentSprint($scope.current_sprint);
+                    if (response){
+                        $scope.selected_task = null;
+                        $scope.changeCurrentSprint($scope.current_sprint);
+                    }
                 });
             };
 
@@ -210,7 +212,7 @@ angular.module('Sprints', [])
                     allDone = false;
                 }
                 return allDone;
-            }
+            };
 
             $scope.validerUsForm = function ($event, userstory) {
                 var parentEl = angular.element(document.body);
@@ -221,13 +223,14 @@ angular.module('Sprints', [])
                     locals: {
                         sprint: $scope.current_sprint,
                         userstory: userstory,
-                        project: $scope.project
+                        project: $scope.project,
+                        current_user: $scope.current_user
                     },
                     controller: DialogController
                 }).finally(function () {
                     $scope.changeCurrentSprint($scope.current_sprint);
                 });
-                function DialogController($scope, $mdDialog, sprint, userstory, project) {
+                function DialogController($scope, $mdDialog, sprint, userstory, project, current_user) {
                     $scope.sprint = sprint;
                     $scope.userstory = userstory;
                     $scope.project = project;
@@ -235,7 +238,10 @@ angular.module('Sprints', [])
                     $scope.userstory_title = "US#" + userstory.number_us;
 
                     $scope.updateUs = function () {
-                        UserStoriesServices.updateValidation($scope.userstory).then(function (reponse) {
+                        UserStoriesServices.updateValidation($scope.userstory).then(function (response) {
+                            NotificationService.createNewsValidateUserStory(response, current_user, $scope.project).then(function(response){
+                                console.log(response);
+                            });
                             $mdDialog.hide();
                         });
                     };

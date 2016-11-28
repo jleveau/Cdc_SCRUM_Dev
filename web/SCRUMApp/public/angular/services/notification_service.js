@@ -66,14 +66,16 @@ angular.module('Notification')
                     });
                 }
 
-                function createNewsValidateUserStory(userstory, user){
-                    $http.get('/api/project/' + task.id_project).then(function(response) {
-                        project = response.data;
-                        var notification = {
-                            project: project._id,
-                            body: "<p>" + user.username + " has validated US#" + userstory.number_us +
-                            "of project " + project.name + "</p>"
-                        };
+                function createNewsValidateUserStory(userstory, user, project){
+                    console.log(project);
+                    return $http.get('/api/project/' + task.id_project).then(function(response) {
+                        var notification = {notification : {
+                            project: project,
+                            author: user,
+                            body: "<p>" + user.username + " has valide US#" + userstory.number_us +
+                            " of project " + project.name + "</p>"
+                        }};
+                        console.log(notification);
                         return $http.post('/api/notifications/new', notification).then(function (response) {
                             return response.data;
                         });
