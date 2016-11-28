@@ -27,5 +27,13 @@ module.exports.findSprintUserStories = function(req, res){
         if(err) res.send(500, err.message);
         res.status(200).jsonp(usertories);
     });
+};
 
+module.exports.findSprint = function(req, res){
+    Sprint.findById(req.params.sprint_id)
+        .populate('project')
+        .exec(function (err, sprint) {
+        if(err) res.send(500, err.message);
+        res.status(200).jsonp(sprint);
+    });
 };

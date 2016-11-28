@@ -17,7 +17,7 @@ module.exports.findOne = function (req, res) {
 module.exports.findForProject = function (req, res) {
     var project_id = req.params.project_id;
     Notification.find({
-        'project': project_id
+        'project': project_id,
     }).populate('author')
       .exec(function(err, notifications) {
         if (err) return res.send(500, err.message);
@@ -26,9 +26,9 @@ module.exports.findForProject = function (req, res) {
 };
 
 module.exports.addNotification = function (req, res) {
-    var notification = new Notification(req.body.notification);
-    console.log(req.body);
-    notification.save(function (err, notification) {
+    var new_notification = new Notification(req.body.notification);
+    new_notification.save(function (err, notification) {
+
         if (err) return res.status(500).send(err.message);
         res.status(200).jsonp(notification);
     });

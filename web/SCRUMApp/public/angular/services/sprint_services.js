@@ -40,6 +40,12 @@ angular.module('Sprints')
                     });
                 }
 
+                function getSprint(sprint_id){
+                    return $http.get('/api/sprint/' + sprint_id + '/info').then(function(response){
+                        return response.data;
+                    });
+                }
+
                 return ({
                     setCurrentSprint : setCurrentSprint,
                     getCurrentSprint : getCurrentSprint,
@@ -47,6 +53,7 @@ angular.module('Sprints')
                     getSprintsForProject : getSprintsForProject,
                     getProjectSprints : getProjectSprints,
                     getSprintUserstories : getSprintUserstories,
+                    getSprint : getSprint,
 					getListCout : getListCout
                 });
 

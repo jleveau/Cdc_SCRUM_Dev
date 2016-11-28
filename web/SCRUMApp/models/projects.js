@@ -58,6 +58,7 @@ module.exports.addproject = function (req, res) {
                     project: project._id,
                 });
                 sprint.save(function (err, sprint) {
+                    console.log(sprint);
                     if (err) res.status(500).send(err.message);
                 })	
             }

@@ -14,10 +14,7 @@ angular.module('Notification')
                         i = 0;
                         for (project of projects){
                             $http.get('/api/project/'+ project._id +'/notifications').then(function(response){
-                                console.log(notifications.length);
-                                console.log(response.data.length);
                                 notifications = notifications.concat(response.data);
-                                console.log(notifications.length);
 
                                 i++;
                                 if (i >= projects.length){
@@ -67,7 +64,6 @@ angular.module('Notification')
                 }
 
                 function createNewsValidateUserStory(userstory, user, project){
-                    console.log(project);
                     return $http.get('/api/project/' + task.id_project).then(function(response) {
                         var notification = {notification : {
                             project: project,
@@ -75,17 +71,20 @@ angular.module('Notification')
                             body: "<p>" + user.username + " has valide US#" + userstory.number_us +
                             " of project " + project.name + "</p>"
                         }};
-                        console.log(notification);
                         return $http.post('/api/notifications/new', notification).then(function (response) {
                             return response.data;
                         });
                     });
                 }
 
-                function createNewsEndOfSprint(sprint){
-                    var notification = {
-                        project : sprint.project._id,
-                        body : "<p> Sprint#"+ sprint.number_sprint + " is finished </p>"
+                function createNewsEndOfSprint(sprint, user, project){
+                    console.log(sprint);
+                    var notification =  {notification : {
+                        project: project,
+                        author: user,
+                        body: "<p>" + user.username + " has validated the last userstory of sprint Sprint#" + sprint.number_sprint +
+                        " of project " + project.name + "</p>"
+                    }
                     };
                     return $http.post('/api/notifications/new',notification).then(function(response){
                         return response.data;

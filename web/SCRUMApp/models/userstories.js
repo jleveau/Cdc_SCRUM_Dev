@@ -4,6 +4,7 @@ var Userstory = mongoose.model('userstories');
 var UserstoriesTasks = mongoose.model('userstories_tasks');
 var Tasks = mongoose.model('tasks');
 var Sprints = mongoose.model('sprints');
+var Notification = mongoose.model('notifications');
 var ObjectId = mongoose.Types.ObjectId;
 
 //GET - Return all userstories in the DB
@@ -164,7 +165,6 @@ module.exports.updatePriorityUS = function (req, res) {
 
 //PUT - Update the commit validation of US
 module.exports.updateValidationUS = function (req, res) {
-    console.log('Commit ' + req.params.commit);
     Userstory.findById(req.params.id, function (err, userstory) {
         if (err) return res.status(500).send(err.message);
         userstory.commit_validation = req.params.commit;
@@ -180,14 +180,14 @@ module.exports.updateValidationUS = function (req, res) {
             }, function (err, userstory_nv) {
                 if (err) return res.send(500, err.message);
                 if(userstory_nv.length < 1 ){
-                    console.log("todas us valides");
+                    //Sprint Validation
                     Sprints.findById(userstory.sprint, function(err, sprint){
                         if (err) return res.status(500).send(err.message);
                         sprint.date_validation = new Date();
                         sprint.date_updated = new Date();
                         sprint.save(function (err, sprint) {
+                            //Create notification for sprint Validation
                             if (err) return res.send(500, err.message);
-                            console.log(sprint);
                         });
                     });         
                 }

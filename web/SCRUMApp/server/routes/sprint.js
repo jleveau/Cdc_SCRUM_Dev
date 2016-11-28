@@ -5,4 +5,5 @@ module.exports = function(app, ctrl) {
 
     app.get('/api/sprint/:sprint_id/userstories', ctrl.findSprintUserStories);
 
+    app.get('/api/sprint/:sprint_id/info', ctrl.findSprint);
 };

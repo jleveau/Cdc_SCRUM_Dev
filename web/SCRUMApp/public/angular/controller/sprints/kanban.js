@@ -239,8 +239,12 @@ angular.module('Sprints', [])
 
                     $scope.updateUs = function () {
                         UserStoriesServices.updateValidation($scope.userstory).then(function (response) {
-                            NotificationService.createNewsValidateUserStory(response, current_user, $scope.project).then(function(response){
-                                console.log(response);
+                            NotificationService.createNewsValidateUserStory(response, current_user, $scope.project).then(function(){});
+                            SprintServices.getSprint($scope.userstory.sprint).then(function(sprint) {
+                                if (sprint.date_validation) {
+                                    NotificationService.createNewsEndOfSprint(sprint, current_user, $scope.project).then(function (response) {
+                                    });
+                                }
                             });
                             $mdDialog.hide();
                         });
