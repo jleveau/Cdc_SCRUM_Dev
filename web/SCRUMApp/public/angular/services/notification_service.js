@@ -11,6 +11,11 @@ angular.module('Notification')
                     return notifications;
                 }
 
+                makeProjectLink = function(project){
+
+                    return "<a href='/project/" + project._id + "'>" + project.name + "</a>";
+                };
+
                 makeGitHubLink = function(userstory, project){
                     var github = project.github;
                     var commit = userstory.commit_validation;
@@ -48,7 +53,7 @@ angular.module('Notification')
                         project : task.project_id._id,
                         author : task.responsable,
                         body : "<p>"+task.responsable.username + " has put Task#" + task.number_task+
-                        "of project " + task.project_id.name + " on state OnGoing</p>"
+                        "of project " + makeProjectLink(task.project_id) + " on state OnGoing</p>"
                     };
                     return $http.post('/api/notifications/new',notification).then(function(response){
                         return response.data;
@@ -64,7 +69,7 @@ angular.module('Notification')
                             project : project._id,
                             author : task.responsable,
                             body : "<p>"+task.responsable.username + " has finished Task#" + task.number_task +
-                            " of project " + project.name+ "</p>"
+                            " of project " + makeProjectLink(project)+ "</p>"
                             }
                         };
                         return $http.post('/api/notifications/new',notification).then(function(response){
@@ -79,7 +84,7 @@ angular.module('Notification')
                             project: project,
                             author: user,
                             body: "<p>" + user.username + " has valide US#" + userstory.number_us +
-                            " of project " + project.name + makeGitHubLink(userstory, project) + "</p>"
+                            " of project " + makeProjectLink(project) + makeGitHubLink(userstory, project) + "</p>"
                         }};
                         return $http.post('/api/notifications/new', notification).then(function (response) {
                             return response.data;
@@ -93,7 +98,7 @@ angular.module('Notification')
                         project: project,
                         author: user,
                         body: "<p>" + user.username + " has validated the last userstory of sprint Sprint#" + sprint.number_sprint +
-                        " of project " + project.name + makeGitHubLink(userstory, project) +" </p>"
+                        " of project " + makeProjectLink(project) + makeGitHubLink(userstory, project) +" </p>"
                     }
                     };
                     return $http.post('/api/notifications/new',notification).then(function(response){

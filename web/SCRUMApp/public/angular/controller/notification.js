@@ -18,5 +18,6 @@ angular.module('Notification',[])
 
                 $scope.getUserPageURL = function(user){
                         $location.path( "/users/" + user._id);
-                }
+                };
+
         }]);
