@@ -1,7 +1,7 @@
 angular.module('UserStories')
-    .controller('UserStoriesListController', ['$scope', '$routeParams', '$location', 'UserStoriesServices','SprintServices',
-        function ($scope, $routeParams, $location, UserStoriesServices, SprintServices) {
-
+    .controller('UserStoriesListController', ['$scope', '$routeParams', '$location', '$window', 'UserStoriesServices', 'SprintServices', 'Projects',
+        function ($scope, $routeParams, $location, $window, UserStoriesServices, SprintServices, Projects) {
+            
             var project_id = $routeParams.project_id;
 
             $scope.user_story = {};
@@ -113,7 +113,21 @@ angular.module('UserStories')
                         //$scope.invoiceTotal =  $scope.totalCostUs;
                     }
                     UserStoriesServices.setListUS($scope.listUserStories);
+                    Projects.getGitHubProject(project_id).then(function(response){
+                        $scope.gitHub = response;
+                    });                
+
                 });
-            }
+            };
+            
+            
+            $scope.linkGitHub = function (us) {
+                if(!$scope.gitHub.github || $scope.gitHub.github == ''){
+                    alert("Link GitHub not found");
+                }else{
+                    $window.open($scope.gitHub.github+'/commit/'+us.commit_validation, '_blank');    
+                }   
+                
+            };
 
     }]);

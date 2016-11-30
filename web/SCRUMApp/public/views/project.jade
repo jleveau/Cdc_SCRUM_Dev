@@ -9,10 +9,26 @@ block content
                 button.btn.btn-danger(type='button', ng-click='deleteProject()') Delete
 
             .container-fluid#project-description-container
-
+                h4 Description
                 p {{project.description}}
                 span started at :
                 p(ng-bind="project.date_start | date:'MM/dd/yyyy'")
+                h4 Planning
+                
+                table.table
+                    thead
+                        tr.info
+                            th Sprint
+                            th Start Date
+                            th End Date
+                            th Validation Date
+                     tbody
+                        tr(ng-repeat='sprint in list_sprints')
+                            td Sprint{{sprint.number_sprint}}
+                            td {{sprint.date_start | date : format : timezone}}
+                            td {{sprint.date_end | date : format : timezone}}
+                            td {{sprint.date_validation | date : format : timezone}} 
+                               span(ng-hide='sprint.date_validation') No validation
 
         .col-md-4
             h3 With :
