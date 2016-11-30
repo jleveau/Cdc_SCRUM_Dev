@@ -4,6 +4,7 @@ angular.module('ProjectServices', [])
 // each function returns a promise object
     .factory('Projects', function($http) {
         var project = null;
+        var sprintsTab = [];
 
         var setProject = function (_project){
             project = _project;

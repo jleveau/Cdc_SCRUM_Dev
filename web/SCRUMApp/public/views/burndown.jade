@@ -1,6 +1,4 @@
 extends layout
 block content
-    include project_toolbar
     .container-fluid(ng-controller='BurnDownController')
-        p Burndown Chart
         canvas#myChart(width='800', height='400')
