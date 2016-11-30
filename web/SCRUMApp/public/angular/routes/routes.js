@@ -83,7 +83,7 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
                     })
                     .when("/project/:project_id/burndown", {
                         templateUrl: "/partials/burndown.jade",
-                        controller: "ProjectController",
+                        controller: "BurnDownController",
                         access: {restricted: true}
                     })
                     .when("/users/:user_id", {
