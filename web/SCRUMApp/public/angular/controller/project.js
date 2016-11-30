@@ -1,8 +1,8 @@
 //angular modules
 
 angular.module('Project', [])
-    .controller('ProjectController', ['$scope', '$routeParams','$location','$http', 'Projects', 'AuthService',
-                                            function($scope, $routeParams,$location,$http,Projects, AuthService) {
+    .controller('ProjectController', ['$scope', '$routeParams','$location','$http', 'Projects', 'AuthService', 'SprintServices',
+                                            function($scope, $routeParams,$location,$http,Projects, AuthService, SprintServices) {
 
         $scope.params = $routeParams;
         $scope.min_date = Date.now();
@@ -21,6 +21,10 @@ angular.module('Project', [])
                 $scope.project = response.data;
                 $scope.project.date_start = new Date($scope.project.date_start);
                 Projects.setProject($scope.project);
+                
+                SprintServices.getProjectSprints($scope.params.project_id).then(function (response) {
+                    $scope.list_sprints = response;
+                });
             });
         }
 

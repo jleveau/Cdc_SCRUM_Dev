@@ -87,7 +87,12 @@ angular.module('ProjectServices', [])
                     return response.data;
                 });
             },
-
+            
+            getGitHubProject:function(project_id){
+                return $http.get('/api/project/' + project_id + '/github/').then(function(response){
+                    return response.data;
+                });
+            },
 
             updateProject: updateProject,
             addTask: addTask,

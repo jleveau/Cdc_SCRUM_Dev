@@ -153,3 +153,14 @@ module.exports.updateListMemberProject = function (req, res) {
     });
 };
 
+
+//GET - link github project pour les US
+module.exports.getGitHubProject = function (req, res) {
+    
+    var query = Project.findById(req.params.id);
+    query.select('github');  
+    query.exec(function (err, project) {
+        if (err) return res.send(500, err.message);
+        res.status(200).jsonp(project);
+    });
+};
