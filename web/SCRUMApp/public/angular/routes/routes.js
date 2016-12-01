@@ -82,8 +82,9 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
                         access: {restricted: true}
                     })
                     .when("/project/:project_id/burndown", {
+                        title: "Burndown",
                         templateUrl: "/partials/burndown.jade",
-                        controller: "BurnDownController",
+                        controller: "ProjectController",
                         access: {restricted: true}
                     })
                     .when("/users/:user_id", {
@@ -107,6 +108,7 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
 Routes.run(function ($rootScope, $location, $route, AuthService) {
     $rootScope.$on('$routeChangeStart',
         function (event, next, current) {
+            console.log(current);
             AuthService.getLoggedUser().then(function(){
                 if (next.url == '/' && AuthService.getUserStatus()){
                     $location.path('/users/' + AuthService.getUserStatus()._id);
