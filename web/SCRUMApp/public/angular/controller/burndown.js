@@ -20,7 +20,7 @@ angular.module('Burndown', [])
                     sumOfCostBySprint[0] = 0;
                     realData[0] = 0;
                     var lastSprintCostSum = 0;
-                    for (var i = 0; i < nbSprints.length; i++) {
+                    for (i = 0; i < nbSprints.length; i++) {
                         for (value of response) {
                             if (value.sprint.number_sprint == nbSprints[i]) {
                                 if (sumOfCostBySprint[i + 1] == undefined)
