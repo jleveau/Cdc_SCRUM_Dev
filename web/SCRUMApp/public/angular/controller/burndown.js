@@ -11,29 +11,50 @@ angular.module('Burndown', [])
             var ctx = document.getElementById('myChart');
 
             Projects.get(project_id).then(function (response) {
-                for (var i = 0; i < response.data.nb_sprint; i++) {
-                    sprints.push("sprint "+i);
+                for (var i = 0; i <= response.data.nb_sprint; i++) {
+                    sprints.push("sprint " + i);
                     nbSprints.push(i + 1);
                 }
 
                 Projects.getProjectUserstories(project_id).then(function (response) {
                     sumOfCostBySprint[0] = 0;
+                    realData[0] = 0;
+                    var lastSprintCostSum = 0;
                     for (var i = 0; i < nbSprints.length; i++) {
                         for (value of response) {
                             if (value.sprint.number_sprint == nbSprints[i]) {
                                 if (sumOfCostBySprint[i + 1] == undefined)
                                     sumOfCostBySprint[i + 1] = 0;
                                 sumOfCostBySprint[0] += value.cost;
+                                realData[0] += value.cost;
                                 sumOfCostBySprint[i + 1] += value.cost;
-                                sumOfCostBySprint[nbSprints.length-1]=0;
+                                sumOfCostBySprint[nbSprints.length - 1] = 0;
+
+                                if (value.state == "Valid") {
+                                    if (realData[i + 1] == undefined)
+                                        realData[i + 1] = 0;
+                                    realData[i+1] += value.cost;
+                                }
+
+                                if (value.sprint.number_sprint == nbSprints.length - 1) {
+                                    lastSprintCostSum += value.cost;
+                                }
+
                             }
                         }
                     }
+                    for(var i =0 ; i<realData.length -1; i++){
+                        if(sumOfCostBySprint[i+1]!=0 && realData[i+1]!=0){
+                            var difference = sumOfCostBySprint[i+1]-realData[i+1];
+                            realData[i+1]=sumOfCostBySprint[i+1]+difference;
+                        }
+                    }
+                    if (lastSprintCostSum == realData[realData.length - 1])
+                        realData[realData.length - 1] = 0;
 
                     var myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
-                            // labels: ["sprint 0","sprint 1","sprint 2","sprint 3"],
                             labels: sprints,
                             datasets: [
                                 {
@@ -55,7 +76,6 @@ angular.module('Burndown', [])
                                     pointHoverBorderWidth: 2,
                                     pointRadius: 1,
                                     pointHitRadius: 10,
-                                    // data: [90, 72, 54, 0],
                                     data: sumOfCostBySprint,
                                     spanGaps: false
                                 },
@@ -63,7 +83,7 @@ angular.module('Burndown', [])
                                     label: "real",
                                     fill: false,
                                     lineTension: 0.1,
-                                    backgroundColor: "rgba(75,0,192,0.4)",
+                                    backgroundColor: "rgba(75,33,192,0.4)",
                                     borderColor: "rgba(75,0,192,1)",
                                     borderCapStyle: 'butt',
                                     borderDash: [],
@@ -78,7 +98,6 @@ angular.module('Burndown', [])
                                     pointHoverBorderWidth: 2,
                                     pointRadius: 1,
                                     pointHitRadius: 10,
-                                    //data: [96, 82, 70, 34],
                                     data: realData,
                                     spanGaps: false
                                 }
