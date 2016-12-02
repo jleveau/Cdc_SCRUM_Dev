@@ -33,23 +33,33 @@ angular.module('Burndown', [])
                     realData[0] = total_cost;
 
                     for (sprint of sprints_data) {
+                        if (sumOfCostBySprint[sprint.number_sprint] == undefined)
+                            sumOfCostBySprint[sprint.number_sprint] = 0;
                         for (userstory of userstories) {
                             if (userstory.sprint.number_sprint == sprint.number_sprint) {
 
-                                if (sumOfCostBySprint[sprint.number_sprint] == undefined)
-                                    sumOfCostBySprint[sprint.number_sprint] = 0;
-                                if (realData[sprint.number_sprint] == undefined)
-                                    realData[sprint.number_sprint] = 0;
-
-                                if (userstory.state == "Valid" && new Date(userstory.date_validation) < new Date(sprint.date_end)){
-                                    realData[sprint.number_sprint] += userstory.cost;
-                                }
                                 sumOfCostBySprint[sprint.number_sprint] += userstory.cost;
                             }
                         }
                         sumOfCostBySprint[sprint.number_sprint] = sumOfCostBySprint[sprint.number_sprint-1] - sumOfCostBySprint[sprint.number_sprint];
+                    }
+
+                    for (sprint of sprints_data) {
+                        if (realData[sprint.number_sprint] == undefined)
+                            realData[sprint.number_sprint] = 0;
+                        for (userstory of userstories) {
+                            console.log(new Date(userstory.date_validation) > new Date(sprint.date_start));
+                            if (userstory.state == "Valid" &&
+                                new Date(userstory.date_validation) > new Date(sprint.date_start) &&
+                                new Date(userstory.date_validation) < new Date(sprint.date_end)){
+                                realData[sprint.number_sprint] += userstory.cost;
+                            }
+                        }
                         realData[sprint.number_sprint] = realData[sprint.number_sprint-1] - realData[sprint.number_sprint];
                     }
+
+
+
 
                     if (lastSprintCostSum == realData[realData.length - 1])
                         realData[realData.length - 1] = 0;
