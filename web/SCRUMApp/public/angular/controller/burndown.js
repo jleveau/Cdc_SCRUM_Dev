@@ -1,19 +1,26 @@
 angular.module('Burndown', [])
-    .controller('BurnDownController', ['$scope', '$routeParams', 'Projects', 'AuthService', 'UserStoriesServices',
-        function ($scope, $routeParams, Projects, UserStoriesServices) {
+    .controller('BurnDownController', ['$scope', '$routeParams', 'Projects', 'UserStoriesServices', 'SprintServices',
+        function ($scope, $routeParams, Projects, UserStoriesServices, SprintServices) {
 
             var project_id = $routeParams.project_id;
             var sprints = [];
-            var nbSprints = [];
             var realData = [];
             var sumOfCostBySprint = [];
+            var sprints_data;
 
             var ctx = document.getElementById('myChart');
 
-            Projects.get(project_id).then(function (response) {
-                for (var i = 0; i <= response.data.nb_sprint; i++) {
-                    sprints.push("sprint " + i);
-                    nbSprints.push(i + 1);
+            SprintServices.getProjectSprints(project_id).then(function(response){
+                sprints_data = response;
+                sprints_data = sprints_data.sort(function(a,b){
+                    return a.number_sprint - b.number_sprint;
+                });
+
+                console.log(sprints_data);
+
+                sprints.push("sprint " + 0);
+                for (sprint of sprints_data){
+                    sprints.push("sprint " + sprint.number_sprint);
                 }
 
                 Projects.getProjectUserstories(project_id).then(function (userstories) {
@@ -25,27 +32,23 @@ angular.module('Burndown', [])
                     sumOfCostBySprint[0] = total_cost;
                     realData[0] = total_cost;
 
-                    for (i = 0; i < nbSprints.length; i++) {
+                    for (sprint of sprints_data) {
                         for (userstory of userstories) {
-                            if (userstory.sprint.number_sprint == nbSprints[i]) {
+                            if (userstory.sprint.number_sprint == sprint.number_sprint) {
 
-                                if (sumOfCostBySprint[i + 1] == undefined)
-                                    sumOfCostBySprint[i + 1] = 0;
-                                if (realData[i + 1] == undefined)
-                                    realData[i + 1] = 0;
+                                if (sumOfCostBySprint[sprint.number_sprint] == undefined)
+                                    sumOfCostBySprint[sprint.number_sprint] = 0;
+                                if (realData[sprint.number_sprint] == undefined)
+                                    realData[sprint.number_sprint] = 0;
 
-                                if (userstory.state == "Valid"){
-                                    console.log(userstory);
-                                    realData[i + 1] += userstory.cost;
+                                if (userstory.state == "Valid" && new Date(userstory.date_validation) < new Date(sprint.date_end)){
+                                    realData[sprint.number_sprint] += userstory.cost;
                                 }
-                                sumOfCostBySprint[i + 1] += userstory.cost;
+                                sumOfCostBySprint[sprint.number_sprint] += userstory.cost;
                             }
                         }
-                        if (i+1 < nbSprints.length){
-                            sumOfCostBySprint[i + 1] = sumOfCostBySprint[i] - sumOfCostBySprint[i + 1];
-                            realData[i + 1] = realData[i] - realData[i + 1];
-                        }
-
+                        sumOfCostBySprint[sprint.number_sprint] = sumOfCostBySprint[sprint.number_sprint-1] - sumOfCostBySprint[sprint.number_sprint];
+                        realData[sprint.number_sprint] = realData[sprint.number_sprint-1] - realData[sprint.number_sprint];
                     }
 
                     if (lastSprintCostSum == realData[realData.length - 1])
@@ -117,10 +120,6 @@ angular.module('Burndown', [])
                             }
                         }
                     });
-
                 });
-
-
             });
-
         }]);
