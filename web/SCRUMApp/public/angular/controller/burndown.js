@@ -16,39 +16,38 @@ angular.module('Burndown', [])
                     nbSprints.push(i + 1);
                 }
 
-                Projects.getProjectUserstories(project_id).then(function (response) {
-                    sumOfCostBySprint[0] = 0;
-                    realData[0] = 0;
+                Projects.getProjectUserstories(project_id).then(function (userstories) {
                     var lastSprintCostSum = 0;
+                    var total_cost =0;
+                    for (userstory of userstories) {
+                        total_cost += userstory.cost;
+                    }
+                    sumOfCostBySprint[0] = total_cost;
+                    realData[0] = total_cost;
+
                     for (i = 0; i < nbSprints.length; i++) {
-                        for (value of response) {
-                            if (value.sprint.number_sprint == nbSprints[i]) {
+                        for (userstory of userstories) {
+                            if (userstory.sprint.number_sprint == nbSprints[i]) {
+
                                 if (sumOfCostBySprint[i + 1] == undefined)
                                     sumOfCostBySprint[i + 1] = 0;
-                                sumOfCostBySprint[0] += value.cost;
-                                realData[0] += value.cost;
-                                sumOfCostBySprint[i + 1] += value.cost;
-                                sumOfCostBySprint[nbSprints.length - 1] = 0;
+                                if (realData[i + 1] == undefined)
+                                    realData[i + 1] = 0;
 
-                                if (value.state == "Valid") {
-                                    if (realData[i + 1] == undefined)
-                                        realData[i + 1] = 0;
-                                    realData[i+1] += value.cost;
+                                if (userstory.state == "Valid"){
+                                    console.log(userstory);
+                                    realData[i + 1] += userstory.cost;
                                 }
-
-                                if (value.sprint.number_sprint == nbSprints.length - 1) {
-                                    lastSprintCostSum += value.cost;
-                                }
-
+                                sumOfCostBySprint[i + 1] += userstory.cost;
                             }
                         }
-                    }
-                    for(var i =0 ; i<realData.length -1; i++){
-                        if(sumOfCostBySprint[i+1]!=0 && realData[i+1]!=0){
-                            var difference = sumOfCostBySprint[i+1]-realData[i+1];
-                            realData[i+1]=sumOfCostBySprint[i+1]+difference;
+                        if (i+1 < nbSprints.length){
+                            sumOfCostBySprint[i + 1] = sumOfCostBySprint[i] - sumOfCostBySprint[i + 1];
+                            realData[i + 1] = realData[i] - realData[i + 1];
                         }
+
                     }
+
                     if (lastSprintCostSum == realData[realData.length - 1])
                         realData[realData.length - 1] = 0;
 
