@@ -21,7 +21,7 @@
 
         .form-group
             label(for='ustory') User story :
-            select#ustory.form-control(name="ustory", ng-model='task.list_us'
+            select#ustory.form-control(name="ustory", ng-model='task.list_us[0]'
             ng-options= "us as 'US'+us.number_us+' : '+us.description for us in allUserStoriesInProject track by us._id")
 
         .form-group
@@ -36,5 +36,5 @@
 
         .form-group
             input#taskCreate_submit.btn.btn-default(ng-if='create', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='create()', value='Create')
-            input#taskEdit_submit.btn.btn-default(ng-if='!create', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='update()', value='Update')
+            input#taskEdit_submit.btn.btn-default(ng-if='!create && !task.sprint.date_validation', type='submit',ng-class="{'btn-success':form.task_form.$valid}",ng-disabled='form.task_form.$invalid', ng-click='update()', value='Update')
             input#cancel_edit_task_button.btn.btn-default(type="button", ng-click='close()', value='Cancel')

@@ -19,7 +19,8 @@ block content
                         tr
                             td
                                 label ALL
-                                    span.add_task_kanban(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
+                                    span.add_task_kanban(ng-if='isProjectMember() && !current_sprint.date_validation', 
+                                    ng-click='showAddTaskForm($event,null)')
                                         span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
                                 ul.task_ul(ng-repeat='task in all_tasks track by task._id')
@@ -37,7 +38,8 @@ block content
                         tr(ng-repeat="user_story in listUserStories" )
                             td
                                 label.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
-                                span.add_task_kanban(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
+                                span.add_task_kanban(ng-if='isProjectMember() && !user_story.date_validation',
+                                ng-click='showAddTaskForm($event,user_story)')
                                     span.glyphicon.glyphicon-plus(aria-hidden='true')
                                 br
                                 label.pointer(ng-if='!user_story.date_validation && allTasksDone(user_story.tasks)', 

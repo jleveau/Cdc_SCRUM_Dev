@@ -55,7 +55,7 @@ angular.module('Sprints', [])
                         }
                     });
                 });
-            }
+            };
 
             SprintServices.getProjectSprints(project_id).then(function (response) {
                 $scope.list_sprints = response;
@@ -132,34 +132,38 @@ angular.module('Sprints', [])
                 }
             };
 
-            $scope.showEditForm = function ($event, task) {
-                var parentEl = angular.element(document.body);
-                $mdDialog.show({
-                    parent: parentEl,
-                    targetEvent: $event,
-                    templateUrl: '/partials/sprint_add_task.jade',
-                    locals: {
-                        task: task,
-                        project: $scope.project,
-                        sprint: $scope.selected_task.sprint
-                    },
-                    controller: DialogController
-                });
-                function DialogController($scope, $mdDialog, task, project, sprint) {
-                    $scope.form = {};
-                    $scope.task = task;
-                    $scope.project = project;
-                    $scope.sprint = sprint;
-                    $scope.create = false;
+            $scope.showEditForm = function ($event, task) {        
+                if(!task.sprint.date_validation && (task.list_us.length == 0 || !task.list_us[0].date_validation)){  
+                    var parentEl = angular.element(document.body);
+                    $mdDialog.show({
+                        parent: parentEl,
+                        targetEvent: $event,
+                        templateUrl: '/partials/sprint_add_task.jade',
+                        locals: {
+                            task: task,
+                            project: $scope.project,
+                            sprint: $scope.selected_task.sprint
+                        },
+                        controller: DialogController
+                    });
+                    function DialogController($scope, $mdDialog, task, project, sprint) {
+                        $scope.form = {};
+                        $scope.task = task;
+                        $scope.project = project;
+                        $scope.sprint = sprint;
+                        $scope.create = false;
 
-                    $scope.update = function () {
-                        TasksServices.update($scope.task).then(function (task) {
+                        $scope.update = function () {
+                            TasksServices.update($scope.task).then(function (task) {
+                                $mdDialog.hide();
+                            });
+                        };
+                        $scope.close = function () {
                             $mdDialog.hide();
-                        });
-                    };
-                    $scope.close = function () {
-                        $mdDialog.hide();
+                        }
                     }
+                } else {
+                     alert("User story or sprint are already validated");
                 }
             };
 
@@ -168,37 +172,50 @@ angular.module('Sprints', [])
             };
 
             $scope.deleteTask = function (task) {
-                TasksServices.deleteTask(task._id).then(function (response) {
-                    if (response){
-                        $scope.selected_task = null;
-                        $scope.changeCurrentSprint($scope.current_sprint);
-                    }
-                });
+                if(!task.sprint.date_validation && (task.list_us.length == 0 || !task.list_us[0].date_validation)){
+                    TasksServices.deleteTask(task._id).then(function (response) {
+                        if (response){
+                            $scope.selected_task = null;
+                            $scope.changeCurrentSprint($scope.current_sprint);
+                        }
+                    });   
+                } else {
+                    alert("User story or sprint are already validated");
+                }
+                
             };
 
             $scope.advanceTask = function (task) {
-                if (task.state == 'TODO') {
-                    task.state = 'DOING';
-                } else { //DOING
-                    if (task.state != 'DONE') {
-                        task.state = 'DONE';
-                        NotificationService.createNewsTaskDone(task).then(function (response) {
-                        })
+                if(!task.sprint.date_validation && (task.list_us.length == 0 || !task.list_us[0].date_validation)){
+                    if (task.state == 'TODO') {
+                        task.state = 'DOING';
+                    } else { //DOING
+                        if (task.state != 'DONE') {
+                            task.state = 'DONE';
+                            NotificationService.createNewsTaskDone(task).then(function (response) {
+                            })
+                        }
                     }
+                    TasksServices.changeStatus(task).then(function (reponse) {
+                    });
+                } else {
+                    alert("User story or sprint are already validated");
                 }
-                TasksServices.changeStatus(task).then(function (reponse) {
-                });
             };
 
             $scope.backTask = function (task) {
-                if (task.state == 'DONE') {
-                    task.state = 'DOING';
-                } else { //DOING
-                    task.state = 'TODO';
-                }
-                TasksServices.changeStatus(task).then(function (reponse) {
+                if(!task.sprint.date_validation && (task.list_us.length == 0 || !task.list_us[0].date_validation)){
+                    if (task.state == 'DONE') {
+                        task.state = 'DOING';
+                    } else { //DOING
+                        task.state = 'TODO';
+                    }
+                    TasksServices.changeStatus(task).then(function (reponse) {
 
-                });
+                    });
+                } else {
+                    alert("User story or sprint are already validated");
+                }
             };
 
             $scope.allTasksDone = function (tasks) {

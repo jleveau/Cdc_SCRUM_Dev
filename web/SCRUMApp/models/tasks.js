@@ -71,14 +71,17 @@ module.exports.addTask = function (req, res) {
 //PUT - Update a register already exists
 module.exports.updateTask = function (req, res) {
     Task.findById(req.params.id, function (err, task) {
+        if (err) return res.send(500, err.message);
+        
         userstorie.find({'sprint': req.body.sprint}, function (err, userstory) {
             if (err) return res.status(500).send(err.errors);
 
             task.list_us = [];
-
-            for (us of userstory) {
-                if (us._id == req.body.list_us._id) {
-                    task.list_us = req.body.list_us;
+            if(req.body.list_us.length > 0){
+                for (us of userstory) {
+                    if (us._id == req.body.list_us[0]._id) {
+                        task.list_us.push(req.body.list_us[0]);
+                    }
                 }
             }
 
@@ -95,10 +98,12 @@ module.exports.updateTask = function (req, res) {
             task.list_tasks_depend = req.body.list_tasks_depend;
             task.date_updated = Date.now();
             task.sprint = req.body.sprint;
+            
 
             task.save(function (err, task) {
                 if (err) return res.status(500).send(err.errors);
                 US_Task.remove({_idTasks: task._id}, function (err) {
+                    if (err) console.log(err.errors);
                     for (us of task.list_us) {
                         var us_task = new US_Task({
                             _idTasks: task._id,
@@ -109,11 +114,17 @@ module.exports.updateTask = function (req, res) {
                         });
                     }
                 });
-
+                Task.findById(task._id)
+                .populate('responsable')
+                .populate('list_us')
+                .populate('sprint')
+                .exec(function (err, task) {
+                    if (err) return res.send(500, err.message);
+                    res.status(200).jsonp(task);
+                });
             });
 
         });
-        res.status(200).jsonp(task);
     });
 };
 
