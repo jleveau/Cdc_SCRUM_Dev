@@ -108,7 +108,6 @@ var Routes = angular.module('Routes',["ngRoute","ngResource",])
 Routes.run(function ($rootScope, $location, $route, AuthService) {
     $rootScope.$on('$routeChangeStart',
         function (event, next, current) {
-            console.log(current);
             AuthService.getLoggedUser().then(function(){
                 if (next.url == '/' && AuthService.getUserStatus()){
                     $location.path('/users/' + AuthService.getUserStatus()._id);

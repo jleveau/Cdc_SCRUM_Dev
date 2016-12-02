@@ -16,8 +16,6 @@ angular.module('Burndown', [])
                     return a.number_sprint - b.number_sprint;
                 });
 
-                console.log(sprints_data);
-
                 sprints.push("sprint " + 0);
                 for (sprint of sprints_data){
                     sprints.push("sprint " + sprint.number_sprint);
@@ -48,7 +46,6 @@ angular.module('Burndown', [])
                         if (realData[sprint.number_sprint] == undefined)
                             realData[sprint.number_sprint] = 0;
                         for (userstory of userstories) {
-                            console.log(new Date(userstory.date_validation) > new Date(sprint.date_start));
                             if (userstory.state == "Valid" &&
                                 new Date(userstory.date_validation) > new Date(sprint.date_start) &&
                                 new Date(userstory.date_validation) < new Date(sprint.date_end)){
@@ -57,9 +54,6 @@ angular.module('Burndown', [])
                         }
                         realData[sprint.number_sprint] = realData[sprint.number_sprint-1] - realData[sprint.number_sprint];
                     }
-
-
-
 
                     if (lastSprintCostSum == realData[realData.length - 1])
                         realData[realData.length - 1] = 0;

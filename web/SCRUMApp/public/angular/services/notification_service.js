@@ -93,7 +93,6 @@ angular.module('Notification')
                 }
 
                 function createNewsEndOfSprint(sprint, userstory, user, project){
-                    console.log(sprint);
                     var notification =  {notification : {
                         project: project,
                         author: user,
